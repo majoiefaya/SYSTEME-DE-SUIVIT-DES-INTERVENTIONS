@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+
+<title>Client</title>
+
+{% block body %}
+    <h1>Client</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ client.id }}</td>
+            </tr>
+            <tr>
+                <th>CreerPar</th>
+                <td>{{ client.CreerPar }}</td>
+            </tr>
+            <tr>
+                <th>CreerLe</th>
+                <td>{{ client.CreerLe ? client.CreerLe|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>ModifierPar</th>
+                <td>{{ client.ModifierPar }}</td>
+            </tr>
+            <tr>
+                <th>ModifierLe</th>
+                <td>{{ client.ModifierLe ? client.ModifierLe|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Enable</th>
+                <td>{{ client.Enable ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>SupprimerPar</th>
+                <td>{{ client.SupprimerPar }}</td>
+            </tr>
+            <tr>
+                <th>SupprimerLe</th>
+                <td>{{ client.SupprimerLe ? client.SupprimerLe|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ client.Nom }}</td>
+            </tr>
+            <tr>
+                <th>Prenom</th>
+                <td>{{ client.Prenom }}</td>
+            </tr>
+            <tr>
+                <th>Age</th>
+                <td>{{ client.Age }}</td>
+            </tr>
+            <tr>
+                <th>Sexe</th>
+                <td>{{ client.Sexe }}</td>
+            </tr>
+            <tr>
+                <th>Telephone</th>
+                <td>{{ client.Telephone }}</td>
+            </tr>
+            <tr>
+                <th>Adresse</th>
+                <td>{{ client.Adresse }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ client.Email }}</td>
+            </tr>
+            <tr>
+                <th>MotDePasse</th>
+                <td>{{ client.MotDePasse }}</td>
+            </tr>
+            <tr>
+                <th>Roles</th>
+                <td>{{ client.Roles ? client.Roles|json_encode : '' }}</td>
+            </tr>
+            <tr>
+                <th>Code</th>
+                <td>{{ client.Code }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_client_index') }}">back to list</a>
+
+    <a href="{{ path('app_client_edit', {'id': client.id}) }}">edit</a>
+
+    {{ include('client/_delete_form.html.twig') }}
+{% endblock %}

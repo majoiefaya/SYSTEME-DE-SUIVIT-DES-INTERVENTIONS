@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+
+<title>Admin</title>
+
+{% block body %}
+    <h1>Admin</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ admin.id }}</td>
+            </tr>
+            <tr>
+                <th>CreerPar</th>
+                <td>{{ admin.CreerPar }}</td>
+            </tr>
+            <tr>
+                <th>CreerLe</th>
+                <td>{{ admin.CreerLe ? admin.CreerLe|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>ModifierPar</th>
+                <td>{{ admin.ModifierPar }}</td>
+            </tr>
+            <tr>
+                <th>ModifierLe</th>
+                <td>{{ admin.ModifierLe ? admin.ModifierLe|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Enable</th>
+                <td>{{ admin.Enable ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>SupprimerPar</th>
+                <td>{{ admin.SupprimerPar }}</td>
+            </tr>
+            <tr>
+                <th>SupprimerLe</th>
+                <td>{{ admin.SupprimerLe ? admin.SupprimerLe|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ admin.Nom }}</td>
+            </tr>
+            <tr>
+                <th>Prenom</th>
+                <td>{{ admin.Prenom }}</td>
+            </tr>
+            <tr>
+                <th>Age</th>
+                <td>{{ admin.Age }}</td>
+            </tr>
+            <tr>
+                <th>Sexe</th>
+                <td>{{ admin.Sexe }}</td>
+            </tr>
+            <tr>
+                <th>Telephone</th>
+                <td>{{ admin.Telephone }}</td>
+            </tr>
+            <tr>
+                <th>Adresse</th>
+                <td>{{ admin.Adresse }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ admin.Email }}</td>
+            </tr>
+            <tr>
+                <th>MotDePasse</th>
+                <td>{{ admin.MotDePasse }}</td>
+            </tr>
+            <tr>
+                <th>Roles</th>
+                <td>{{ admin.Roles ? admin.Roles|json_encode : '' }}</td>
+            </tr>
+            <tr>
+                <th>Fonction</th>
+                <td>{{ admin.Fonction }}</td>
+            </tr>
+            <tr>
+                <th>Statut</th>
+                <td>{{ admin.Statut }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_index') }}">back to list</a>
+
+    <a href="{{ path('app_admin_edit', {'id': admin.id}) }}">edit</a>
+
+    {{ include('admin/_delete_form.html.twig') }}
+{% endblock %}

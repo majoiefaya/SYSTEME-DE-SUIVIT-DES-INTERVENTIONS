@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+
+<title>Admin index</title>
+
+{% block body %}
+    <h1>Admin index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>CreerPar</th>
+                <th>CreerLe</th>
+                <th>ModifierPar</th>
+                <th>ModifierLe</th>
+                <th>Enable</th>
+                <th>SupprimerPar</th>
+                <th>SupprimerLe</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Age</th>
+                <th>Sexe</th>
+                <th>Telephone</th>
+                <th>Adresse</th>
+                <th>Email</th>
+                <th>MotDePasse</th>
+                <th>Roles</th>
+                <th>Fonction</th>
+                <th>Statut</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for admin in admins %}
+            <tr>
+                <td>{{ admin.id }}</td>
+                <td>{{ admin.CreerPar }}</td>
+                <td>{{ admin.CreerLe ? admin.CreerLe|date('Y-m-d') : '' }}</td>
+                <td>{{ admin.ModifierPar }}</td>
+                <td>{{ admin.ModifierLe ? admin.ModifierLe|date('Y-m-d') : '' }}</td>
+                <td>{{ admin.Enable ? 'Yes' : 'No' }}</td>
+                <td>{{ admin.SupprimerPar }}</td>
+                <td>{{ admin.SupprimerLe ? admin.SupprimerLe|date('Y-m-d') : '' }}</td>
+                <td>{{ admin.Nom }}</td>
+                <td>{{ admin.Prenom }}</td>
+                <td>{{ admin.Age }}</td>
+                <td>{{ admin.Sexe }}</td>
+                <td>{{ admin.Telephone }}</td>
+                <td>{{ admin.Adresse }}</td>
+                <td>{{ admin.Email }}</td>
+                <td>{{ admin.MotDePasse }}</td>
+                <td>{{ admin.Roles ? admin.Roles|json_encode : '' }}</td>
+                <td>{{ admin.Fonction }}</td>
+                <td>{{ admin.Statut }}</td>
+                <td>
+                    <a href="{{ path('app_admin_show', {'id': admin.id}) }}">show</a>
+                    <a href="{{ path('app_admin_edit', {'id': admin.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="20">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_new') }}">Create new</a>
+{% endblock %}

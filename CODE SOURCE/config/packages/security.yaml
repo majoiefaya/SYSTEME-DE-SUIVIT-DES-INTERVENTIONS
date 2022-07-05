@@ -44,8 +44,9 @@ security:
     access_control:
     
     role_hierarchy:
+        ROLE_PERSONNEL: ROLE_CLIENT
         ROLE_TECHNICIEN: ROLE_PERSONNEL
-        ROLE_ADMIN: ['ROLE_TECHNICIEN', 'ROLE_CLIENT']
+        ROLE_ADMIN: ROLE_TECHNICIEN
         ROLE_SUPERADMIN: ROLE_ADMIN
         
 

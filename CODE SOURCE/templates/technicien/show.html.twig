@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+
+<title>Technicien</title>
+
+{% block body %}
+    <h1>Technicien</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ technicien.id }}</td>
+            </tr>
+            <tr>
+                <th>CreerPar</th>
+                <td>{{ technicien.CreerPar }}</td>
+            </tr>
+            <tr>
+                <th>CreerLe</th>
+                <td>{{ technicien.CreerLe ? technicien.CreerLe|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>ModifierPar</th>
+                <td>{{ technicien.ModifierPar }}</td>
+            </tr>
+            <tr>
+                <th>ModifierLe</th>
+                <td>{{ technicien.ModifierLe ? technicien.ModifierLe|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Enable</th>
+                <td>{{ technicien.Enable ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>SupprimerPar</th>
+                <td>{{ technicien.SupprimerPar }}</td>
+            </tr>
+            <tr>
+                <th>SupprimerLe</th>
+                <td>{{ technicien.SupprimerLe ? technicien.SupprimerLe|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ technicien.Nom }}</td>
+            </tr>
+            <tr>
+                <th>Prenom</th>
+                <td>{{ technicien.Prenom }}</td>
+            </tr>
+            <tr>
+                <th>Age</th>
+                <td>{{ technicien.Age }}</td>
+            </tr>
+            <tr>
+                <th>Sexe</th>
+                <td>{{ technicien.Sexe }}</td>
+            </tr>
+            <tr>
+                <th>Telephone</th>
+                <td>{{ technicien.Telephone }}</td>
+            </tr>
+            <tr>
+                <th>Adresse</th>
+                <td>{{ technicien.Adresse }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ technicien.Email }}</td>
+            </tr>
+            <tr>
+                <th>MotDePasse</th>
+                <td>{{ technicien.MotDePasse }}</td>
+            </tr>
+            <tr>
+                <th>Roles</th>
+                <td>{{ technicien.Roles ? technicien.Roles|json_encode : '' }}</td>
+            </tr>
+            <tr>
+                <th>Fonction</th>
+                <td>{{ technicien.Fonction }}</td>
+            </tr>
+            <tr>
+                <th>Statut</th>
+                <td>{{ technicien.Statut }}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ technicien.Type }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_technicien_index') }}">back to list</a>
+
+    <a href="{{ path('app_technicien_edit', {'id': technicien.id}) }}">edit</a>
+
+    {{ include('technicien/_delete_form.html.twig') }}
+{% endblock %}

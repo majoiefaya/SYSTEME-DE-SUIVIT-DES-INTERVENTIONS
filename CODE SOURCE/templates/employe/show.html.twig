@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+
+<title>Employe</title>
+
+{% block body %}
+    <h1>Employe</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ employe.id }}</td>
+            </tr>
+            <tr>
+                <th>CreerPar</th>
+                <td>{{ employe.CreerPar }}</td>
+            </tr>
+            <tr>
+                <th>CreerLe</th>
+                <td>{{ employe.CreerLe ? employe.CreerLe|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>ModifierPar</th>
+                <td>{{ employe.ModifierPar }}</td>
+            </tr>
+            <tr>
+                <th>ModifierLe</th>
+                <td>{{ employe.ModifierLe ? employe.ModifierLe|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Enable</th>
+                <td>{{ employe.Enable ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>SupprimerPar</th>
+                <td>{{ employe.SupprimerPar }}</td>
+            </tr>
+            <tr>
+                <th>SupprimerLe</th>
+                <td>{{ employe.SupprimerLe ? employe.SupprimerLe|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ employe.Nom }}</td>
+            </tr>
+            <tr>
+                <th>Prenom</th>
+                <td>{{ employe.Prenom }}</td>
+            </tr>
+            <tr>
+                <th>Age</th>
+                <td>{{ employe.Age }}</td>
+            </tr>
+            <tr>
+                <th>Sexe</th>
+                <td>{{ employe.Sexe }}</td>
+            </tr>
+            <tr>
+                <th>Telephone</th>
+                <td>{{ employe.Telephone }}</td>
+            </tr>
+            <tr>
+                <th>Adresse</th>
+                <td>{{ employe.Adresse }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ employe.Email }}</td>
+            </tr>
+            <tr>
+                <th>MotDePasse</th>
+                <td>{{ employe.MotDePasse }}</td>
+            </tr>
+            <tr>
+                <th>Roles</th>
+                <td>{{ employe.Roles ? employe.Roles|json_encode : '' }}</td>
+            </tr>
+            <tr>
+                <th>Fonction</th>
+                <td>{{ employe.Fonction }}</td>
+            </tr>
+            <tr>
+                <th>Statut</th>
+                <td>{{ employe.Statut }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_employe_index') }}">back to list</a>
+
+    <a href="{{ path('app_employe_edit', {'id': employe.id}) }}">edit</a>
+
+    {{ include('employe/_delete_form.html.twig') }}
+{% endblock %}
