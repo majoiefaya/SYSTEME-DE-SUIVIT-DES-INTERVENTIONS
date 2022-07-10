@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+
+<title>Personnel</title>
+
+{% block body %}
+    <h1>Personnel</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ personnel.id }}</td>
+            </tr>
+            <tr>
+                <th>CreerPar</th>
+                <td>{{ personnel.CreerPar }}</td>
+            </tr>
+            <tr>
+                <th>CreerLe</th>
+                <td>{{ personnel.CreerLe ? personnel.CreerLe|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>ModifierPar</th>
+                <td>{{ personnel.ModifierPar }}</td>
+            </tr>
+            <tr>
+                <th>ModifierLe</th>
+                <td>{{ personnel.ModifierLe ? personnel.ModifierLe|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Enable</th>
+                <td>{{ personnel.Enable ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>SupprimerPar</th>
+                <td>{{ personnel.SupprimerPar }}</td>
+            </tr>
+            <tr>
+                <th>SupprimerLe</th>
+                <td>{{ personnel.SupprimerLe ? personnel.SupprimerLe|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ personnel.Nom }}</td>
+            </tr>
+            <tr>
+                <th>Prenom</th>
+                <td>{{ personnel.Prenom }}</td>
+            </tr>
+            <tr>
+                <th>Age</th>
+                <td>{{ personnel.Age }}</td>
+            </tr>
+            <tr>
+                <th>Sexe</th>
+                <td>{{ personnel.Sexe }}</td>
+            </tr>
+            <tr>
+                <th>Telephone</th>
+                <td>{{ personnel.Telephone }}</td>
+            </tr>
+            <tr>
+                <th>Adresse</th>
+                <td>{{ personnel.Adresse }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ personnel.Email }}</td>
+            </tr>
+            <tr>
+                <th>MotDePasse</th>
+                <td>{{ personnel.MotDePasse }}</td>
+            </tr>
+            <tr>
+                <th>Roles</th>
+                <td>{{ personnel.Roles ? personnel.Roles|json_encode : '' }}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td>{{ personnel.Image }}</td>
+            </tr>
+            <tr>
+                <th>Fonction</th>
+                <td>{{ personnel.Fonction }}</td>
+            </tr>
+            <tr>
+                <th>Statut</th>
+                <td>{{ personnel.Statut }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_personnel_index') }}">back to list</a>
+
+    <a href="{{ path('app_personnel_edit', {'id': personnel.id}) }}">edit</a>
+
+    {{ include('personnel/_delete_form.html.twig') }}
+{% endblock %}

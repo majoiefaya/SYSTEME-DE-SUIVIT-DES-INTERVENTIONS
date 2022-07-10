@@ -18,10 +18,11 @@ License: You must have a valid license purchased only from themeforest(the above
 <head>
 <base href="">
     <meta charset="utf-8"/>
-    <title>Metronic | Dashboard</title>
+    <title>SDI</title>
     <meta name="description" content="Updates and statistics"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
 
+    {% block Css%}
     <!--begin::Fonts-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700"/>        <!--end::Fonts-->
 
@@ -40,6 +41,7 @@ License: You must have a valid license purchased only from themeforest(the above
     <!--end::Layout Themes-->
 
     <link rel="shortcut icon" href="{{asset('Admins/assets/media/logos/favicon.ico')}}"/>
+    {% endblock %}
 
 </head>
 <!--end::Head-->
@@ -115,13 +117,19 @@ License: You must have a valid license purchased only from themeforest(the above
 
 <!--begin::Content-->
 	<div class="content  d-flex flex-column flex-column-fluid" id="kt_content">
-
+    {% block Entete %}
+    
+    {% endblock %}
         <!--begin::Entry-->
         <div class="d-flex flex-column-fluid">
             <!--begin::Container-->
-            {% block Contenu %}
-            <!--Contenu des Pages Correspondantes a inclure-->
-            {% endblock %}
+                <div class="container-fluid">
+                    {% block Contenu %}
+                    <!--Contenu des Pages Correspondantes a inclure-->
+
+                    <!--Fin Contenu-->
+                    {% endblock %}
+                </div>
             <!--end::Container-->
         </div>
         <!--end::Entry-->

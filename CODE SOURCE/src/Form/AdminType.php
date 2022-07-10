@@ -6,19 +6,15 @@ use App\Entity\Admin;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+
 
 class AdminType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('CreerPar')
-            ->add('CreerLe')
-            ->add('ModifierPar')
-            ->add('ModifierLe')
-            ->add('Enable')
-            ->add('SupprimerPar')
-            ->add('SupprimerLe')
             ->add('Nom')
             ->add('Prenom')
             ->add('Age')
@@ -29,6 +25,7 @@ class AdminType extends AbstractType
             ->add('MotDePasse')
             ->add('Fonction')
             ->add('Statut')
+            ->add('Image', FileType::class, ['mapped'=>false,'attr'=>['name'=>'image','required'=>false]]);
         ;
     }
 

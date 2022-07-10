@@ -9,9 +9,11 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\InheritanceType;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: UtilisateurRepository::class)]
 #[InheritanceType("JOINED")]
+#[UniqueEntity(fields:['Email'],message:'Il existe deja un utilisateur avec cet Email')]
 class Utilisateur extends ActionInfos
 implements UserInterface,PasswordAuthenticatedUserInterface
 {
@@ -49,6 +51,9 @@ implements UserInterface,PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(mappedBy: 'utilisateur', targetEntity: Message::class)]
     private $message;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $Image;
 
     public function __construct()
     {
@@ -221,6 +226,18 @@ implements UserInterface,PasswordAuthenticatedUserInterface
                 $message->setUtilisateur(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->Image;
+    }
+
+    public function setImage(?string $Image): self
+    {
+        $this->Image = $Image;
 
         return $this;
     }

@@ -1,0 +1,286 @@
+{% extends 'AdminsBase.html.twig' %}
+
+{% block Contenu %}
+  <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+    <!-- begin::Entry -->
+    <div class="d-flex flex-column-fluid">
+      <!-- begin::Container -->
+      <div class="container-fluid">
+        <!-- begin::Card -->
+        <div class="card card-custom card-transparent">
+          <div class="card-body p-0">
+            <!-- begin::Wizard -->
+              <!-- end::Wizard Nav -->
+              <!-- begin::Card -->
+              <div class="card card-custom card-shadowless rounded-top-0">
+                <!-- begin::Body -->
+                <div class="card-body p-0">
+                  <div class="row justify-content-center py-8 px-8 py-lg-15 px-lg-10">
+                    <div class="col-xl-12 col-xxl-10">
+                      <!-- begin::Wizard Form -->
+                      {{ form_start(form,{'attr':{'class':'form fv-plugins-bootstrap fv-plugins-framework','id':'kt_form','novalidate':'novalidate'}}) }}
+                        <div class="row justify-content-center">
+                          <div class="col-xl-9">
+                            <!-- begin::Wizard Step 1 -->
+                            <div class="my-5 step"
+                              data-wizard-type="step-content"
+                              data-wizard-state="current">
+                              <h5 class="text-dark font-weight-bold mb-10">
+                                Informations Utilisateur:
+                              </h5>
+                              <!-- begin::Group -->
+                              <div class="form-group row">
+                                <label class="col-xl-3 col-lg-3 col-form-label text-left">
+                                  Photo De Profil
+                                </label>
+                                <div class="col-lg-9 col-xl-9">
+                                  <div class="image-input image-input-outline"
+                                    id="kt_user_add_avatar">
+                                    <div class="image-input-wrapper"
+                                    style="background-image: url({{asset('Admins/Assets/media/users/blank.png')}})"></div>
+
+                                    <label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow"
+                                      data-action="change"
+                                      data-toggle="tooltip"
+                                      title=""
+                                      data-original-title="Change avatar">
+                                      <i class="fa fa-pen icon-sm text-muted">
+                                            {{ form_widget(form.Image,{'attr':{'class':'form-control form-control-solid form-control-lg is-invalid'}}) }}
+                                      </i>
+                                    </label>
+
+                                    <span class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow"
+                                      data-action="cancel"
+                                      data-toggle="tooltip"
+                                      title=""
+                                      data-original-title="Cancel avatar">
+                                      <i class="ki ki-bold-close icon-xs text-muted">
+
+                                      </i>
+                                    </span>
+                                  </div>
+                                </div>
+                              </div>
+                              <!-- end::Group -->
+                              <!-- begin::Group -->
+                              <div class="form-group row fv-plugins-icon-container">
+                                <label class="col-xl-3 col-lg-3 col-form-label">
+                                  Nom
+                                </label>
+                                <div class="col-lg-9 col-xl-9">
+                                  {{ form_widget(form.Nom,{'attr':{'class':'form-control form-control-solid form-control-lg is-invalid'}}) }}
+                                  <div class="fv-plugins-message-container">
+                                  </div>
+                                </div>
+                              </div>
+                              <!-- end::Group -->
+                              <!-- begin::Group -->
+                              <div class="form-group row fv-plugins-icon-container">
+                                <label class="col-xl-3 col-lg-3 col-form-label">
+                                  Prenom
+                                </label>
+                                <div class="col-lg-9 col-xl-9">
+                                  {{ form_widget(form.Prenom,{'attr':{'class':'form-control form-control-solid form-control-lg is-invalid'}}) }}
+                                  <div class="fv-plugins-message-container"></div>
+                                </div>
+                              </div>
+                              <!-- end::Group -->
+                              <!-- begin::Group -->
+                              <div class="form-group row fv-plugins-icon-container">
+                                <label class="col-xl-3 col-lg-3 col-form-label">
+                                  Age
+                                </label>
+                                <div class="col-lg-9 col-xl-9">
+                                  {{ form_widget(form.Age,{'attr':{'class':'form-control form-control-solid form-control-lg is-invalid'}}) }}
+                                  <span class="form-text text-muted">
+                                   Entrez votre Age Réel
+                                  </span>
+                                  <div class="fv-plugins-message-container"></div>
+                                </div>
+                              </div>
+                              <!-- end::Group -->
+                              <!-- begin::Group -->
+                              <div class="form-group row fv-plugins-icon-container">
+                                <label class="col-xl-3 col-lg-3 col-form-label">
+                                  Mot De Passe
+                                </label>
+                                <div class="col-lg-9 col-xl-9">
+                                  {{ form_widget(form.MotDePasse,{'attr':{'class':'form-control form-control-solid form-control-lg is-invalid'}}) }}
+                                  <span class="form-text text-muted">
+                                   Votre Mot De Passe doit etre Consistant
+                                  </span>
+                                  <div class="fv-plugins-message-container"></div>
+                                </div>
+                              </div>
+                              <!-- end::Group -->
+                              <div class="form-group row fv-plugins-icon-container">
+                                <label class="col-xl-3 col-lg-3 col-form-label">
+                                    Sexe
+                                </label>
+                                <div class="col-xl-9 col-lg-9">
+                                  {{ form_widget(form.Sexe,{'attr':{'class':'form-control form-control-solid form-control-lg is-invalid'}}) }}
+                                  <div class="fv-plugins-message-container"></div>
+                                </div>
+                              </div>
+                              <!-- begin::Group -->
+                              <div class="form-group row fv-plugins-icon-container">
+                                <label class="col-xl-3 col-lg-3 col-form-label">
+                                 Numero de Telephone
+                                </label>
+                                <div class="col-lg-9 col-xl-9">
+                                  <div class="input-group input-group-solid input-group-lg">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text">
+                                        <i class="la la-phone"></i>
+                                      </span>
+                                    </div>
+                                    {{ form_widget(form.Telephone,{'attr':{'class':'form-control form-control-solid form-control-lg is-invalid','value':'96329943'}}) }}
+                                  </div>
+                                  <span class="form-text text-muted">
+                                    Entrez Un Numero de Telephone Valide (e.g:
+                                    96329943).
+                                  </span>
+                                  <div class="fv-plugins-message-container"></div>
+                                </div>
+                              </div>
+                              <!-- end::Group -->
+                              <!-- begin::Group -->
+                              <div class="form-group row fv-plugins-icon-container">
+                                <label class="col-xl-3 col-lg-3 col-form-label">
+                                  Adresse
+                                </label>
+                                <div class="col-lg-9 col-xl-9">
+                                  <div class="input-group input-group-solid input-group-lg">
+                                   {{ form_widget(form.Adresse,{'attr':{'class':'form-control form-control-solid form-control-lg is-invalid','value':'Lome-Togo'}}) }}
+                                  </div>
+                                  <div class="fv-plugins-message-container"></div>
+                                </div>
+                              </div>
+                              <!-- end::Group -->
+                              <!-- begin::Group -->
+                              <div class="form-group row fv-plugins-icon-container">
+                                <label class="col-xl-3 col-lg-3 col-form-label">
+                                  Email
+                                </label>
+                                <div class="col-lg-9 col-xl-9">
+                                  <div class="input-group input-group-solid input-group-lg">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text">
+                                        <i class="la la-at"></i>
+                                      </span>
+                                    </div>
+                                    {{ form_widget(form.Email,{'attr':{'class':'form-control form-control-solid form-control-lg is-invalid','value':'majoiefaya@gmail.com'}}) }}
+                                  </div>
+                                  <div class="fv-plugins-message-container"></div>
+                                </div>
+                              </div>
+                              <!-- end::Group -->
+                            </div>
+                            <!-- end::Wizard Step 1 -->
+
+                            <!-- begin::Wizard Step 2 -->
+                            <div class="my-5 step"
+                              data-wizard-type="step-content">
+                              <h5 class="text-dark font-weight-bold mb-10 mt-5">
+                                Informations  Relative a la compagnie
+                              </h5>
+                              <!-- begin::Group -->
+                              <div class="form-group row fv-plugins-icon-container">
+                                <label class="col-form-label col-xl-3 col-lg-3">
+                                  Fonction
+                                </label>
+                                  <div class="col-lg-9 col-xl-9">
+                                  <div class="input-group input-group-solid input-group-lg">
+                                   {{ form_widget(form.Fonction,{'attr':{'class':'form-control form-control-solid form-control-lg is-invalid','value':'Developpeur'}}) }}
+                                  </div>
+                                  <div class="fv-plugins-message-container"></div>
+                                </div>
+                              </div>
+                              <!-- end::Group -->
+                               <!-- begin::Group -->
+                              <div class="form-group row fv-plugins-icon-container">
+                                <label class="col-form-label col-xl-3 col-lg-3">
+                                  Statut
+                                </label>
+                                  <div class="col-lg-9 col-xl-9">
+                                  <div class="input-group input-group-solid input-group-lg">
+                                   {{ form_widget(form.Statut,{'attr':{'class':'form-control form-control-solid form-control-lg is-invalid','value':'chef,Responsable'}}) }}
+                                   {{ form_row(form._token) }}
+                                  </div>
+                                  <div class="fv-plugins-message-container"></div>
+                                </div>
+                              </div>
+                              <!-- end::Group -->
+                              <!-- begin::Group -->
+                              <div class="form-group row fv-plugins-icon-container">
+                                <label class="col-form-label col-xl-3 col-lg-3">
+                                  Communication
+                                </label>
+                                <div class="col-xl-9 col-lg-9 col-form-label">
+                                  <div class="checkbox-inline">
+                                    <label class="checkbox">
+                                      <input name="communication"
+                                        type="checkbox" />
+                                      <span></span>
+                                      Email
+                                    </label>
+                                    <label class="checkbox">
+                                      <input name="communication"
+                                        type="checkbox" />
+                                      <span></span>
+                                      SMS
+                                    </label>
+                                    <label class="checkbox">
+                                      <input name="communication"
+                                        type="checkbox" />
+                                      <span></span>
+                                      Phone
+                                    </label>
+                                  </div>
+                                  <div class="fv-plugins-message-container"></div>
+                                </div>
+                              </div>
+                              <!-- end::Group -->
+                            <!-- end::Wizard Step 4 -->
+
+                            <!-- begin::Wizard Actions -->
+                            <div class="d-flex justify-content-between border-top pt-10 mt-15">
+                              <div>
+                                <button
+                                  class="btn btn-success font-weight-bolder px-9 py-4">
+                                  Enregistrer
+                                </button>
+                              </div>
+                            </div>
+                            <!-- end::Wizard Actions -->
+                          </div>
+                        </div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                      </form>
+                      <!-- end::Wizard Form -->
+                    </div>
+                  </div>
+                </div>
+                <!-- end::Body -->
+              </div>
+              <!-- end::Card -->
+            </div>
+            <!-- end::Wizard -->
+          </div>
+        </div>
+        <!-- end::Card -->
+      </div>
+      <!-- end::Container -->
+    </div>
+    <!-- end::Entry -->
+  </div>
+{{ form_end(form) }}
+{% endblock %}
+
+
+{% block Scripts %}
+    {% include('admins_dashboard/Components/Scripts.html.twig') %}
+    <script src="{{ asset('Admins/Assets/js/pages/custom/user/add-user.js') }}"></script>
+{% endblock %}

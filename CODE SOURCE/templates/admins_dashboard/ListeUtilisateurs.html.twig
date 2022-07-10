@@ -1,0 +1,18 @@
+{% extends 'AdminsBase.html.twig' %}
+
+{% block Entete %}
+    {% include 'admins_dashboard/Components/UserGlobalSearchbar.html.twig' %}
+{% endblock %}
+
+{% block Contenu %}
+    {% include 'admins_dashboard/admin/ListeAdmins.html.twig' %}
+    {% include 'clients_dashboard/client/ListeClients.html.twig' %}
+    {% include 'employes_dashboard/personnel/ListePersonnels.html.twig' %}
+    {% include 'employes_dashboard/technicien/ListeTechniciens.html.twig' %}
+    
+{% endblock %}
+
+{% block Scripts %}
+    {% include('admins_dashboard/Components/Scripts.html.twig') %}
+    <script src="{{ asset('Admins/Assets/js/pages/custom/user/list-datatable.js') }}"></script>
+{% endblock %}
