@@ -133,11 +133,10 @@ class AdminController extends AbstractController
     public function delete(Request $request, Admin $admin, AdminRepository $adminRepository): Response
     {
         $user = $this->getUser();
-       
-        $this->container->get('security.token_storage')->setToken(null);
         $adminRepository->remove($admin, true);
         
         if ($user->getRoles()==['ROLE_CLIENT']){
+            $this->container->get('security.token_storage')->setToken(null);
             return $this->redirectToRoute('Login', [], Response::HTTP_SEE_OTHER);
         }else{
             return $this->redirectToRoute('ListeUtilisateurs', [], Response::HTTP_SEE_OTHER);

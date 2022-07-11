@@ -8,12 +8,12 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: EquipementRepository::class)]
-class Equipement
+class Equipement extends ActionInfos
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    private $id;
+    protected $id;
 
     #[ORM\Column(type: 'string', length: 255)]
     private $Libelle;
@@ -29,6 +29,9 @@ class Equipement
 
     #[ORM\ManyToOne(targetEntity: TypeEquipement::class, inversedBy: 'equipement')]
     private $typeEquipement;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $Image;
 
     public function __construct()
     {
@@ -111,6 +114,18 @@ class Equipement
     public function setTypeEquipement(?TypeEquipement $typeEquipement): self
     {
         $this->typeEquipement = $typeEquipement;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->Image;
+    }
+
+    public function setImage(?string $Image): self
+    {
+        $this->Image = $Image;
 
         return $this;
     }

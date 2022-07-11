@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+
+<title>New Equipement</title>
+
+{% block body %}
+    <h1>Create new Equipement</h1>
+
+    {{ include('equipement/_form.html.twig') }}
+
+    <a href="{{ path('app_equipement_index') }}">back to list</a>
+{% endblock %}
