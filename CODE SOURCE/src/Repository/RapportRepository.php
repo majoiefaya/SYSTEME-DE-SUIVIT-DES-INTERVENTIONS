@@ -39,6 +39,30 @@ class RapportRepository extends ServiceEntityRepository
         }
     }
 
+    public function ListeRapportsLue()
+    {
+        return $this->createQueryBuilder('r')
+            ->andWhere("r.StatutRapport='Lu'")
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function ListeRapportsNonLue()
+    {
+        return $this->createQueryBuilder('r')
+            ->andWhere("r.StatutRapport='NonLu'")
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    public function ListeRapportsSupprimés(){
+        return $this->createQueryBuilder('r')
+        ->andWhere('r.Enable=False')
+        ->getQuery()
+        ->getResult();
+    }
+
 //    /**
 //     * @return Rapport[] Returns an array of Rapport objects
 //     */

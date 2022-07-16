@@ -29,10 +29,10 @@ var KTWizard5 = function () {
 					KTUtil.scrollTop();
 				} else {
 					Swal.fire({
-						text: "Sorry, looks like there are some errors detected, please try again.",
+						text: "Désolé,certaines erreurs sont survenus.Assurez-vous de remplir tous les Champs du formulaire",
 						icon: "error",
 						buttonsStyling: false,
-						confirmButtonText: "Ok, got it!",
+						confirmButtonText: "Réessayer!",
 						customClass: {
 							confirmButton: "btn font-weight-bold btn-light"
 						}
@@ -56,27 +56,34 @@ var KTWizard5 = function () {
 			_formEl,
 			{
 				fields: {
-					firstname: {
+					Nom: {
 						validators: {
 							notEmpty: {
-								message: 'First name is required'
+								message: 'Votre Nom est requis'
 							}
 						}
 					},
-					lastname: {
+					Prenom: {
 						validators: {
 							notEmpty: {
-								message: 'Last name is required'
+								message: 'Votre Prenom est requis'
 							}
 						}
 					},
-					phone: {
+					Age: {
 						validators: {
 							notEmpty: {
-								message: 'Phone is required'
+								message: 'Votre Age est requis'
 							}
 						}
-					}
+					},
+					Sexe: {
+						validators: {
+							notEmpty: {
+								message: 'Votre Sexe est requis'
+							}
+						}
+					}	
 				},
 				plugins: {
 					trigger: new FormValidation.plugins.Trigger(),
@@ -118,10 +125,10 @@ var KTWizard5 = function () {
 							}
 						}
 					},
-					state: {
+					phone: {
 						validators: {
 							notEmpty: {
-								message: 'State is required'
+								message: 'le Numero de Telephone est requis'
 							}
 						}
 					},

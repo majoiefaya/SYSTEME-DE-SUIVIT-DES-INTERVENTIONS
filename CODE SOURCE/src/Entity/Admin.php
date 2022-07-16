@@ -30,12 +30,16 @@ class Admin extends Utilisateur
     #[ORM\OneToMany(mappedBy: 'admin', targetEntity: AssistantAuto::class)]
     private $assistantAuto;
 
+    #[ORM\OneToMany(mappedBy: 'admin', targetEntity: Rapport::class)]
+    private $rapport;
+
     public function __construct()
     {
         parent::__construct();
         $this->intervention = new ArrayCollection();
         $this->equipe = new ArrayCollection();
         $this->assistantAuto = new ArrayCollection();
+        $this->rapport = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -156,4 +160,35 @@ class Admin extends Utilisateur
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, Rapport>
+     */
+    public function getRapport(): Collection
+    {
+        return $this->rapport;
+    }
+
+    public function addRapport(Rapport $rapport): self
+    {
+        if (!$this->rapport->contains($rapport)) {
+            $this->rapport[] = $rapport;
+            $rapport->setAdmin($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRapport(Rapport $rapport): self
+    {
+        if ($this->rapport->removeElement($rapport)) {
+            // set the owning side to null (unless already changed)
+            if ($rapport->getAdmin() === $this) {
+                $rapport->setAdmin(null);
+            }
+        }
+
+        return $this;
+    }
+
 }

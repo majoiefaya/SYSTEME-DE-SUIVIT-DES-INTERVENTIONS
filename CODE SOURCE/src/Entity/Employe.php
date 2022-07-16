@@ -24,10 +24,14 @@ class Employe extends Utilisateur
     #[ORM\OneToMany(mappedBy: 'employe', targetEntity: Permission::class)]
     private $permission;
 
+    #[ORM\OneToMany(mappedBy: 'employe', targetEntity: Rapport::class)]
+    private $rapport;
+
     public function __construct()
     {
         parent::__construct();
         $this->permission = new ArrayCollection();
+        $this->rapport = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -83,6 +87,36 @@ class Employe extends Utilisateur
             // set the owning side to null (unless already changed)
             if ($permission->getEmploye() === $this) {
                 $permission->setEmploye(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Rapport>
+     */
+    public function getRapport(): Collection
+    {
+        return $this->rapport;
+    }
+
+    public function addRapport(Rapport $rapport): self
+    {
+        if (!$this->rapport->contains($rapport)) {
+            $this->rapport[] = $rapport;
+            $rapport->setEmploye($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRapport(Rapport $rapport): self
+    {
+        if ($this->rapport->removeElement($rapport)) {
+            // set the owning side to null (unless already changed)
+            if ($rapport->getEmploye() === $this) {
+                $rapport->setEmploye(null);
             }
         }
 

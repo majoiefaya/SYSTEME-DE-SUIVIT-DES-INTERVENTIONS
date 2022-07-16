@@ -21,14 +21,31 @@ License: You must have a valid license purchased only from themeforest(the above
     <title>Metronic | Dashboard</title>
     <meta name="description" content="Updates and statistics"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    {# Input for telephone #}
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"
+    />
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+    {#  #}
     <!--begin::Fonts-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700"/>        <!--end::Fonts-->
 
     <!--begin::Page Vendors Styles(used by this page)-->
            <link href="{{asset('Admins/assets/css/pages/wizard/wizard-5.css')}}" rel="stylesheet" type="text/css"/>
     <!--end::Page Vendors Styles-->
+    <style>
+    .map{
+    width: auto;
+    max-width: 80%;
+}
+#map2{
+    width: 1290px;
+    height: 500px;
+}
 
+    </style>
 
     <!--begin::Global Theme Styles(used by all pages)-->
         <link href="{{asset('Admins/assets/plugins/global/plugins.bundle.css')}}" rel="stylesheet" type="text/css"/>
@@ -200,25 +217,25 @@ class="header-fixed header-mobile-fixed subheader-enabled sidebar-enabled page-l
                             <!--begin::Form Group-->
                             <div class="form-group fv-plugins-icon-container">
                                 <label class="font-size-h6 font-weight-bolder text-dark">Prenom</label>
-                                {{ form_widget(form.Prenom,{'attr':{'class':'form-control h-auto  p-6 border-0 rounded-lg font-size-h6','placeholder':'Entrez votre Prenom'}}) }}
+                                {{ form_widget(form.Prenom,{'attr':{'class':'form-control h-auto  p-6 border-0 rounded-lg font-size-h6','placeholder':'Entrez votre Prenom','name':'lastname'}}) }}
                             <div class="fv-plugins-message-container"></div></div>
                             <!--end::Form Group-->
                             <!--begin::Form Group-->
                             <div class="form-group fv-plugins-icon-container">
                                 <label class="font-size-h6 font-weight-bolder text-dark">Age</label>
-                                {{ form_widget(form.Age,{'attr':{'class':'form-control h-auto  p-6 border-0 rounded-lg font-size-h6','placeholder':'Entrez votre Age'}}) }}
+                                {{ form_widget(form.Age,{'attr':{'class':'form-control h-auto  p-6 border-0 rounded-lg font-size-h6','placeholder':'Entrez votre Age','name':'age'}}) }}
                             <div class="fv-plugins-message-container"></div></div>
                             <!--end::Form Group-->
                             <!--begin::Form Group-->
                             <div class="form-group fv-plugins-icon-container">
                                 <label class="font-size-h6 font-weight-bolder text-dark">Sexe</label>
-                                {{ form_widget(form.Sexe,{'attr':{'class':'form-control h-auto  p-6 border-0 rounded-lg font-size-h6','placeholder':'Entrez votre Sexe(F/M)'}}) }}
+                                {{ form_widget(form.Sexe,{'attr':{'class':'form-control h-auto  p-6 border-0 rounded-lg font-size-h6','placeholder':'Entrez votre Sexe(F/M)','name':'sexe'}}) }}
                             <div class="fv-plugins-message-container"></div></div>
                             <!--end::Form Group-->
                             <!--begin::Form Group-->
                             <div class="form-group fv-plugins-icon-container">
-                                <label class="font-size-h6 font-weight-bolder text-dark">Numero</label>
-                                {{ form_widget(form.Telephone,{'attr':{'class':'form-control h-auto  p-6 border-0 rounded-lg font-size-h6','placeholder':'Entrez votre Numero de Telephone'}}) }}
+                               <label class="font-size-h6 font-weight-bolder text-dark">Adresse</label>
+                                 {{ form_widget(form.Adresse,{'attr':{'class':'form-control h-auto  p-6 border-0 rounded-lg font-size-h6','value':'Lome-Togo','placeholder':'Entrez votre Addresse'}}) }}
                             <div class="fv-plugins-message-container"></div></div>
                             <!--end::Form Group-->
                         </div>
@@ -234,11 +251,10 @@ class="header-fixed header-mobile-fixed subheader-enabled sidebar-enabled page-l
 
                             <!--begin::Form Group-->
                             <div class="form-group fv-plugins-icon-container">
-                                <label class="font-size-h6 font-weight-bolder text-dark">Adresse</label>
-                                 {{ form_widget(form.Adresse,{'attr':{'class':'form-control h-auto  p-6 border-0 rounded-lg font-size-h6','value':'Lome-Togo','placeholder':'Entrez votre Addresse'}}) }}
+                             <label class="font-size-h6 font-weight-bolder text-dark">Mot De Passe</label>
+                                {{ form_widget(form.MotDePasse,{'attr':{'class':'form-control h-auto  p-6 border-0 rounded-lg font-size-h6','placeholder':'Entrez votre Mot De Passe'}}) }}
                             <div class="fv-plugins-message-container"></div></div>
                             <!--begin::Form Group-->
-
                             <!--end::Row-->
                             <div class="row">
                                 <div class="col-lg-6 col-md-6">
@@ -252,9 +268,9 @@ class="header-fixed header-mobile-fixed subheader-enabled sidebar-enabled page-l
 
                                 <div class="col-lg-6 col-md-6">
                                     <!--end::Form Group-->
-                                   <div class="form-group fv-plugins-icon-container">
-                                        <label class="font-size-h6 font-weight-bolder text-dark">Mot De Passe</label>
-                                         {{ form_widget(form.MotDePasse,{'attr':{'class':'form-control h-auto  p-6 border-0 rounded-lg font-size-h6','placeholder':'Entrez votre Mot De Passe'}}) }}
+                                    <div class="form-group fv-plugins-icon-container">
+                                        <label class="font-size-h6 font-weight-bolder text-dark">Numero</label>
+                                        <input id="phone" name="phone" class="form-control h-auto  p-6 border-0 rounded-lg font-size-h6",placeholder="Entrez votre Numero de Telephone"/>
                                     <div class="fv-plugins-message-container"></div></div>
                                     <!--end::Form Group-->
                                 </div>
@@ -420,10 +436,8 @@ class="header-fixed header-mobile-fixed subheader-enabled sidebar-enabled page-l
 
 <!--begin::Page Vendors(used by this page)-->
     <script src="{{asset('Admins/assets/js/pages/custom/wizard/wizard-5.js')}}"></script>
-<!--end::Page Vendors-->
-
-<!--begin::Page Scripts(used by this page)-->
     <script src="{{asset('Admins/assets/js/pages/widgets.js')}}"></script>
+    <script src="{{asset('NumTelBundle.js')}}"></script>
 <!--end::Page Scripts-->
 </body>
 </html>
