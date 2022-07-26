@@ -8,9 +8,11 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\AddressType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class ClientType extends AbstractType
 {
@@ -21,28 +23,37 @@ class ClientType extends AbstractType
             ->add('Prenom')
             ->add('Age')
             ->add('Sexe', ChoiceType::class, [
-                'choices' => [
-                    'placeholder' => 'choisir une option',
-                    'Homme' => "Homme",
-                    'Femme' => "Femme",
-                    'Autres' => "Autres",
-                    'required'=>"True",
-                    'name'=>"sexe"
-                ]])
+            'choices' => [
+                'Homme' => "Homme",
+                'Femme' => "Femme",
+                'Autres' => "Autres",
+            ],'attr'=>['name'=>'sexe','required'=>true]])
             ->add('Telephone',TelType::class,['attr'=>[
                 'id'=>'phone',
                 'name'=>'phone',
                 'required'=>true
             ]])
-            ->add('Adresse',AddressType::class, [
-                'label_format' => 'form.Address.%name%',
-            ])
-            ->add('Email')
-            ->add('MotDePasse',PasswordType::class, [
-                'label_format' => 'form.Address.%name%',
-            ])
-            ->add('Image', FileType::class, ['mapped'=>false,'attr'=>['name'=>'image','required'=>false]]);
-            
+            ->add('Adresse', ChoiceType::class, [
+                'choices' => [
+                    'Lome-Togo' => "Lome-Togo",
+                    'Kara-Togo' => "Kara-Togo",
+                    'Sokode-Togo' => "Sokode-Togo",
+                    'Dapaong-Togo' => "Dapaong-Togo",
+                ]
+            ,'attr'=>['name'=>'Addresse','required'=>true]])
+            ->add('Email',EmailType::class,[
+                    'label' => 'Email',
+                    'constraints' =>[
+                        new Assert\Email([
+                            'message'=>'Format du Mail Incorrect'
+                        ]),
+                        new Assert\NotBlank([
+                            'message' => 'Ce champ ne peut etre vide'
+                        ])
+                    ],'attr'=>['name'=>'Email','required'=>true]
+                ])
+            ->add('MotDePasse',PasswordType::class)
+            ->add('Image', FileType::class, ['mapped'=>false,'attr'=>['name'=>'image','required'=>false]]);      
         ;
     }
 

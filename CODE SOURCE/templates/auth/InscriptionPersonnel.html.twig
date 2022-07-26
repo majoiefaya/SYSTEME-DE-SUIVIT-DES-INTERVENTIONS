@@ -1,0 +1,459 @@
+ 
+<!DOCTYPE html>
+<!--
+Template Name: Metronic - Bootstrap 4 HTML, React, Angular 9 & VueJS Admin Dashboard Theme
+Author: KeenThemes
+Website: http://www.keenthemes.com/
+Contact: support@keenthemes.com
+Follow: www.twitter.com/keenthemes
+Dribbble: www.dribbble.com/keenthemes
+Like: www.facebook.com/keenthemes
+Purchase: https://1.envato.market/EA4JP
+Renew Support: https://1.envato.market/EA4JP
+License: You must have a valid license purchased only from themeforest(the above link) in order to legally use the theme for your project.
+-->
+<html lang="en" >
+
+<!--begin::Head-->
+<head>
+<base href="">
+    <meta charset="utf-8"/>
+    <title>Metronic | Dashboard</title>
+    <meta name="description" content="Updates and statistics"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    {# Input for telephone #}
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"
+    />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+    {#  #}
+    <!--begin::Fonts-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700"/>        <!--end::Fonts-->
+
+    <!--begin::Page Vendors Styles(used by this page)-->
+           <link href="{{asset('Admins/assets/css/pages/wizard/wizard-5.css')}}" rel="stylesheet" type="text/css"/>
+    <!--end::Page Vendors Styles-->
+    <style>
+    .map{
+    width: auto;
+    max-width: 80%;
+}
+#map2{
+    width: 1290px;
+    height: 500px;
+}
+
+    </style>
+
+    <!--begin::Global Theme Styles(used by all pages)-->
+        <link href="{{asset('Admins/assets/plugins/global/plugins.bundle.css')}}" rel="stylesheet" type="text/css"/>
+        <link href="{{asset('Admins/assets/plugins/custom/prismjs/prismjs.bundle.css')}}" rel="stylesheet" type="text/css"/>
+        <link href="{{asset('Admins/assets/css/style.bundle.css')}}" rel="stylesheet" type="text/css"/>
+    <!--end::Global Theme Styles-->
+
+    <!--begin::Layout Themes(used by all pages)-->
+    <!--end::Layout Themes-->
+
+    <link rel="shortcut icon" href="{{asset('Admins/assets/media/logos/favicon.ico')}}"/>
+
+</head>
+<!--end::Head-->
+
+
+
+
+<!--begin::Body-->
+<body id="kt_body"
+class="header-fixed header-mobile-fixed subheader-enabled sidebar-enabled page-loading">
+<!-- begin::Main -->
+<div class="d-flex flex-column flex-root">
+        <!--begin::Wizard 5-->
+        <div class="wizard wizard-5 d-flex flex-column flex-lg-row flex-row-fluid" id="kt_wizard" data-wizard-state="first">
+            <!--begin::Aside-->
+            <div class="wizard-aside bg-white d-flex flex-column flex-row-auto w-100 w-lg-300px w-xl-400px w-xxl-500px">
+                <!--begin::Aside Top-->
+                <div class="d-flex flex-column-fluid flex-column px-xxl-30 px-10">
+                    <!--begin: Wizard Nav-->
+                    <div class="wizard-nav d-flex d-flex justify-content-center pt-10 pt-lg-20 pb-5">
+                        <!--begin::Wizard Steps-->
+                        <div class="wizard-steps">
+                            <!--begin::Wizard Step 1 Nav-->
+                            <div class="wizard-step" data-wizard-type="step" data-wizard-state="current">
+                                <div class="wizard-wrapper">
+                                    <div class="wizard-icon">
+                                        <i class="wizard-check ki ki-check"></i>
+                                        <span class="wizard-number">1</span>
+                                    </div>
+                                    <div class="wizard-label">
+                                        <h3 class="wizard-title">
+                                            Informations Generales
+                                        </h3>
+                                        <div class="wizard-desc">
+                                            Completez vos informations General
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end::Wizard Step 1 Nav-->
+
+                            <!--begin::Wizard Step 2 Nav-->
+                            <div class="wizard-step" data-wizard-type="step" data-wizard-state="pending">
+                                <div class="wizard-wrapper">
+                                    <div class="wizard-icon">
+                                        <i class="wizard-check ki ki-check"></i>
+                                        <span class="wizard-number">2</span>
+                                    </div>
+                                    <div class="wizard-label">
+                                        <h3 class="wizard-title">
+                                            Informations Personnelles
+                                        </h3>
+                                        <div class="wizard-desc">
+                                             Completez vos Informations Personnelles
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end::Wizard Step 2 Nav-->
+
+                            <!--begin::Wizard Step 3 Nav-->
+                            <div class="wizard-step" data-wizard-type="step" data-wizard-state="pending">
+                                <div class="wizard-wrapper">
+                                    <div class="wizard-icon">
+                                        <i class="wizard-check ki ki-check"></i>
+                                        <span class="wizard-number">3</span>
+                                    </div>
+                                    <div class="wizard-label">
+                                        <h3 class="wizard-title">
+                                            Terminez L'Inscription
+                                        </h3>
+                                        <div class="wizard-desc">
+                                            Verifiez Vos Informations et Terminez
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end::Wizard Step 3 Nav-->
+                        </div>
+                        <!--end::Wizard Steps-->
+                    </div>
+                    <!--end: Wizard Nav-->
+                </div>
+                <!--end::Aside Top-->
+
+                <!--begin::Aside Bottom-->
+                <div class="d-flex flex-row-auto bgi-no-repeat bgi-position-y-bottom bgi-position-x-center bgi-size-contain pt-2 pt-lg-5 h-350px" style="background-image: url({{ asset( 'Admins/assets/media/svg/illustrations/login-visual-1.svg')}})">
+                </div>
+                <!--end::Aside Bottom-->
+            </div>
+            <!--begin::Aside-->
+
+            <!--begin::Content-->
+            <div class="wizard-content bg-gray-100 d-flex flex-column flex-row-fluid py-15 px-5 px-lg-10">
+                <!--begin::Title-->
+                <div class="text-right mb-lg-30 mb-15 mr-xxl-10">
+                    <span class="font-weight-bold text-muted font-size-h5">Vous Rencontrez des Problemes?</span>
+                    <a href="javascript:;" class="font-weight-bolder text-primary font-size-h4" id="kt_login_signup">cliquez-ici?</a>
+                </div>
+                <!--end::Title-->
+
+                <!--begin::Form-->
+                <div class="d-flex justify-content-center flex-row-fluid">
+               {{ form_start(form,{'attr':{'class':'pb-5 w-100 w-md-450px w-lg-500px fv-plugins-bootstrap fv-plugins-framework','id':'kt_wizard_form','novalidate':'novalidate'}}) }}
+                        <!--begin: Wizard Step 1-->
+                        <div class="pb-5" data-wizard-type="step-content" data-wizard-state="current">
+                            <!--begin::Title-->
+                            <div class="pb-10 pb-lg-15">
+                                <h3 class="font-weight-bolder text-dark font-size-h2">Create Account</h3>
+                                <div class="text-muted font-weight-bold font-size-h5">
+                                    Vous avez deja un Compte?
+                                    <a href="{{ path('Login') }}" class="text-primary font-weight-bolder">Connexion</a>
+                                </div>
+                            </div>
+                            <!--begin::Title-->
+                            <!-- begin::Group -->
+                              <div class="form-group row">
+                                <label class="font-size-h6 font-weight-bolder text-dark">
+                                  Photo De Profil
+                                </label>
+                                <div class="col-lg-9 col-xl-9">
+                                  <div class="image-input image-input-outline"
+                                    id="kt_user_add_avatar">
+                                    <div class="image-input-wrapper"
+                                    style="background-image: url({{asset('Admins/Assets/media/users/blank.png')}})"></div>
+
+                                    <label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow"
+                                      data-action="change"
+                                      data-toggle="tooltip"
+                                      title=""
+                                      data-original-title="Change avatar">
+                                      <i class="fa fa-pen icon-sm text-muted">
+                                            {{ form_widget(form.Image,{'attr':{'class':'form-control form-control-solid form-control-lg'}}) }}
+                                      </i>
+                                    </label>
+
+                                    <span class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow"
+                                      data-action="cancel"
+                                      data-toggle="tooltip"
+                                      title=""
+                                      data-original-title="Cancel avatar">
+                                      <i class="ki ki-bold-close icon-xs text-muted">
+
+                                      </i>
+                                    </span>
+                                  </div>
+                                </div>
+                              </div>
+                              <!-- end::Group -->
+                            <!--begin::Form Group-->
+                            <div class="form-group fv-plugins-icon-container">
+                                <label class="font-size-h6 font-weight-bolder text-dark">Nom</label>
+                                {{ form_widget(form.Nom,{'attr':{'class':'form-control h-auto p-5 border-0 rounded-lg font-size-h6','placeholder':'Entrez votre Nom','name':'firstname'}}) }}
+                                {{ form_row(form._token) }}
+                            <div class="fv-plugins-message-container"></div></div>
+                            <!--end::Form Group-->
+
+                            <!--begin::Form Group-->
+                            <div class="form-group fv-plugins-icon-container">
+                                <label class="font-size-h6 font-weight-bolder text-dark">Prenom</label>
+                                {{ form_widget(form.Prenom,{'attr':{'class':'form-control h-auto  p-6 border-0 rounded-lg font-size-h6','placeholder':'Entrez votre Prenom','name':'lastname'}}) }}
+                            <div class="fv-plugins-message-container"></div></div>
+                            <!--end::Form Group-->
+                            <!--begin::Form Group-->
+                            <div class="form-group fv-plugins-icon-container">
+                                <label class="font-size-h6 font-weight-bolder text-dark">Age</label>
+                                {{ form_widget(form.Age,{'attr':{'class':'form-control h-auto  p-6 border-0 rounded-lg font-size-h6','placeholder':'Entrez votre Age','name':'age'}}) }}
+                            <div class="fv-plugins-message-container"></div></div>
+                            <!--end::Form Group-->
+                            <!--begin::Form Group-->
+                            <div class="form-group fv-plugins-icon-container">
+                                <label class="font-size-h6 font-weight-bolder text-dark">Sexe</label>
+                                {{ form_widget(form.Sexe,{'attr':{'class':'form-control h-auto  p-6 border-0 rounded-lg font-size-h6','placeholder':'Entrez votre Sexe(F/M)','name':'sexe'}}) }}
+                            <div class="fv-plugins-message-container"></div></div>
+                            <!--end::Form Group-->
+                            <!--begin::Form Group-->
+                            <div class="form-group fv-plugins-icon-container">
+                               <label class="font-size-h6 font-weight-bolder text-dark">Adresse</label>
+                                 {{ form_widget(form.Adresse,{'attr':{'class':'form-control h-auto  p-6 border-0 rounded-lg font-size-h6','value':'Lome-Togo','placeholder':'Entrez votre Addresse'}}) }}
+                            <div class="fv-plugins-message-container"></div></div>
+                            <!--end::Form Group-->
+                        </div>
+                        <!--end: Wizard Step 1-->
+
+                        <!--begin: Wizard Step 2-->
+                        <div class="pb-5" data-wizard-type="step-content">
+                            <!--begin::Title-->
+                            <div class="pb-10 pb-lg-15">
+                                <h3 class="font-weight-bolder text-dark font-size-h2">Informations Personnelles</h3>
+                            </div>
+                            <!--end::Title-->
+
+                            <!--begin::Form Group-->
+                            <div class="form-group fv-plugins-icon-container">
+                             <label class="font-size-h6 font-weight-bolder text-dark">Mot De Passe</label>
+                                {{ form_widget(form.MotDePasse,{'attr':{'class':'form-control h-auto  p-6 border-0 rounded-lg font-size-h6','placeholder':'Entrez votre Mot De Passe'}}) }}
+                            <div class="fv-plugins-message-container"></div></div>
+                            <!--begin::Form Group-->
+                            <!--end::Row-->
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6">
+                                    <!--end::Form Group-->
+                                    <div class="form-group fv-plugins-icon-container">
+                                        <label class="font-size-h6 font-weight-bolder text-dark">Email</label>
+                                        {{ form_widget(form.Email,{'attr':{'class':'form-control h-auto  p-6 border-0 rounded-lg font-size-h6','value':'exemple@gmail.com','placeholder':'Entrez votre Email'}}) }}
+                                    <div class="fv-plugins-message-container"></div></div>
+                                    <!--begin::Form Group-->
+                                </div>
+
+                                <div class="col-lg-6 col-md-6">
+                                    <!--end::Form Group-->
+                                    <div class="form-group fv-plugins-icon-container">
+                                        <label class="font-size-h6 font-weight-bolder text-dark">Numero</label>
+                                        <input id="phone" name="phone" class="form-control h-auto  p-6 border-0 rounded-lg font-size-h6",placeholder="Entrez votre Numero de Telephone"/>
+                                    <div class="fv-plugins-message-container"></div></div>
+                                    <!--end::Form Group-->
+                                </div>
+                                <div class="col-lg-6 col-md-6">
+                                    <!--end::Form Group-->
+                                    <div class="form-group fv-plugins-icon-container">
+                                        <label class="font-size-h6 font-weight-bolder text-dark">Fonction</label>
+                                        {{ form_widget(form.Fonction,{'attr':{'class':'form-control h-auto  p-6 border-0 rounded-lg font-size-h6','placeholder':'Entrez votre Fonction'}}) }}
+                                    <div class="fv-plugins-message-container"></div></div>
+                                    <!--begin::Form Group-->
+                                </div>
+                                <div class="col-lg-6 col-md-6">
+                                    <!--end::Form Group-->
+                                    <div class="form-group fv-plugins-icon-container">
+                                        <label class="font-size-h6 font-weight-bolder text-dark">Statut</label>
+                                        {{ form_widget(form.Statut,{'attr':{'class':'form-control h-auto  p-6 border-0 rounded-lg font-size-h6','placeholder':'Entrez votre Statut'}}) }}
+                                    <div class="fv-plugins-message-container"></div></div>
+                                    <!--begin::Form Group-->
+                                </div>
+                            </div>
+                            <!--begin::Row-->
+                        </div>
+                        <!--end: Wizard Step 2-->
+
+                        <!--begin: Wizard Step 3-->
+                        <div class="pb-5" data-wizard-type="step-content">
+                            <!--begin::Title-->
+                            <div class="pb-10 pb-lg-15">
+                                <h3 class="font-weight-bolder text-dark font-size-h2">Terminez</h3>
+                                <div class="text-muted font-weight-bold font-size-h4">
+                                    Terminez votre Inscription et Devenez un Membre 
+                                </div>
+                            </div>
+                            <!--end::Title-->
+
+                            <!--begin::Section-->
+                            <h4 class="font-weight-bolder mb-3">
+                                Informations Generales:
+                            </h4>
+                            <div class="text-dark-50 font-weight-bold line-height-lg mb-8">
+                                <div>{{ personnel.Nom}}</div>
+                                <div>{{ personnel.Prenom }}</div>
+                                <div>{{ personnel.Age }}</div>
+                                <div>{{ personnel.Sexe }}</div>
+                                <div>{{ personnel.Telephone }}</div>
+                            </div>
+                            <!--end::Section-->
+
+                            <!--begin::Section-->
+                            <h4 class="font-weight-bolder mb-3">
+                                Informations Personnelles:
+                            </h4>
+                            <div class="text-dark-50 font-weight-bold line-height-lg mb-8">
+                                <div>{{ personnel.Adresse}}</div>
+                                <div>{{ personnel.Email}}</div>
+                                <div>{{ personnel.MotDePasse}}</div>
+                            </div>
+                            <!--end::Section-->
+
+                        </div>
+                        <!--end: Wizard Step 3-->
+
+                        <!--begin: Wizard Actions-->
+                        <div class="d-flex justify-content-between pt-3">
+                            <div class="mr-2">
+                                <button type="button" class="btn btn-light-primary font-weight-bolder font-size-h6 pl-6 pr-8 py-4 my-3 mr-3" data-wizard-type="action-prev">
+                                <span class="svg-icon svg-icon-md mr-1"><!--begin::Svg Icon | path:{{ asset('Admins/Assets/media/svg/icons/Navigation/Left-2.svg')}}--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <polygon points="0 0 24 0 24 24 0 24"></polygon>
+        <rect fill="#000000" opacity="0.3" transform="translate(15.000000, 12.000000) scale(-1, 1) rotate(-90.000000) translate(-15.000000, -12.000000) " x="14" y="7" width="2" height="10" rx="1"></rect>
+        <path d="M3.7071045,15.7071045 C3.3165802,16.0976288 2.68341522,16.0976288 2.29289093,15.7071045 C1.90236664,15.3165802 1.90236664,14.6834152 2.29289093,14.2928909 L8.29289093,8.29289093 C8.67146987,7.914312 9.28105631,7.90106637 9.67572234,8.26284357 L15.6757223,13.7628436 C16.0828413,14.136036 16.1103443,14.7686034 15.7371519,15.1757223 C15.3639594,15.5828413 14.7313921,15.6103443 14.3242731,15.2371519 L9.03007346,10.3841355 L3.7071045,15.7071045 Z" fill="#000000" fill-rule="nonzero" transform="translate(9.000001, 11.999997) scale(-1, -1) rotate(90.000000) translate(-9.000001, -11.999997) "></path>
+    </g>
+</svg><!--end::Svg Icon--></span>                                Precedent
+                                </button>
+                            </div>
+                            <div>
+                                <button type="submit" class="btn btn-primary font-weight-bolder font-size-h6 pl-5 pr-8 py-4 my-3" data-wizard-type="action-submit" id="kt_login_signup_form_submit_button">
+                                Submit
+                                <span class="svg-icon svg-icon-md ml-2"><!--begin::Svg Icon | path:{{ asset('Admins/Assets/media/svg/icons/Navigation/Right-2.svg')}}--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <polygon points="0 0 24 0 24 24 0 24"></polygon>
+                                        <rect fill="#000000" opacity="0.3" transform="translate(8.500000, 12.000000) rotate(-90.000000) translate(-8.500000, -12.000000) " x="7.5" y="7.5" width="2" height="9" rx="1"></rect>
+                                        <path d="M9.70710318,15.7071045 C9.31657888,16.0976288 8.68341391,16.0976288 8.29288961,15.7071045 C7.90236532,15.3165802 7.90236532,14.6834152 8.29288961,14.2928909 L14.2928896,8.29289093 C14.6714686,7.914312 15.281055,7.90106637 15.675721,8.26284357 L21.675721,13.7628436 C22.08284,14.136036 22.1103429,14.7686034 21.7371505,15.1757223 C21.3639581,15.5828413 20.7313908,15.6103443 20.3242718,15.2371519 L15.0300721,10.3841355 L9.70710318,15.7071045 Z" fill="#000000" fill-rule="nonzero" transform="translate(14.999999, 11.999997) scale(1, -1) rotate(90.000000) translate(-14.999999, -11.999997) "></path>
+                                    </g>
+                                </svg><!--end::Svg Icon--></span>                               
+                                </button>
+                                <button type="button" class="btn btn-primary font-weight-bolder font-size-h6 pl-8 pr-4 py-4 my-3" data-wizard-type="action-next">
+                               Suivant
+                                <span class="svg-icon svg-icon-md ml-1"><!--begin::Svg Icon | path:{{ asset('Admins/Assets/media/svg/icons/Navigation/Right-2.svg')}}--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <polygon points="0 0 24 0 24 24 0 24"></polygon>
+        <rect fill="#000000" opacity="0.3" transform="translate(8.500000, 12.000000) rotate(-90.000000) translate(-8.500000, -12.000000) " x="7.5" y="7.5" width="2" height="9" rx="1"></rect>
+        <path d="M9.70710318,15.7071045 C9.31657888,16.0976288 8.68341391,16.0976288 8.29288961,15.7071045 C7.90236532,15.3165802 7.90236532,14.6834152 8.29288961,14.2928909 L14.2928896,8.29289093 C14.6714686,7.914312 15.281055,7.90106637 15.675721,8.26284357 L21.675721,13.7628436 C22.08284,14.136036 22.1103429,14.7686034 21.7371505,15.1757223 C21.3639581,15.5828413 20.7313908,15.6103443 20.3242718,15.2371519 L15.0300721,10.3841355 L9.70710318,15.7071045 Z" fill="#000000" fill-rule="nonzero" transform="translate(14.999999, 11.999997) scale(1, -1) rotate(90.000000) translate(-14.999999, -11.999997) "></path>
+    </g>
+</svg><!--end::Svg Icon--></span>                                </button>
+                            </div>
+                        </div>
+                        <!--end: Wizard Actions-->
+                    <div></div><div></div></form>
+                </div>
+                <!--end::Form-->
+{{ form_end(form) }}
+            </div>
+            <!--end::Content-->
+        </div>
+        <!--end::Wizard 5-->
+</div>
+</div>
+</div>
+<script>var HOST_URL = "https://preview.keenthemes.com/metronic/theme/html/tools/preview";</script>
+    <!--begin::Global Config(global config for global JS scripts)-->
+    <script>
+        var KTAppSettings = {
+"breakpoints": {
+    "sm": 576,
+    "md": 768,
+    "lg": 992,
+    "xl": 1200,
+    "xxl": 1200
+},
+    "colors": {
+        "theme": {
+            "base": {
+                "white": "#ffffff",
+                "primary": "#8950FC",
+                "secondary": "#E5EAEE",
+                "success": "#1BC5BD",
+                "info": "#8950FC",
+                "warning": "#FFA800",
+                "danger": "#F64E60",
+                "light": "#F3F6F9",
+                "dark": "#212121"
+            },
+            "light": {
+                "white": "#ffffff",
+                "primary": "#E1E9FF",
+                "secondary": "#ECF0F3",
+                "success": "#C9F7F5",
+                "info": "#EEE5FF",
+                "warning": "#FFF4DE",
+                "danger": "#FFE2E5",
+                "light": "#F3F6F9",
+                "dark": "#D6D6E0"
+            },
+            "inverse": {
+                "white": "#ffffff",
+                "primary": "#ffffff",
+                "secondary": "#212121",
+                "success": "#ffffff",
+                "info": "#ffffff",
+                "warning": "#ffffff",
+                "danger": "#ffffff",
+                "light": "#464E5F",
+                "dark": "#ffffff"
+            }
+        },
+        "gray": {
+            "gray-100": "#F3F6F9",
+            "gray-200": "#ECF0F3",
+            "gray-300": "#E5EAEE",
+            "gray-400": "#D6D6E0",
+            "gray-500": "#B5B5C3",
+            "gray-600": "#80808F",
+            "gray-700": "#464E5F",
+            "gray-800": "#1B283F",
+            "gray-900": "#212121"
+        }
+    },
+    "font-family": "Poppins"
+};
+</script>
+<!--end::Global Config-->
+
+<!--begin::Global Theme Bundle(used by all pages)-->
+<script src="{{asset('Admins/assets/plugins/global/plugins.bundle.js')}}"></script>
+<script src="{{asset('Admins/assets/plugins/custom/prismjs/prismjs.bundle.js')}}"></script>
+<script src="{{asset('Admins/assets/js/scripts.bundle.js')}}"></script>
+<!--end::Global Theme Bundle-->
+
+<!--begin::Page Vendors(used by this page)-->
+    <script src="{{asset('Admins/assets/js/pages/custom/wizard/wizard-5.js')}}"></script>
+    <script src="{{asset('Admins/assets/js/pages/widgets.js')}}"></script>
+    <script src="{{asset('NumTelBundle.js')}}"></script>
+<!--end::Page Scripts-->
+</body>
+</html>

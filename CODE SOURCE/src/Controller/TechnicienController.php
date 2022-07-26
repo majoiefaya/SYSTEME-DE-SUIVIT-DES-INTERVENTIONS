@@ -46,6 +46,8 @@ class TechnicienController extends AbstractController
             $username="Technicien";
         }
         $dateCreation=new \DateTime('@'.strtotime('now'));
+        $bytes = random_bytes(2);
+        $Uuid=bin2hex($bytes);
 
         if ($form->isSubmitted() && $form->isValid()) {
             ///Hash Du Mot De Passe
@@ -60,6 +62,7 @@ class TechnicienController extends AbstractController
 
             ///Insertion des Données A set en BackEnd
             $technicien->setCreerPar($username);
+            $technicien->setCode($Uuid);
             $technicien->setCreerLe($dateCreation);
             $technicien->setEnable(True);
             $technicien->setRoles(["ROLE_TECHNICIEN"]);
@@ -110,8 +113,8 @@ class TechnicienController extends AbstractController
             $technicien->setimage($_FILES['technicien']['name']['Image']);
 
             ///Insertion des Données A set en BackEnd
-            $technicien->setCreerPar($username);
-            $technicien->setCreerLe($dateCreation);
+            $technicien->setModifierPar($username);
+            $technicien->setModifierLe($dateCreation);
             $technicien->setEnable(True);
             $technicien->setRoles(["ROLE_TECHNICIEN"]);
 
@@ -130,10 +133,15 @@ class TechnicienController extends AbstractController
     #[Route('/SupprimerLeTechnicienN/{id}', name: 'SupprimerTechnicien', methods: ['POST'])]
     public function delete(Request $request, Technicien $technicien, TechnicienRepository $technicienRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$technicien->getId(), $request->request->get('_token'))) {
-            $technicienRepository->remove($technicien, true);
+        $user = $this->getUser();
+        $technicienRepository->remove($technicien, true);
+        
+        if ($user->getRoles()==['ROLE_CLIENT']){
+            $this->container->get('security.token_storage')->setToken(null);
+            return $this->redirectToRoute('Login', [], Response::HTTP_SEE_OTHER);
+        }else{
+            return $this->redirectToRoute('ListeUtilisateurs', [], Response::HTTP_SEE_OTHER);
         }
-
-        return $this->redirectToRoute('app_technicien_index', [], Response::HTTP_SEE_OTHER);
+        
     }
 }

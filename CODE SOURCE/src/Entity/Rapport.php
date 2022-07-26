@@ -37,6 +37,9 @@ class Rapport extends ActionInfos
     #[ORM\Column(type: 'string', length: 255)]
     private $StatutRapport;
 
+    #[ORM\Column(type: 'time', nullable: true)]
+    private $HeureEnvoi;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -122,6 +125,18 @@ class Rapport extends ActionInfos
     public function setStatutRapport(string $StatutRapport): self
     {
         $this->StatutRapport = $StatutRapport;
+
+        return $this;
+    }
+
+    public function getHeureEnvoi(): ?\DateTimeInterface
+    {
+        return $this->HeureEnvoi;
+    }
+
+    public function setHeureEnvoi(?\DateTimeInterface $HeureEnvoi): self
+    {
+        $this->HeureEnvoi = $HeureEnvoi;
 
         return $this;
     }

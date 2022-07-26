@@ -48,6 +48,9 @@ class AdminController extends AbstractController
             $username="Développeur";
         }
         $dateCreation=new \DateTime('@'.strtotime('now'));
+        $bytes = random_bytes(2);
+        $Uuid=bin2hex($bytes);
+
 
         if ($form->isSubmitted() && $form->isValid()) {
             ///Hash Du Mot De Passe
@@ -62,6 +65,7 @@ class AdminController extends AbstractController
 
             ///Insertion des Données A set en BackEnd
             $admin->setCreerPar($username);
+            $admin->setCode($Uuid);
             $admin->setCreerLe($dateCreation);
             $admin->setEnable(True);
             $admin->setRoles(["ROLE_ADMIN"]);
@@ -69,7 +73,7 @@ class AdminController extends AbstractController
             ///Ajout de L instance créer dans la base de données
             $adminRepository->add($admin, true);
 
-            return $this->redirectToRoute('admin', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('ListeUtilisateurs', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('admins_dashboard/admin/AjouterUnAdmin.html.twig', [
@@ -78,10 +82,10 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_admin_show', methods: ['GET'])]
+    #[Route('/InfosDeLAdminN/{id}', name: 'InfosAdmin', methods: ['GET'])]
     public function show(Admin $admin): Response
     {
-        return $this->render('admin/show.html.twig', [
+        return $this->render('admins_dashboard/admin/InfosAdmin.html.twig', [
             'admin' => $admin,
         ]);
     }
@@ -112,8 +116,8 @@ class AdminController extends AbstractController
             $admin->setimage($_FILES['admin']['name']['Image']);
 
             ///Insertion des Données A set en BackEnd
-            $admin->setCreerPar($username);
-            $admin->setCreerLe($dateCreation);
+            $admin->setModifierPar($username);
+            $admin->setModifierLe($dateCreation);
             $admin->setEnable(True);
             $admin->setRoles(["ROLE_ADMIN"]);
 

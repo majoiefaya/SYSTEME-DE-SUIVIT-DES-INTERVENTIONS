@@ -39,6 +39,13 @@ class RapportRepository extends ServiceEntityRepository
         }
     }
 
+    public function ListeRapportsNonSupprimés(){
+        return $this->createQueryBuilder('r')
+        ->andWhere('r.Enable=True')
+        ->getQuery()
+        ->getResult();
+    }
+
     public function ListeRapportsLue()
     {
         return $this->createQueryBuilder('r')
@@ -56,6 +63,7 @@ class RapportRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+
     public function ListeRapportsSupprimés(){
         return $this->createQueryBuilder('r')
         ->andWhere('r.Enable=False')

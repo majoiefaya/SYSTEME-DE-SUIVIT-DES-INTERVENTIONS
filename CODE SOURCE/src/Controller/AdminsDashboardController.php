@@ -17,7 +17,7 @@ class AdminsDashboardController extends AbstractController
     #[Route('/DashboardAdmin', name: 'AdminsDashboard')]
     public function index(AdminRepository $adminRepository,ClientRepository $clientRepository,UtilisateurRepository $utilisateursRepository): Response
     {
-        return $this->render('admins_dashboard/index.html.twig', [
+        return $this->render('admins_dashboard/AccueilAdmins.html.twig', [
             'controller_name' => 'AdminsDashboardController',
             'admins' => $adminRepository->findAll(),
             'clients'=> $clientRepository->findAll(),

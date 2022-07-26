@@ -182,12 +182,11 @@
                   <span style="width: 250px;">
                     <div class="d-flex align-items-center">
                       <div class="symbol symbol-40 symbol-sm flex-shrink-0">
-                        <img class=""
-                          src="{{
-                          asset('Clients/PhotosDeProfil/')
-                            ~ client.image
-                          }}"
-                          alt="photo" />
+                        {% if client.image!=null %}							
+                            <img class="" src="{{asset('Clients/PhotosDeProfil/')~ client.image}}" alt="photo">		
+                        {% else %}
+                            <img class="" src="{{asset('Admins/Assets/media/users/blank.png')}}" alt="Pas De Photo De Profil">		
+                        {% endif %}
                       </div>
                       <div class="ml-4">
                         <div class="text-dark-75 font-weight-bolder font-size-lg mb-0">

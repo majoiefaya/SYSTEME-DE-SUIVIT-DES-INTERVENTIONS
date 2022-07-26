@@ -1,0 +1,15 @@
+
+{% extends 'AdminsBase.html.twig' %}
+
+{% block Entete %}
+    {% include 'rapport/Components/RapportsHeader.html.twig' %}
+{% endblock %}
+
+{% block Contenu %}
+    {% include('rapport/Components/RapportsSupprimésListe.html.twig') %}
+{% endblock %}
+
+{% block Scripts %}
+    {% include('admins_dashboard/Components/Scripts.html.twig') %}
+    <script src="{{ asset('Admins/Assets/js/pages/custom/user/list-datatable.js') }}"></script>
+{% endblock %}

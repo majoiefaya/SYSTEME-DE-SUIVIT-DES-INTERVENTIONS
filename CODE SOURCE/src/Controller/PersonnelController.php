@@ -45,6 +45,8 @@ class PersonnelController extends AbstractController
             $username="Personnel";
         }
         $dateCreation=new \DateTime('@'.strtotime('now'));
+        $bytes = random_bytes(2);
+        $Uuid=bin2hex($bytes);
 
         if ($form->isSubmitted() && $form->isValid()) {
             ///Hash Du Mot De Passe
@@ -59,6 +61,7 @@ class PersonnelController extends AbstractController
 
             ///Insertion des Données A set en BackEnd
             $personnel->setCreerPar($username);
+            $personnel->setCode($Uuid);
             $personnel->setCreerLe($dateCreation);
             $personnel->setEnable(True);
             $personnel->setRoles(["ROLE_PERSONNEL"]);
@@ -109,8 +112,8 @@ class PersonnelController extends AbstractController
             $personnel->setimage($_FILES['personnel']['name']['Image']);
 
             ///Insertion des Données A set en BackEnd
-            $personnel->setCreerPar($username);
-            $personnel->setCreerLe($dateCreation);
+            $personnel->setModifierPar($username);
+            $personnel->setModifierLe($dateCreation);
             $personnel->setEnable(True);
             $personnel->setRoles(["ROLE_PERSONNEL"]);
 
@@ -128,16 +131,16 @@ class PersonnelController extends AbstractController
 
     #[Route('/SupprimerLePersonnelN/{id}', name: 'SupprimerPersonnel', methods: ['POST','GET'])]
     public function delete(Request $request, Personnel $personnel, PersonnelRepository $personnelRepository): Response
-    {
+    { 
         $user = $this->getUser();
-       
-        $this->container->get('security.token_storage')->setToken(null);
         $personnelRepository->remove($personnel, true);
         
         if ($user->getRoles()==['ROLE_CLIENT']){
+            $this->container->get('security.token_storage')->setToken(null);
             return $this->redirectToRoute('Login', [], Response::HTTP_SEE_OTHER);
         }else{
             return $this->redirectToRoute('ListeUtilisateurs', [], Response::HTTP_SEE_OTHER);
         }
+        
     }
 }

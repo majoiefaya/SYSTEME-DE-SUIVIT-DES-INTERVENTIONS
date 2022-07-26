@@ -27,8 +27,8 @@ class RapportController extends AbstractController
     public function index(RapportRepository $rapportRepository): Response
     {
         return $this->render('rapport/ListeRapports.html.twig', [
-            'rapports' => $rapportRepository->findAll(),
-            'NombreTotalRapports'=>count($rapportRepository->findAll()),
+            'rapports' => $rapportRepository->ListeRapportsNonSupprimés(),
+            'NombreTotalRapports'=>count($rapportRepository->ListeRapportsNonSupprimés()),
             'NombreLu'=>count($rapportRepository->ListeRapportsLue()),
             'NombreNonLu'=>count($rapportRepository->ListeRapportsNonLue()),
             'NombreSupprimé'=>count($rapportRepository->ListeRapportsSupprimés())
@@ -38,9 +38,9 @@ class RapportController extends AbstractController
     #[Route('/ListeDesRapportsLus', name: 'RapportsLus', methods: ['GET'])]
     public function RapportsLus(RapportRepository $rapportRepository): Response
     {
-        return $this->render('rapport/ListeRapports.html.twig', [
+        return $this->render('rapport/ListeDesRapportsLus.html.twig', [
             'rapports' => $rapportRepository->ListeRapportsLue(),
-            'NombreTotalRapports'=>count($rapportRepository->findAll()),
+            'NombreTotalRapports'=>count($rapportRepository->ListeRapportsNonSupprimés()),
             'NombreLu'=>count($rapportRepository->ListeRapportsLue()),
             'NombreNonLu'=>count($rapportRepository->ListeRapportsNonLue()),
             'NombreSupprimé'=>count($rapportRepository->ListeRapportsSupprimés())
@@ -51,9 +51,9 @@ class RapportController extends AbstractController
     #[Route('/ListeDesRapportsNonLus', name: 'RapportsNonLus', methods: ['GET'])]
     public function RapportsNonLus(RapportRepository $rapportRepository): Response
     {
-        return $this->render('rapport/ListeRapports.html.twig', [
+        return $this->render('rapport/ListeDesRapportsNonLus.html.twig', [
             'rapports' => $rapportRepository->ListeRapportsNonLue(),
-            'NombreTotalRapports'=>count($rapportRepository->findAll()),
+            'NombreTotalRapports'=>count($rapportRepository->ListeRapportsNonSupprimés()),
             'NombreLu'=>count($rapportRepository->ListeRapportsLue()),
             'NombreNonLu'=>count($rapportRepository->ListeRapportsNonLue()),
             'NombreSupprimé'=>count($rapportRepository->ListeRapportsSupprimés())
@@ -64,9 +64,9 @@ class RapportController extends AbstractController
     #[Route('/ListeDesRapportsSupprimés', name: 'RapportsSupprimés', methods: ['GET'])]
     public function RapportsSupprimés(RapportRepository $rapportRepository): Response
     {
-        return $this->render('rapport/ListeRapports.html.twig', [
+        return $this->render('rapport/ListeDesRapportsSupprimés.html.twig', [
             'rapports' => $rapportRepository->ListeRapportsSupprimés(),
-            'NombreTotalRapports'=>count($rapportRepository->findAll()),
+            'NombreTotalRapports'=>count($rapportRepository->ListeRapportsNonSupprimés()),
             'NombreLu'=>count($rapportRepository->ListeRapportsLue()),
             'NombreNonLu'=>count($rapportRepository->ListeRapportsNonLue()),
             'NombreSupprimé'=>count($rapportRepository->ListeRapportsSupprimés())
@@ -136,7 +136,7 @@ class RapportController extends AbstractController
         return $this->render('rapport/InfosRapport.html.twig', [
             'rapport' => $rapport,
             'rapports' => $rapportRepository->ListeRapportsNonLue(),
-            'NombreTotalRapports'=>count($rapportRepository->findAll()),
+            'NombreTotalRapports'=>count($rapportRepository->ListeRapportsNonSupprimés()),
             'NombreLu'=>count($rapportRepository->ListeRapportsLue()),
             'NombreNonLu'=>count($rapportRepository->ListeRapportsNonLue()),
             'NombreSupprimé'=>count($rapportRepository->ListeRapportsSupprimés())
@@ -187,8 +187,33 @@ class RapportController extends AbstractController
     {
        
         $rapport->setEnable(False);
-        $rapportRepository->add($rapport);
+        $rapportRepository->add($rapport,true);
 
         return $this->redirectToRoute('rapport', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/RecupererLeRapportN/{id}', name: 'RecupererRapport', methods: ['POST','GET'])]
+    public function RecupererRapport(Request $request, Rapport $rapport, RapportRepository $rapportRepository): Response
+    {
+       
+        $rapport->setEnable(True);
+        $rapportRepository->add($rapport,true);
+
+        return $this->redirectToRoute('rapport', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/SupprimerDefinitivementLeRapportN/{id}', name: 'SupprimerDefRapport', methods: ['POST','GET'])]
+    public function SupprimerDef(Request $request, Rapport $rapport, RapportRepository $rapportRepository): Response
+    {
+       
+        $user = $this->getUser();
+        $rapportRepository->remove($rapport, true);
+        
+        if ($user->getRoles()==['ROLE_CLIENT']){
+            $this->container->get('security.token_storage')->setToken(null);
+            return $this->redirectToRoute('Login', [], Response::HTTP_SEE_OTHER);
+        }else{
+            return $this->redirectToRoute('RapportsSupprimés', [], Response::HTTP_SEE_OTHER);
+        }
     }
 }

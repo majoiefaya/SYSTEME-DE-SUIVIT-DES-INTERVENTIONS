@@ -119,9 +119,9 @@ class ClientController extends AbstractController
             $client->setimage($_FILES['client']['name']['Image']);
 
             ///Insertion des Données A set en BackEnd
-            $client->setCreerPar($username);
+            $client->setModifierPar($username);
             $client->setCode($Uuid);
-            $client->setCreerLe($dateCreation);
+            $client->setModifierLe($dateCreation);
             $client->setEnable(True);
             $client->setRoles(["ROLE_CLIENT"]);
 
@@ -141,11 +141,10 @@ class ClientController extends AbstractController
     public function delete(Request $request, Client $client, ClientRepository $clientRepository): Response
     {
         $user = $this->getUser();
-       
-        $this->container->get('security.token_storage')->setToken(null);
         $clientRepository->remove($client, true);
         
         if ($user->getRoles()==['ROLE_CLIENT']){
+            $this->container->get('security.token_storage')->setToken(null);
             return $this->redirectToRoute('Login', [], Response::HTTP_SEE_OTHER);
         }else{
             return $this->redirectToRoute('ListeUtilisateurs', [], Response::HTTP_SEE_OTHER);

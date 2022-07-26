@@ -7,15 +7,27 @@
       id="kt_quick_user_toggle">
       {% if is_granted('ROLE_SUPERADMIN') %}
         <div class="symbol-label">
-          <img alt="Logo"
-            src="{{asset('Admins/SuperAdmin/PhotosDeProfil/')~ app.user.image}}"
-            class="h-75 align-self-end" />
+            {% if app.user.image!=null %}							
+              <img alt="Logo"
+              src="{{asset('Admins/SuperAdmin/PhotosDeProfil/')~ app.user.image}}"
+              class="h-75 align-self-end" />
+            {% else %}
+                <img alt="Pas d'image de Profil"
+                src="{{asset('Admins/Assets/media/users/blank.png')}}"
+                class="h-75 align-self-end" />	
+            {% endif %}
         </div>
       {% elseif is_granted('ROLE_ADMIN')%}
         <div class="symbol-label">
-          <img alt="Logo"
-            src="{{asset('Admins/Admin/PhotosDeProfil/')~ app.user.image}}"
-            class="h-75 align-self-end" />
+            {% if app.user.image!=null %}							
+              <img alt="Logo"
+              src="{{asset('Admins/SuperAdmin/PhotosDeProfil/')~ app.user.image}}"
+              class="h-75 align-self-end" />
+            {% else %}
+                <img alt="Pas d'image de Profil"
+                src="{{asset('Admins/Assets/media/users/blank.png')}}"
+                class="h-75 align-self-end" />	
+            {% endif %}
         </div>
       {% endif %}
     </div>
@@ -234,11 +246,11 @@
         data-placement="right"
         data-container="body"
         data-boundary="window"
-        title="Finance & Accounting">
-        <a href="#"
+        title="Gestion des Taches">
+        <a href="{{ path('tache') }}"
           class="nav-link btn btn-icon btn-hover-text-primary btn-lg"
-          data-toggle="tab"
-          data-target="#kt_aside_tab_6"
+          data-toggle=""
+          data-target=""
           role="tab">
           <span class="svg-icon svg-icon-xxl">
             <!-- begin::Svg Icon | path:assets/media/svg/icons/Files/File-plus.svg -->

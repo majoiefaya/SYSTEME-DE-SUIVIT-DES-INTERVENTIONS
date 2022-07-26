@@ -15,9 +15,6 @@ class Client extends Utilisateur
     #[ORM\Column(type: 'integer')]
     protected $id;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    private $Code;
-
     #[ORM\OneToMany(mappedBy: 'client', targetEntity: Commentaire::class)]
     private $commentaire;
 
@@ -34,18 +31,6 @@ class Client extends Utilisateur
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getCode(): ?string
-    {
-        return $this->Code;
-    }
-
-    public function setCode(string $Code): self
-    {
-        $this->Code = $Code;
-
-        return $this;
     }
 
     /**

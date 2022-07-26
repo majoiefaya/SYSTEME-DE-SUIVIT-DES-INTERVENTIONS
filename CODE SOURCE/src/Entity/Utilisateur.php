@@ -55,6 +55,9 @@ implements UserInterface,PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $Image;
 
+    #[ORM\Column(type: 'string', length: 255)]
+    private $Code;
+
     public function __construct()
     {
         $this->message = new ArrayCollection();
@@ -246,6 +249,18 @@ implements UserInterface,PasswordAuthenticatedUserInterface
     public function __toString() 
     {
         return (string) $this->Nom; 
+    }
+
+    public function getCode(): ?string
+    {
+        return $this->Code;
+    }
+
+    public function setCode(string $Code): self
+    {
+        $this->Code = $Code;
+
+        return $this;
     }
 
 

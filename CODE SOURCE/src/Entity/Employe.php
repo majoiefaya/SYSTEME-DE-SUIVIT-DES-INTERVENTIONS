@@ -27,6 +27,9 @@ class Employe extends Utilisateur
     #[ORM\OneToMany(mappedBy: 'employe', targetEntity: Rapport::class)]
     private $rapport;
 
+    #[ORM\OneToOne(mappedBy: 'DestinataireTache', targetEntity: Tache::class, cascade: ['persist', 'remove'])]
+    private $tache;
+
     public function __construct()
     {
         parent::__construct();
@@ -119,6 +122,23 @@ class Employe extends Utilisateur
                 $rapport->setEmploye(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getTache(): ?Tache
+    {
+        return $this->tache;
+    }
+
+    public function setTache(Tache $tache): self
+    {
+        // set the owning side of the relation if necessary
+        if ($tache->getDestinataireTache() !== $this) {
+            $tache->setDestinataireTache($this);
+        }
+
+        $this->tache = $tache;
 
         return $this;
     }

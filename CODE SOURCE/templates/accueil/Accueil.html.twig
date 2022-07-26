@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Simple landing page</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="{{ asset('Accueil/vendors/owl-carousel/css/owl.carousel.min.css')}}">
+  <link rel="stylesheet" href="{{ asset('Accueil/vendors/owl-carousel/css/owl.theme.default.css')}}">
+  <link rel="stylesheet" href="{{ asset('Accueil/vendors/mdi/css/materialdesignicons.min.css')}}">
+  <link rel="stylesheet" href="{{ asset('Accueil/vendors/aos/css/aos.css')}}">
+  <link rel="stylesheet" href="{{ asset('Accueil/css/style.min.css')}}">
+</head>
+<body id="body" data-spy="scroll" data-target=".navbar" data-offset="100">
+  <header id="header-section">
+    <nav class="navbar navbar-expand-lg pl-3 pl-sm-0" id="navbar">
+    <div class="container">
+      <div class="navbar-brand-wrapper d-flex w-100">
+        <img src="{{ asset('Accueil/images/Group2.svg')}}" alt="">
+        <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="mdi mdi-menu navbar-toggler-icon"></span>
+        </button> 
+      </div>
+      <div class="collapse navbar-collapse navbar-menu-wrapper" id="navbarSupportedContent">
+        <ul class="navbar-nav align-items-lg-center align-items-start ml-auto">
+          <li class="d-flex align-items-center justify-content-between pl-4 pl-lg-0">
+            <div class="navbar-collapse-logo">
+              <img src="{{ asset('Accueil/images/Group2.svg')}}" alt="">
+            </div>
+            <button class="navbar-toggler close-button" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="mdi mdi-close navbar-toggler-icon pl-5"></span>
+            </button>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#header-section">APropos<span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#features-section">Guide</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#digital-marketing-section">Services</a>  
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#feedback-section">Temoignages</a>
+          </li>
+          <li class="nav-item btn-contact-us pl-4 pl-lg-0">
+            <a href="{{path('Login')}}"class="btn btn-info">Connexion</a>
+          </li>
+        </ul>
+      </div>
+    </div> 
+    </nav>   
+  </header>
+  <div class="banner" >
+    <div class="container">
+      <h1 class="font-weight-semibold">Suivit des interventions &<br>Gestion des services.</h1>
+      <h6 class="font-weight-normal text-muted pb-3">Pour permettre a nos clients de jouir plus librement et facilement des produits que nous leurs proposons</h6>
+      <div>
+        <a href="{{path('ChoixTypeCompte')}}" class="btn btn-opacity-light mr-1">Inscription</a>
+        <button class="btn btn-opacity-success ml-1">Plus d'Infos</button>
+      </div>
+      <img src="{{ asset('Accueil/images/Group171.svg')}}" alt="" class="img-fluid">
+    </div>
+  </div>
+  <div class="content-wrapper">
+    <div class="container">
+      <section class="features-overview" id="features-section" >
+        <div class="content-header">
+          <h2>Comment ca marche ?</h2>
+          <h6 class="section-subtitle text-muted">Pour profiter de nos services il vous suffit de suivre les Etapes suivantes.</h6>
+        </div>
+        <div class="d-md-flex justify-content-between">
+          <div class="grid-margin d-flex justify-content-start">
+            <div class="features-width">
+              <img src="{{ asset('Accueil/images/Group12.svg')}}" alt="" class="img-icons">
+              <h5 class="py-3">Créer Un<br>Compte</h5>
+              <p class="text-muted">Pour Créer Un Compte sur Notre Plateforme cliquez sur Le Lien Créer ci-dessous ou rendez vous dans la section <a href="#header-section">A Propos</a> puis cliquez sur Inscription.</p>
+              <a href="{{ path('ChoixTypeCompte') }}"><p class="readmore-link">Créer</p></a>  
+            </div>
+          </div>
+          <div class="grid-margin d-flex justify-content-center">
+            <div class="features-width">
+              <img src="{{ asset('Accueil/images/Group7.svg')}}" alt="" class="img-icons">
+              <h5 class="py-3">Se<br>Connecter</h5>
+              <p class="text-muted">Apres avoir créer Votre Compte et l avoir Validé Connectez-vous et accedez a votre Espace.Vous pouvez cliquez sur le Lien Connexion ci-dessous ou sur le bouton Connexion du Menu</p>
+              <a href="{{ path('Login') }}"><p class="readmore-link">Connexion</p></a>
+            </div>
+          </div>
+          <div class="grid-margin d-flex justify-content-end">
+            <div class="features-width">
+              <img src="{{ asset('Accueil/images/Group5.svg')}}" alt="" class="img-icons">
+              <h5 class="py-3">Acceder<br>a votre Contenu</h5>
+              <p class="text-muted">Apres vous etre connecter,accedez a votre espace et jouissez de son contenu et de ses fonctionnalités.Les fonctionnalités disponibles varient en fonction du type de Compte que vous avez Créer</p>
+              {# <a href="#"><p class="readmore-link">Readmore</p></a> #}
+            </div>
+          </div>
+        </div>
+      </section>     
+      <section class="digital-marketing-service" id="digital-marketing-section">
+        <div class="row align-items-center">
+          <div class="col-12 col-lg-7 grid-margin grid-margin-lg-0" data-aos="fade-right">
+            <h3 class="m-0">Nous offrons d' autres services Secondaires!</h3>
+            <div class="col-lg-7 col-xl-6 p-0">
+              <p class="py-4 m-0 text-muted">Tel que Notre Reseau Social Intégré</p>
+              <p class="font-weight-medium text-muted">Un outil pour permettre aux différents utilisateurs d'echanger et de partager leurs experiences</p>
+            </div>    
+          </div>
+          <div class="col-12 col-lg-5 p-0 img-digital grid-margin grid-margin-lg-0" data-aos="fade-left">
+            <img src="{{ asset('Accueil/images/Group1.png')}}" alt="" class="img-fluid">
+          </div>
+        </div>
+        <div class="row align-items-center">
+          <div class="col-12 col-lg-7 text-center flex-item grid-margin" data-aos="fade-right">
+            <img src="{{ asset('Accueil/images/Group2.png')}}" alt="" class="img-fluid">
+          </div>
+          <div class="col-12 col-lg-5 flex-item grid-margin" data-aos="fade-left">
+            <h3 class="m-0">Des Services<br>Divers et Variés.</h3>
+            <div class="col-lg-9 col-xl-8 p-0">
+              <p class="py-4 m-0 text-muted">Notre Gestionnaire de Tache.</p>
+              <p class="pb-2 font-weight-medium text-muted">Un outil pour vous permttre de mieux organiser et plannifier vos taches.</p>
+            </div>
+            <button class="btn btn-info">Plus d'Infos</button>
+          </div>
+        </div>
+      </section>     
+      <section class="case-studies" id="case-studies-section">
+        <div class="row grid-margin">
+          <div class="col-12 text-center pb-5">
+            <h2>Nos Principaux Services</h2>
+            <h6 class="section-subtitle text-muted">Ce que nous proposons concretement</h6>
+          </div>
+          <div class="col-12 col-md-6 col-lg-3 stretch-card mb-3 mb-lg-0" data-aos="zoom-in">
+            <div class="card color-cards">
+              <div class="card-body p-0">
+                <div class="bg-primary text-center card-contents">
+                  <div class="card-image">
+                    <img src="{{ asset('Accueil/images/Group95.svg')}}" class="case-studies-card-img" alt="">
+                  </div>  
+                  <div class="card-desc-box d-flex align-items-center justify-content-around">
+                    <div>
+                      <h6 class="text-white pb-2 px-3">A Propos des Ressources Materiels</h6>
+                      <button class="btn btn-white">Plus d'Infos</button>
+                    </div>
+                  </div>
+                </div>   
+                <div class="card-details text-center pt-4">
+                    <h6 class="m-0 pb-1">Administration des Ressources Materiels</h6>
+                    <p>Materiels,Equipements</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-3 stretch-card mb-3 mb-lg-0" data-aos="zoom-in" data-aos-delay="200">
+            <div class="card color-cards">
+              <div class="card-body p-0">
+                <div class="bg-warning text-center card-contents">
+                  <div class="card-image">
+                      <img src="{{ asset('Accueil/images/Group108.svg')}}" class="case-studies-card-img" alt="">
+                  </div>  
+                  <div class="card-desc-box d-flex align-items-center justify-content-around">
+                    <div>
+                      <h6 class="text-white pb-2 px-3">A Propos du suivit des Interventions</h6>
+                      <button class="btn btn-white">Plus d'Infos</button>
+                    </div>
+                  </div>
+                </div>   
+                <div class="card-details text-center pt-4">
+                    <h6 class="m-0 pb-1">Suivit Des Interventions</h6>
+                    <p>Interventions</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-3 stretch-card mb-3 mb-lg-0" data-aos="zoom-in" data-aos-delay="400">
+            <div class="card color-cards">
+              <div class="card-body p-0">
+                <div class="bg-violet text-center card-contents">
+                  <div class="card-image">
+                      <img src="{{ asset('Accueil/images/Group126.svg')}}" class="case-studies-card-img" alt="">
+                  </div>  
+                  <div class="card-desc-box d-flex align-items-center justify-content-around">
+                    <div>
+                      <h6 class="text-white pb-2 px-3">A Propos de La Gestion des Rapports</h6>
+                      <button class="btn btn-white">Plus d'Infos</button>
+                    </div>
+                  </div>
+                </div>   
+                <div class="card-details text-center pt-4">
+                    <h6 class="m-0 pb-1">Gestion des Rapports</h6>
+                    <p>Rapports</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-3 stretch-card" data-aos="zoom-in" data-aos-delay="600">
+            <div class="card color-cards">
+              <div class="card-body p-0">
+                <div class="bg-success text-center card-contents">
+                  <div class="card-image">
+                      <img src="{{ asset('Accueil/images/Group115.svg')}}" class="case-studies-card-img" alt="">
+                  </div>  
+                  <div class="card-desc-box d-flex align-items-center justify-content-around">
+                    <div>
+                      <h6 class="text-white pb-2 px-3">A Propos des Ressources Humaines</h6>
+                      <button class="btn btn-white">Plus d'Infos</button>
+                    </div>
+                  </div>
+                </div>   
+                <div class="card-details text-center pt-4">
+                    <h6 class="m-0 pb-1">Gestion des Ressources Humaines</h6>
+                    <p>Capital Humain</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>     
+      <section class="customer-feedback" id="feedback-section">
+        <div class="row">
+          <div class="col-12 text-center pb-5">
+            <h2>Temoignages qui nous sont adressés</h2>
+            <h6 class="section-subtitle text-muted m-0">Temoignages de nos utilisateurs</h6>
+          </div>
+          <div class="owl-carousel owl-theme grid-margin">
+              <div class="card customer-cards">
+                <div class="card-body">
+                  <div class="text-center">
+                    <img src="{{ asset('Accueil/images/face2.jpg')}}" width="89" height="89" alt="" class="img-customer">
+                    <p class="m-0 py-3 text-muted">Lorem ipsum dolor sit amet, tincidunt vestibulum. Fusce egeabus consectetuer turpis, suspendisse.</p>
+                    <div class="content-divider m-auto"></div>
+                    <h6 class="card-title pt-3">Tony Martinez</h6>
+                    <h6 class="customer-designation text-muted m-0">Marketing Manager</h6>
+                  </div>
+                </div>
+              </div>
+              <div class="card customer-cards">
+                <div class="card-body">
+                  <div class="text-center">
+                    <img src="{{ asset('Accueil/images/face3.jpg')}}" width="89" height="89" alt="" class="img-customer">
+                    <p class="m-0 py-3 text-muted">Lorem ipsum dolor sit amet, tincidunt vestibulum. Fusce egeabus consectetuer turpis, suspendisse.</p>
+                    <div class="content-divider m-auto"></div>
+                    <h6 class="card-title pt-3">Sophia Armstrong</h6>
+                    <h6 class="customer-designation text-muted m-0">Marketing Manager</h6>
+                  </div>
+                </div>
+              </div>
+              <div class="card customer-cards">
+                <div class="card-body">
+                  <div class="text-center">
+                    <img src="{{ asset('Accueil/images/face20.jpg')}}" width="89" height="89" alt="" class="img-customer">
+                    <p class="m-0 py-3 text-muted">Lorem ipsum dolor sit amet, tincidunt vestibulum. Fusce egeabus consectetuer turpis, suspendisse.</p>
+                    <div class="content-divider m-auto"></div>
+                    <h6 class="card-title pt-3">Cody Lambert</h6>
+                    <h6 class="customer-designation text-muted m-0">Marketing Manager</h6>
+                  </div>
+                </div>
+              </div>
+              <div class="card customer-cards">
+                <div class="card-body">
+                  <div class="text-center">
+                    <img src="{{ asset('Accueil/images/face15.jpg')}}" width="89" height="89" alt="" class="img-customer">
+                    <p class="m-0 py-3 text-muted">Lorem ipsum dolor sit amet, tincidunt vestibulum. Fusce egeabus consectetuer turpis, suspendisse.</p>
+                    <div class="content-divider m-auto"></div>
+                    <h6 class="card-title pt-3">Cody Lambert</h6>
+                    <h6 class="customer-designation text-muted m-0">Marketing Manager</h6>
+                  </div>
+                </div>
+              </div>
+              <div class="card customer-cards">
+                <div class="card-body">
+                  <div class="text-center">
+                    <img src="{{ asset('Accueil/images/face16.jpg')}}" width="89" height="89" alt="" class="img-customer">
+                    <p class="m-0 py-3 text-muted">Lorem ipsum dolor sit amet, tincidunt vestibulum. Fusce egeabus consectetuer turpis, suspendisse.</p>
+                    <div class="content-divider m-auto"></div>
+                    <h6 class="card-title pt-3">Cody Lambert</h6>
+                    <h6 class="customer-designation text-muted m-0">Marketing Manager</h6>
+                  </div>
+                </div>
+              </div>
+              <div class="card customer-cards">
+                <div class="card-body">
+                  <div class="text-center">
+                    <img src="{{ asset('Accueil/images/face1.jpg')}}" width="89" height="89" alt="" class="img-customer">
+                    <p class="m-0 py-3 text-muted">Lorem ipsum dolor sit amet, tincidunt vestibulum. Fusce egeabus consectetuer turpis, suspendisse.</p>
+                    <div class="content-divider m-auto"></div>
+                    <h6 class="card-title pt-3">Tony Martinez</h6>
+                    <h6 class="customer-designation text-muted m-0">Marketing Manager</h6>
+                  </div>
+                </div>
+              </div>
+              <div class="card customer-cards">
+                <div class="card-body">
+                  <div class="text-center">
+                    <img src="{{ asset('Accueil/images/face2.jpg')}}" width="89" height="89" alt="" class="img-customer">
+                    <p class="m-0 py-3 text-muted">Lorem ipsum dolor sit amet, tincidunt vestibulum. Fusce egeabus consectetuer turpis, suspendisse.</p>
+                    <div class="content-divider m-auto"></div>
+                    <h6 class="card-title pt-3">Tony Martinez</h6>
+                    <h6 class="customer-designation text-muted m-0">Marketing Manager</h6>
+                  </div>
+                </div>
+              </div>
+              <div class="card customer-cards">
+                <div class="card-body">
+                  <div class="text-center">
+                    <img src="{{ asset('Accueil/images/face3.jpg')}}" width="89" height="89" alt="" class="img-customer">
+                    <p class="m-0 py-3 text-muted">Lorem ipsum dolor sit amet, tincidunt vestibulum. Fusce egeabus consectetuer turpis, suspendisse.</p>
+                    <div class="content-divider m-auto"></div>
+                    <h6 class="card-title pt-3">Sophia Armstrong</h6>
+                    <h6 class="customer-designation text-muted m-0">Marketing Manager</h6>
+                  </div>
+                </div>
+              </div>
+              <div class="card customer-cards">
+                <div class="card-body">
+                  <div class="text-center">
+                    <img src="{{ asset('Accueil/images/face20.jpg')}}" width="89" height="89" alt="" class="img-customer">
+                    <p class="m-0 py-3 text-muted">Lorem ipsum dolor sit amet, tincidunt vestibulum. Fusce egeabus consectetuer turpis, suspendisse.</p>
+                    <div class="content-divider m-auto"></div>
+                    <h6 class="card-title pt-3">Cody Lambert</h6>
+                    <h6 class="customer-designation text-muted m-0">Marketing Manager</h6>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+      </section>
+      <section class="contact-us" id="contact-section">
+        <div class="contact-us-bgimage grid-margin" >
+          <div class="pb-4">
+            <h4 class="px-3 px-md-0 m-0" data-aos="fade-down">Avez-vous de quelconques Suggestions?</h4>
+            <h4 class="pt-1" data-aos="fade-down">Contactez-Nous</h4>
+          </div>
+          <div data-aos="fade-up">
+            <button class="btn btn-rounded btn-outline-danger" data-toggle="modal" data-target="#exampleModal">Contactez-Nous</button>
+          </div>          
+        </div>
+      </section>
+      <section class="contact-details" id="contact-details-section">
+        <div class="row text-center text-md-left">
+          <div class="col-12 col-md-6 col-lg-3 grid-margin">
+            <img src="{{ asset('Accueil/images/Group2.svg')}}" alt="" class="pb-2">
+            <div class="pt-2">
+              <a href="mailto:majoiefaya@gmail.com" class="text-muted m-0">majoiefaya@gmail.com</a>
+              <a href="tel:+22896329943" class="text-muted m-0">+22896329943</a>
+            </div>         
+          </div>
+          <div class="col-12 col-md-6 col-lg-3 grid-margin">
+            <h5 class="pb-2">Abonnez-vous</h5>
+            <p class="text-muted">Ne ratez aucune de nos Nouvelles<br>souscrivez a notre Newsletter</p>
+            <form>
+              <input type="text" class="form-control" id="Email" placeholder="Entrez votre Email">
+            </form>
+            <div class="pt-3">
+              <button class="btn btn-dark">Souscrire</button>
+            </div>   
+          </div>
+          <div class="col-12 col-md-6 col-lg-3 grid-margin">
+            <h5 class="pb-2">Règles et Politique</h5>
+            <a href="#"><p class="m-0 pb-2">Terms</p></a>   
+            <a href="#" ><p class="m-0 pt-1 pb-2">Données Personnelles</p></a> 
+            <a href="#"><p class="m-0 pt-1 pb-2">Cookie</p></a> 
+            <a href="#"><p class="m-0 pt-1">Page d'aide</p></a> 
+          </div>
+          <div class="col-12 col-md-6 col-lg-3 grid-margin">
+              <h5 class="pb-2">Notre address</h5>
+              <p class="text-muted">Lomé<br>Togo</p>
+              <div class="d-flex justify-content-center justify-content-md-start">
+                <a href="#"><span class="mdi mdi-facebook"></span></a>
+                <a href="#"><span class="mdi mdi-twitter"></span></a>
+                <a href="#"><span class="mdi mdi-instagram"></span></a>
+                <a href="#"><span class="mdi mdi-linkedin"></span></a>
+              </div>
+          </div>
+        </div>  
+      </section>
+      <footer class="border-top">
+        <p class="text-center text-muted pt-4">Copyright © {{ DateInscription|date('Y')}}<a href="https://www.bootstrapdash.com/" class="px-1">SDI.</a>Tous droits Reservés.</p>
+
+        <p class="text-center text-muted pt-2">Distribuer Par: <a href="https://www.themewagon.com/" class="px-1" target="_blank"></a></p>
+      </footer>
+      <!-- Modal for Contact - us Button -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title" id="exampleModalLabel">Nous Contacter</h4>
+            </div>
+            <div class="modal-body">
+              <form action={{ path('MailDeSuggestion') }} method="post">
+                <div class="form-group">
+                  <label for="Name">Nom</label>
+                  <input type="text" class="form-control" id="Name" placeholder="Nom" name="nom">
+                </div>
+                <div class="form-group">
+                  <label for="Email">Email</label>
+                  <input type="email" class="form-control" id="Email-1" placeholder="Email" name="email">
+                </div>
+                <div class="form-group">
+                  <label for="Message">Message</label>
+                  <textarea class="form-control" id="Message" placeholder="Entrez votre Message" name="message"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-dismiss="modal">Fermer</button>
+                    <button type="submit" class="btn btn-success">Envoyer</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> 
+  </div>
+  <script src="{{ asset('Accueil/vendors/jquery/jquery.min.js')}}"></script>
+  <script src="{{ asset('Accueil/vendors/bootstrap/bootstrap.min.js')}}"></script>
+  <script src="{{ asset('Accueil/vendors/owl-carousel/js/owl.carousel.min.js')}}"></script>
+  <script src="{{ asset('Accueil/vendors/aos/js/aos.js')}}"></script>
+  <script src="{{ asset('Accueil/js/landingpage.js')}}"></script>
+</body>
+</html>
