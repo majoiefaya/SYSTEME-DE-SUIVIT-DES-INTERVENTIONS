@@ -43,6 +43,8 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/AdminsDashboard, roles: ROLE_ADMIN }
+        - { path: ^/EmployesDashboard, roles: ROLE_PERSONNEL }
+        - { path: ^/ClientsDashboard, roles: ROLE_CLIENT }
 
     role_hierarchy:
         ROLE_PERSONNEL: ROLE_CLIENT

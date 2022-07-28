@@ -91,6 +91,11 @@ class AuthController extends AbstractController
             $client->setCode($Uuid);
             $client->setCreerLe($dateCreation);
 
+            ///Insertion des Données En BackEnd
+            $client->setTelephone($TelNumber);
+            $client->setEnable(True);
+            $client->setRoles(["ROLE_CLIENT"]);
+
             ///Envoie d'Un Mail de Comfirmation
             $email = (new TemplatedEmail())
             ->from('majoiefaya@gmail.com')
@@ -101,16 +106,16 @@ class AuthController extends AbstractController
             ->context([
                 'Nom' => $client->getNom(),
                 'Prenom'=> $client->getPrenom(),
+                'NumTel'=>$client->getTelephone(),
+                'Age'=>$client->getAge(),
+                'Adresse'=>$client->getAdresse(),
+                'Sexe'=>$client->getSexe(),
                 'Code'=>$Uuid,
                 'DateInscription' =>  $dateCreation,
                 'mail'=>$client->getEmail()
             ]);
 
             $mailer->send($email);
-
-            $client->setTelephone($TelNumber);
-            $client->setEnable(True);
-            $client->setRoles(["ROLE_CLIENT"]);
 
 
             $clientRepository->add($client, true);
@@ -154,23 +159,7 @@ class AuthController extends AbstractController
             $destination=move_uploaded_file($_FILES['technicien_type2']['tmp_name']['Image'],$chemin);
             $technicien->setimage($_FILES['technicien_type2']['name']['Image']);
 
-             ///Envoie d'Un Mail de Comfirmation
-             $email = (new TemplatedEmail())
-             ->from('majoiefaya@gmail.com')
-             ->to($technicien->getEmail())
-             ->subject("Comfirmation d'Inscription")
-             ->text('Veuillez Confirmer votre Inscription')
-             ->htmlTemplate('emails/ConfirmationDInscription.html.twig')
-             ->context([
-                 'Nom' => $technicien->getNom(),
-                 'Prenom'=> $technicien->getPrenom(),
-                 'Code'=>$Uuid,
-                 'DateInscription' =>  $dateCreation,
-                 'mail'=>$technicien->getEmail()
-             ]);
-
-             $mailer->send($email);
-
+        
             ///Insertion des Données A set en BackEnd
             $technicien->setCreerPar($username);
             $technicien->setCode($Uuid);
@@ -179,10 +168,31 @@ class AuthController extends AbstractController
             $technicien->setRoles(["ROLE_TECHNICIEN"]);
             $technicien->setTelephone($TelNumber);
 
+            ///Envoie d'Un Mail de Comfirmation
+            $email = (new TemplatedEmail())
+            ->from('majoiefaya@gmail.com')
+            ->to($technicien->getEmail())
+            ->subject("Comfirmation d'Inscription")
+            ->text('Veuillez Confirmer votre Inscription')
+            ->htmlTemplate('emails/ConfirmationDInscription.html.twig')
+            ->context([
+                'Nom' => $technicien->getNom(),
+                'Prenom'=> $technicien->getPrenom(),
+                'NumTel'=>$technicien->getTelephone(),
+                'Age'=>$technicien->getAge(),
+                'Adresse'=>$technicien->getAdresse(),
+                'Sexe'=>$technicien->getSexe(),
+                'Code'=>$Uuid,
+                'DateInscription' =>  $dateCreation,
+                'mail'=>$technicien->getEmail()
+            ]);
+
+            $mailer->send($email);
+    
             ///Ajout de L instance créer dans la base de données
             $technicienRepository->add($technicien, true);
 
-            return $this->redirectToRoute('Login', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('ComfirmationDeMail', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('auth/InscriptionTechnicien.html.twig', [
@@ -200,7 +210,7 @@ class AuthController extends AbstractController
                 $user=$utilisateurRepository->findOneBy(["Code"=>$Code]);
                 $user->setEnable(True);
                 $utilisateurRepository->add($user);
-                return $this->redirectToRoute('AdminsDashboard', [], Response::HTTP_SEE_OTHER);
+                return $this->redirectToRoute('Login', [], Response::HTTP_SEE_OTHER);
             }else{
                 return $this->renderForm('auth/CodeDeComfirmation.html.twig',[
                     "error"=>"Le code que vous avez entrer est incorrecte"
@@ -242,22 +252,6 @@ class AuthController extends AbstractController
             $destination=move_uploaded_file($_FILES['personnel_type2']['tmp_name']['Image'],$chemin);
             $personnel->setimage($_FILES['personnel_type2']['name']['Image']);
 
-            ///Envoie d'Un Mail de Comfirmation
-            $email = (new TemplatedEmail())
-            ->from('majoiefaya@gmail.com')
-            ->to($personnel->getEmail())
-            ->subject("Comfirmation d'Inscription")
-            ->text('Veuillez Confirmer votre Inscription')
-            ->htmlTemplate('emails/ConfirmationDInscription.html.twig')
-            ->context([
-                'Nom' => $personnel->getNom(),
-                'Prenom'=> $personnel->getPrenom(),
-                'Code'=>$Uuid,
-                'DateInscription' =>  $dateCreation,
-                'mail'=>$personnel->getEmail()
-            ]);
-            $mailer->send($email);
-
 
             ///Insertion des Données A set en BackEnd
             $personnel->setCreerPar($username);
@@ -266,10 +260,33 @@ class AuthController extends AbstractController
             $personnel->setEnable(False);
             $personnel->setRoles(["ROLE_PERSONNEL"]);
             $personnel->setTelephone($TelNumber);
+
+
+             ///Envoie d'Un Mail de Comfirmation
+             $email = (new TemplatedEmail())
+             ->from('majoiefaya@gmail.com')
+             ->to($personnel->getEmail())
+             ->subject("Comfirmation d'Inscription")
+             ->text('Veuillez Confirmer votre Inscription')
+             ->htmlTemplate('emails/ConfirmationDInscription.html.twig')
+             ->context([
+                 'Nom' => $personnel->getNom(),
+                 'Prenom'=> $personnel->getPrenom(),
+                 'NumTel'=>$personnel->getTelephone(),
+                 'Age'=>$personnel->getAge(),
+                 'Adresse'=>$personnel->getAdresse(),
+                 'Sexe'=>$personnel->getSexe(),
+                 'Code'=>$Uuid,
+                 'DateInscription' =>  $dateCreation,
+                 'mail'=>$personnel->getEmail()
+             ]);
+             $mailer->send($email);
+
+
             ///Ajout de L instance créer dans la base de données
             $personnelRepository->add($personnel, true);
 
-            return $this->redirectToRoute('Login', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('ComfirmationDeMail', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('auth/InscriptionPersonnel.html.twig', [

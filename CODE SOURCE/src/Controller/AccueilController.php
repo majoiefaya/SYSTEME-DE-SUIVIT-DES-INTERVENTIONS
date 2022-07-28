@@ -48,18 +48,16 @@ class AccueilController extends AbstractController
     #[Route("/ControlDuTypeDUtilisateur", name: 'ControlRole')]
     public function UserSpace(Request $request,UserInterface $user): Response
     {
-        if ($this->container->get('security.authorization_checker')->isGranted('ROLE_SUPERADMIN')) {
-            return $this->redirectToRoute('AdminsDashboard', [], Response::HTTP_SEE_OTHER);
-        }else if($this->container->get('security.authorization_checker')->isGranted('ROLE_ADMIN')){
-            return $this->redirectToRoute('AdminsDashboard', [], Response::HTTP_SEE_OTHER);
-        }else if($this->container->get('security.authorization_checker')->isGranted('ROLE_CLIENT')){
-            return $this->redirectToRoute('ClientsDashboard', [], Response::HTTP_SEE_OTHER);
-        }else if($this->container->get('security.authorization_checker')->isGranted('ROLE_TECHNICIEN')){
-            return $this->redirectToRoute('EmployesDashboard', [], Response::HTTP_SEE_OTHER);
-        }else if($this->container->get('security.authorization_checker')->isGranted('ROLE_PERSONNEL')){
-            return $this->redirectToRoute('EmployesDashboard', [], Response::HTTP_SEE_OTHER);
+       
+        if( $this->container->get('security.authorization_checker')->isgranted('IS_AUTHENTICATED_FULLY')){
+            if ($this->container->get('security.authorization_checker')->isGranted('ROLE_SUPERADMIN') or $this->container->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+                return $this->redirectToRoute('AdminsDashboard', [], Response::HTTP_SEE_OTHER);
+            }else if($this->container->get('security.authorization_checker')->isGranted('ROLE_TECHNICIEN') or $this->container->get('security.authorization_checker')->isGranted('ROLE_PERSONNEL')){
+                return $this->redirectToRoute('EmployesDashboard', [], Response::HTTP_SEE_OTHER);
+            }else if($this->container->get('security.authorization_checker')->isGranted('ROLE_CLIENT')){
+                return $this->redirectToRoute('ClientsDashboard', [], Response::HTTP_SEE_OTHER);
+            }
         }
-        
 
         return $this->redirectToRoute('Accueil', [], Response::HTTP_SEE_OTHER);
     }

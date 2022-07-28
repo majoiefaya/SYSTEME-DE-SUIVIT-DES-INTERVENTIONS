@@ -23,25 +23,9 @@ License: You must have a valid license purchased only from themeforest(the above
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
 
     {% block Css%}
-    <!--begin::Fonts-->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700"/>        <!--end::Fonts-->
-
-    <!--begin::Page Vendors Styles(used by this page)-->
-            <link href="{{asset('Admins/assets/plugins/custom/fullcalendar/fullcalendar.bundle.css')}}" rel="stylesheet" type="text/css"/>
-    <!--end::Page Vendors Styles-->
-
-
-    <!--begin::Global Theme Styles(used by all pages)-->
-        <link href="{{asset('Admins/assets/plugins/global/plugins.bundle.css')}}" rel="stylesheet" type="text/css"/>
-        <link href="{{asset('Admins/assets/plugins/custom/prismjs/prismjs.bundle.css')}}" rel="stylesheet" type="text/css"/>
-        <link href="{{asset('Admins/assets/css/style.bundle.css')}}" rel="stylesheet" type="text/css"/>
-    <!--end::Global Theme Styles-->
-
-    <!--begin::Layout Themes(used by all pages)-->
-    <!--end::Layout Themes-->
-
-    <link rel="shortcut icon" href="{{asset('Admins/assets/media/logos/favicon.ico')}}"/>
+		{% include('admins_dashboard/Components/Css.html.twig') %}
     {% endblock %}
+    <link rel="shortcut icon" href="{{asset('Admins/assets/media/logos/favicon.ico')}}"/
 
 </head>
 <!--end::Head-->

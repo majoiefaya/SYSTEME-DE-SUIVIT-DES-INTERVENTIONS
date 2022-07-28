@@ -81,10 +81,10 @@ class ClientController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_client_show', methods: ['GET'])]
-    public function show(Client $client): Response
+    #[Route('/AfficherLesInformationsDuClientN/{id}', name: 'InfosClient', methods: ['GET'])]
+    public function InfosClient(Client $client): Response
     {
-        return $this->render('client/show.html.twig', [
+        return $this->render('client/InfosClient.html.twig', [
             'client' => $client,
         ]);
     }

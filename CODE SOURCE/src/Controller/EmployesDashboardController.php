@@ -11,7 +11,7 @@ class EmployesDashboardController extends AbstractController
     #[Route('/DashboardEmployes', name: 'EmployesDashboard')]
     public function index(): Response
     {
-        return $this->render('employes_dashboard/index.html.twig', [
+        return $this->render('employes_dashboard/AccueilEmployes.html.twig', [
             'controller_name' => 'EmployesDashboardController',
         ]);
     }
