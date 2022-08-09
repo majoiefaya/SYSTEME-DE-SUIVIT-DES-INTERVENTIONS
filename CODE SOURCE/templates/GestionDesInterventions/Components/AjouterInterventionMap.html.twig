@@ -1,0 +1,87 @@
+<div class="pb-5" data-wizard-type="step-content">
+  <h3 class="mb-10 font-weight-bold text-dark">
+    Choisissez le lieu de L'Intervention
+  </h3>
+  <div class="alert alert-custom alert-success fade show py-4" role="alert">
+    <div class="alert-icon"><i class="flaticon-warning"></i></div>
+    <div class="alert-text font-weight-bold">
+      NB:Vous pouvez directement selectionnez le lieu ou vous desirez que l'intervention se fasse
+      sur la carte ou remplir
+      les champs suivant pour la retrouver.Une fois les champs remplies Verifiez si l endroit selectionnez
+      est bien celui que vous avez indiquez sinon deplacer le curseur sur la carte jusqu'a ce que vous n'atteigniez 
+      le point ou l'endroit désiré
+    </div>
+    <div class="alert-close">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true"><i class="la la-close "></i></span>
+      </button>
+    </div>
+  </div>
+  <form action="#" method="post">
+    <div>
+      {# <label class="col-xl-3 col-lg-3 col-form-label" for="lat">Latitude</label> #}
+      <input class="form-control form-control-lg form-control-solid"
+        type="hidden"
+        name="lat"
+        id="lat"
+        placeholder="La Latitude est récuperée ici"
+        readonly />
+    </div>
+    <div>
+      {# <label class="col-xl-3 col-lg-3 col-form-label" for="lon">
+        Longitude
+      </label> #}
+      <input class="form-control form-control-lg form-control-solid"
+        type="hidden"
+        name="lon"
+        id="lon"
+        placeholder="La longitude est récuperée ici"
+        readonly />
+    </div>
+    <div class="form-group">
+      <label>Address</label>
+      <input type="text"
+        class="form-control form-control-lg form-control-solid"
+        name="adresse"
+        id="adresse"
+        placeholder="Entrez Votre Adresse" />
+      <span class="form-text text-muted">Entrez Votre Adresse.</span>
+    </div>
+    <div class="row">
+      <div class="col-xl-6">
+        <div class="form-group fv-plugins-icon-container">
+          <label>code Postal</label>
+          <input type="text"
+            class="form-control form-control-lg form-control-solid"
+            name="cp"
+            id="cp"
+            placeholder="Code Postal" />
+          <span class="form-text text-muted">Entrez Votre code Postal.</span>
+          <div class="fv-plugins-message-container"></div>
+        </div>
+      </div>
+      <div class="col-xl-6">
+        <div class="form-group fv-plugins-icon-container">
+          <label>Ville</label>
+          <input type="text"
+            class="form-control form-control-lg form-control-solid"
+            name="ville"
+            id="ville"
+            placeholder="Entrez Votre Ville" />
+          <span class="form-text text-muted">Selectionnez Votre Ville.</span>
+          <div class="fv-plugins-message-container"></div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <div class="card card-custom gutter-b">
+    <div class="card-header">
+      <div class="card-title">
+        <h3 class="card-label">
+          Carte
+        </h3>
+      </div>
+    </div>
+    <div id="detailsMap" style="height:300px;"></div>
+  </div>
+</div>

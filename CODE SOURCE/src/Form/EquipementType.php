@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class EquipementType extends AbstractType
 {
@@ -14,10 +15,8 @@ class EquipementType extends AbstractType
     {
         $builder
             ->add('Libelle')
-            ->add('Disponibilite')
-            ->add('NombreUtilisation')
-            ->add('interventions')
             ->add('typeEquipement')
+            ->add('QuantiteEquipement')
             ->add('Image', FileType::class, ['mapped'=>false,'attr'=>['name'=>'image','required'=>false]]);
         ;
     }

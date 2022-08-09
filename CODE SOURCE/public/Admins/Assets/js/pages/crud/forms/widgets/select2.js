@@ -70,10 +70,10 @@ var KTSelect2 = function() {
         }
 
         $("#kt_select2_6").select2({
-            placeholder: "Search for git repositories",
+            placeholder: "Technicien",
             allowClear: true,
             ajax: {
-                url: "https://api.github.com/search/repositories",
+                url: "{{path('technicien')}}",
                 dataType: 'json',
                 delay: 250,
                 data: function(params) {

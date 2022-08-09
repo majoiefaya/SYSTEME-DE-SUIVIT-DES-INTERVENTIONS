@@ -82,13 +82,15 @@ License: You must have a valid license purchased only from themeforest(the above
 					<!--begin::Content-->
 					<div
 						class="content  d-flex flex-column flex-column-fluid" id="kt_content">
+						{% block Entete %}
 
+						{% endblock %}
 						<!--begin::Entry-->
 						<div
 							class="d-flex flex-column-fluid">
 							<!--begin::Container-->
 							{% block Contenu %}
-								{% include 'clients_dashboard/Components/Contenu.html.twig' %}
+								
 							{% endblock %}
 							<!--end::Container-->
 						</div>

@@ -1,0 +1,26 @@
+{% extends 'AdminsBase.html.twig' %}
+
+{% block Css%}
+	<!--begin::Fonts-->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700"/>
+	<!--end::Fonts-->
+
+	<!--begin::Page Vendors Styles(used by this page)-->
+	<link href="assets/css/pages/wizard/wizard-1.css" rel="stylesheet" type="text/css"/> <!--end::Page Vendors Styles-->
+  	{% include('admins_dashboard/Components/Css.html.twig') %}
+	<link rel="shortcut icon" href="{{asset('Admins/assets/media/logos/favicon.ico')}}"/> 
+{% endblock %}
+
+{% block Entete %}
+	{% include'GestionDesRessourcesMateriels/Components/EnteteTypeEquipement.html.twig'%}
+{% endblock %}
+
+{% block Contenu %}
+	{% include'GestionDesRessourcesMateriels/Components/ContenuListeTypeEquipements.html.twig'%}
+	{% include('GestionDesRessourcesMateriels/type_equipement/formAjoutTypeEquipement.html.twig') %}
+{% endblock %}
+
+{% block Scripts %}
+	{% include('admins_dashboard/Components/Scripts.html.twig') %}
+	<script src="{{ asset('Admins/Assets/js/pages/custom/projects/add-project.js')}}"></script>
+{% endblock %}

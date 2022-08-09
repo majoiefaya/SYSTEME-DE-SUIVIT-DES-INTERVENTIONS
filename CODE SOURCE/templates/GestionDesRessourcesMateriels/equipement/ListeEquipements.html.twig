@@ -1,0 +1,11 @@
+{% extends 'AdminsBase.html.twig' %}
+
+{% block Entete %}{% endblock %}
+
+{% block Contenu %}
+	{% include'GestionDesRessourcesMateriels/Components/ContenuListeEquipements.html.twig'%}
+{% endblock %}
+{% block Scripts %}
+	{% include('admins_dashboard/Components/Scripts.html.twig') %}
+	<script src="{{ asset('Admins/Assets/js/pages/custom/user/list-datatable.js') }}"></script>
+{% endblock %}

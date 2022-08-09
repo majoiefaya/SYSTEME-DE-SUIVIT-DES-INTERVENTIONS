@@ -8,12 +8,12 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: EquipeRepository::class)]
-class Equipe
+class Equipe extends ActionInfos
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    private $id;
+    protected $id;
 
     #[ORM\Column(type: 'string', length: 255)]
     private $NomEquipe;
@@ -154,5 +154,11 @@ class Equipe
         $this->technicienChef = $technicienChef;
 
         return $this;
+    }
+
+        
+    public function __toString() 
+    {
+        return (string) $this->NomEquipe; 
     }
 }

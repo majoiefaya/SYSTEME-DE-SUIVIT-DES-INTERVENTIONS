@@ -1,0 +1,24 @@
+{% extends 'AdminsBase.html.twig' %}
+
+{% block Entete %}
+    {% include ('admins_dashboard/Components/InterventionsHeader.html.twig') %}
+{% endblock %}
+
+{% block Css%}
+    {% include('admins_dashboard/Components/Css.html.twig') %}
+    {% include('GestionDesInterventions/Components/LocaliserIntervention/css/LocaliserInterventionCss.html.twig')%}
+{% endblock %}
+
+{% block Contenu %}
+    <div class="card-body p-0">
+        <div id="maCarte">
+        
+        </div>
+    </div>
+{% endblock %}
+
+{% block Scripts %}
+    {% include('admins_dashboard/Components/Scripts.html.twig') %}
+    {% include('GestionDesInterventions/Components/LocaliserIntervention/js/LocaliserInterventionScripts.html.twig')%}
+{% endblock %}
+ 

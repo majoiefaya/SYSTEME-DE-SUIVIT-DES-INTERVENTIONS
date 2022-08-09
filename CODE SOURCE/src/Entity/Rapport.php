@@ -40,6 +40,9 @@ class Rapport extends ActionInfos
     #[ORM\Column(type: 'time', nullable: true)]
     private $HeureEnvoi;
 
+    #[ORM\ManyToOne(targetEntity: Intervention::class, inversedBy: 'rapport')]
+    private $intervention;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -137,6 +140,18 @@ class Rapport extends ActionInfos
     public function setHeureEnvoi(?\DateTimeInterface $HeureEnvoi): self
     {
         $this->HeureEnvoi = $HeureEnvoi;
+
+        return $this;
+    }
+
+    public function getIntervention(): ?Intervention
+    {
+        return $this->intervention;
+    }
+
+    public function setIntervention(?Intervention $intervention): self
+    {
+        $this->intervention = $intervention;
 
         return $this;
     }

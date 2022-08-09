@@ -1,0 +1,147 @@
+{% extends 'AdminsBase.html.twig' %}
+
+{% block Entete %}
+
+{% endblock %}
+
+{% block Contenu %}
+  {% if intervention.equipes is empty or intervention.client==null %}
+    <div class="card card-custom">
+        <div class="card-body p-0">
+         <div class="row justify-content-center my-10 px-8 my-lg-15 px-lg-10">
+            <div class="col-xl-12 col-xxl-7">
+                <div class="alert alert-custom alert-warning fade show py-4" role="alert">
+                <div class="alert-icon"><i class="flaticon-warning"></i></div>
+                    <div class="alert-text font-weight-bold">
+                     <span>
+                        Assurez vous d'avoir affecter l'intervention a un client et de l'avoir confier a une Equipe avant de l'activer.
+                        Vous pouvez le faire en retournant sur <a href="{{path('ListeInterventionsAdmin')}}">interventions</a> ou directement le faire en cliquant
+                        sur le bouton suivant.
+                        </span>
+                        <a href="{{
+                        path(
+                            'InfosIntervention',
+                            {
+                            id: intervention.id
+                            }
+                        )
+                        }}"
+                        class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3">
+                        <span class="svg-icon svg-icon-primary svg-icon-2x">
+                            <!-- begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo6\dist/../src/media/svg/icons\Code\Plus.svg -->
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                            xmlns:xlink="http://www.w3.org/1999/xlink"
+                            width="24px"
+                            height="24px"
+                            viewBox="0 0 24 24"
+                            version="1.1">
+                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <rect x="0" y="0" width="24" height="24" />
+                                <circle fill="#000000" opacity="0.3" cx="12" cy="12" r="10" />
+                                <path d="M11,11 L11,7 C11,6.44771525 11.4477153,6 12,6 C12.5522847,6 13,6.44771525 13,7 L13,11 L17,11 C17.5522847,11 18,11.4477153 18,12 C18,12.5522847 17.5522847,13 17,13 L13,13 L13,17 C13,17.5522847 12.5522847,18 12,18 C11.4477153,18 11,17.5522847 11,17 L11,13 L7,13 C6.44771525,13 6,12.5522847 6,12 C6,11.4477153 6.44771525,11 7,11 L11,11 Z"
+                                fill="#000000" />
+                            </g>
+                            </svg>
+                            <!-- end::Svg Icon -->
+                        </span>
+                        </a>
+                    </div>
+                    <div class="alert-close">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true"><i class="la la-close "></i></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+  {% else %}
+  <div class="card card-custom">
+  <div class="card-body p-0">
+    <div class="row justify-content-center my-10 px-8 my-lg-15 px-lg-10">
+      <div class="col-xl-12 col-xxl-7">
+        <!-- begin::Form Wizard -->
+        {{ form_start(form,{'attr':{'class':'form fv-plugins-bootstrap fv-plugins-framework'}}) }}
+          <!-- begin::Step 3 -->
+          <div class="pb-5"
+            data-wizard-type="step-content"
+            data-wizard-state="current">
+            <div class="alert alert-custom alert-light-danger fade show py-4" role="alert">
+                <div class="alert-icon"><i class="flaticon-warning"></i></div>
+                <div class="alert-text font-weight-bold">
+                 Apres Avoir entrez ces derniers parametres le decompte de Progression de L'intervention 
+                 commencera.
+                </div>
+                <div class="alert-close">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true"><i class="la la-close "></i></span>
+                    </button>
+                </div>
+            </div>
+            <h3 class="mb-10 font-weight-bold text-dark">
+              Activation d'Intervention
+            </h3>
+            <div class="row">
+              <div class="col-xl-6">
+                <div class="form-group fv-plugins-icon-container">
+                  <label>DateDebut</label>
+                    {{ form_widget(form.DateDebutIntervention,{'attr':{'class':'form-control form-control-lg form-control-solid'}}) }}
+                  <span class="form-text text-muted">
+                    Entrez La Date a laquelle l'intervention est censée Commencer.
+                  </span>
+                  <div class="fv-plugins-message-container"></div>
+                </div>
+              </div>
+              <div class="col-xl-6">
+                <div class="form-group fv-plugins-icon-container">
+                  <label>DateFin</label>
+                    {{ form_widget(form.DateFinIntervention,{'attr':{'class':'form-control form-control-lg form-control-solid'}}) }}
+                  <span class="form-text text-muted">
+                    Entrez la date a laquelle l'intervention est censée se terminer.
+                  </span>
+                  <div class="fv-plugins-message-container"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- end::Step 3 -->
+
+          <!-- begin::Actions -->
+          <div class="d-flex justify-content-between border-top mt-5 pt-10">
+            <div class="mr-2">
+              <button type="button"
+                class="btn btn-light-primary font-weight-bold text-uppercase px-9 py-4"
+                data-wizard-type="action-prev">
+                Retour
+              </button>
+            </div>
+            <div>
+              <button type="submit"
+                class="btn btn-primary font-weight-bold text-uppercase px-9 py-4"
+                data-wizard-type="action-submit">
+                Enregistrer
+              </button>
+            </div>
+          </div>
+          <!-- end::Actions -->
+          <div></div>
+          <div></div>
+          <div></div>
+        {{ form_end(form) }}
+        <!-- end::Form Wizard -->
+      </div>
+    </div>
+    </div>
+   </div>
+  {% endif %}
+{% endblock %}
+
+{% block Scripts %}
+  {% include 'admins_dashboard/Components/Scripts.html.twig' %}
+  <script src="{{
+    asset(
+      'Admins/Assets/js/pages/custom/user/list-datatable.js'
+    )
+    }}"></script>
+{% endblock %}

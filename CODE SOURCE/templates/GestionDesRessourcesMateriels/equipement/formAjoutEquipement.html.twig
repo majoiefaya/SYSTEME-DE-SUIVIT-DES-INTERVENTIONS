@@ -1,0 +1,104 @@
+<div
+	class="card card-custom gutter-b">
+	<!--begin::Body-->
+	<div
+		class="card-body p-0">
+		<!--begin::Wizard-->
+		<div class="wizard wizard-1" id="kt_contact_add" data-wizard-state="first" data-wizard-clickable="true">
+			<div
+				class="kt-grid__item">
+				<!--begin::Wizard Nav-->
+				<div class="wizard-nav border-bottom">
+					
+				</div>
+				<!--end::Wizard Nav-->
+			</div>
+			<div class="row justify-content-center my-10 px-8 my-lg-15 px-lg-10">
+				<div
+					class="col-xl-12 col-xxl-7">
+					<!--begin::Form Wizard Form-->
+					
+
+					<!--begin::Form Wizard Step 1-->
+					<div class="pb-5" data-wizard-type="step-content" data-wizard-state="current">
+						<h3 class="mb-10 font-weight-bold text-dark"></h3>
+						<div class="row">
+							<div class="col-xl-12">
+								<div class="form-group row">
+									<label class="col-xl-3 col-lg-3 col-form-label">Photo de L'Equipement</label>
+									<div class="col-lg-9 col-xl-9">
+										<div class="image-input image-input-outline" id="kt_contact_add_avatar">
+											<div class="image-input-wrapper" style="background-image: url({{
+														asset('Interventions/Equipements/Images/')
+															~ equipement.Image
+														}})">
+											</div>
+
+											<label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="change" data-toggle="tooltip" title="" data-original-title="Ajouter Une Image">
+												<i class="fa fa-pen icon-sm text-muted">
+													{{ form_widget(form.Image,{'attr':{'class':'form-control form-control-solid form-control-lg is-invalid'}}) }}
+												</i>
+
+											</label>
+
+											<span class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="cancel" data-toggle="tooltip" title="" data-original-title="Supprimer">
+												<i class="ki ki-bold-close icon-xs text-muted"></i>
+											</span>
+										</div>
+									</div>
+								</div>
+								<div class="form-group row fv-plugins-icon-container has-success">
+									<label class="col-xl-3 col-lg-3 col-form-label">Libelle</label>
+									<div class="col-lg-9 col-xl-9">
+										{{ form_widget(form.Libelle,{'attr':{'class':'form-control form-control-lg form-control-solid is-valid'}})}}
+										<div class="fv-plugins-message-container">Nommez L'Equipement que vous voulez Ajouter</div>
+									</div>
+								</div>
+								<div class="form-group row fv-plugins-icon-container has-success">
+									<label class="col-xl-3 col-lg-3 col-form-label">Type de l'Equipement</label>
+									<div class="col-lg-9 col-xl-9">
+										{{ form_widget(form.typeEquipement,{'attr':{'class':'form-control form-control-lg form-control-solid is-valid'}})}}
+										<div class="fv-plugins-message-container">Choisissez sa Categorie ou son Type Prealablement Ajouté</div>
+									</div>
+								</div>
+								<div class="form-group row fv-plugins-icon-container has-success">
+									<label class="col-xl-3 col-lg-3 col-form-label">Quantite</label>
+									<div class="col-lg-9 col-xl-9">
+										{{ form_widget(form.QuantiteEquipement,{'attr':{'class':'form-control form-control-lg form-control-solid is-valid'}})}}
+										<div class="fv-plugins-message-container">Fixer La quantité Disponible</div>
+									</div>
+								</div>
+								
+							</div>
+
+						</div>
+					</div>
+				</div>
+				<!--end::Form Wizard Step 1-->
+				
+
+				<!--begin::Form Wizard Step 2-->
+				
+				<!--end::Form Wizard Step 2-->
+
+				<!--begin::Form Wizard Step 3-->
+				
+				<!--end::Form Wizard Step 3-->
+
+				<!--begin::Form Wizard Step 4-->
+				
+				<!--end::Form Wizard Step 4-->
+
+				<!--begin::Wizard Actions-->
+				
+				<!--end::Wizard Actions-->
+				<div></div>
+				<div></div>
+				<div></div>
+				{{ form_end(form)}}
+				<!--end::Form Wizard Form-->
+			</div>
+		</div>
+	</div>
+	<!--end::Wizard-->
+</div><!--end::Body-->

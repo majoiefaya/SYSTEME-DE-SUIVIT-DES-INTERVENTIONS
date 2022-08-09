@@ -1,0 +1,78 @@
+{% extends 'AdminsBase.html.twig' %}
+
+{% block Css%}
+	<!--begin::Fonts-->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700"/>
+	<!--end::Fonts-->
+
+	<!--begin::Page Vendors Styles(used by this page)-->
+	<link href="assets/css/pages/wizard/wizard-1.css" rel="stylesheet" type="text/css"/> <!--end::Page Vendors Styles-->
+
+
+	<!--begin::Global Theme Styles(used by all pages)-->
+	<link href="{{asset('Admins/assets/plugins/global/plugins.bundle.css')}}" rel="stylesheet" type="text/css"/> <link href="{{asset('Admins/assets/plugins/custom/prismjs/prismjs.bundle.css')}}" rel="stylesheet" type="text/css"/>
+	<link href="{{asset('Admins/assets/css/style.bundle.css')}}" rel="stylesheet" type="text/css"/>
+	<!--end::Global Theme Styles-->
+
+	<!--begin::Layout Themes(used by all pages)-->
+	<!--end::Layout Themes-->
+
+<link rel="shortcut icon" href="{{asset('Admins/assets/media/logos/favicon.ico')}}"/> {% endblock %}
+
+{% block Entete %}
+	{{ form_start(form,{'attr':{'class':'form fv-plugins-bootstrap fv-plugins-framework" id="kt_contact_add_form'}})}}
+	<div class="subheader py-2 py-lg-4  subheader-transparent " id="kt_subheader">
+		<div
+			class=" container  d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
+			<!--begin::Details-->
+			<div
+				class="d-flex align-items-center flex-wrap mr-2">
+
+				<!--begin::Title-->
+				<h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">
+					Equipement\Modifier un Equipement
+				</h5>
+				<!--end::Title-->
+
+				<!--begin::Separator-->
+				<div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-5 bg-gray-200"></div>
+				<!--end::Separator-->
+
+				<!--begin::Search Form-->
+				<div class="d-flex align-items-center" id="kt_subheader_search"></div>
+				<!--end::Search Form-->
+
+			</div>
+			<!--end::Details-->
+
+			<!--begin::Toolbar-->
+			<div
+				class="d-flex align-items-center">
+				<!--begin::Button-->
+				<a href="{{ path('ListeEquipements')}}" class="btn btn-default font-weight-bold">
+
+					Retour
+				</a>
+				<!--end::Button-->
+
+				<!--begin::Dropdown-->
+				<div class="btn-group ml-2">
+					<button type="submit" class="btn btn-primary font-weight-bold">Sauvegarder</button>
+				</div>
+				<!--end::Dropdown-->
+
+			</div>
+			<!--end::Toolbar-->
+		</div>
+	</div>
+{% endblock %}
+
+{% block Contenu %}
+	{% include('GestionDesRessourcesMateriels/equipement/formAjoutEquipement.html.twig') %}
+	{% include'GestionDesRessourcesMateriels/Components/ContenuListeEquipements.html.twig'%}
+{% endblock %}
+
+{% block Scripts %}
+	{% include('admins_dashboard/Components/Scripts.html.twig') %}
+	<script src="{{ asset('Admins/Assets/js/pages/custom/contacts/add-contact.js')}}"></script>
+{% endblock %}

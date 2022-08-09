@@ -33,6 +33,9 @@ class Equipement extends ActionInfos
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $Image;
 
+    #[ORM\Column(type: 'integer')]
+    private $QuantiteEquipement;
+
     public function __construct()
     {
         $this->interventions = new ArrayCollection();
@@ -126,6 +129,24 @@ class Equipement extends ActionInfos
     public function setImage(?string $Image): self
     {
         $this->Image = $Image;
+
+        return $this;
+    }
+
+      
+    public function __toString() 
+    {
+        return (string) $this->Libelle; 
+    }
+
+    public function getQuantiteEquipement(): ?int
+    {
+        return $this->QuantiteEquipement;
+    }
+
+    public function setQuantiteEquipement(int $QuantiteEquipement): self
+    {
+        $this->QuantiteEquipement = $QuantiteEquipement;
 
         return $this;
     }

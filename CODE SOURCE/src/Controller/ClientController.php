@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Client;
 use App\Form\ClientType;
+use App\Form\ClientType2;
 use App\Repository\ClientRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -81,10 +82,75 @@ class ClientController extends AbstractController
         ]);
     }
 
+    #[Route('/SauvegarderLesInfosDuClientN/{id}', name: 'SauvegardeInfos', methods: ['GET', 'POST'])]
+    public function SauvegardeInformationsProfil(Request $request,Client $client,ClientRepository $clientRepository,UserPasswordHasherInterface $passwordhash): Response
+    {
+        $Nom=$request->request->get('nom');
+        $prenom=$request->request->get('prenom');
+        $Age=$request->request->get('age');
+        $Sexe=$request->request->get('sexe');
+        $Adresse=$request->request->get('address');
+        $NumTel=$request->request->get('phone');
+        $Email=$request->request->get('email');
+        $dateModification=new \DateTime('@'.strtotime('now'));
+
+        ///insertion de l image dans la base de donées et dans Le Dossier PhotosDeProfil
+        $webpath=$this->params->get("kernel.project_dir").'/public/Clients/PhotosDeProfil/';
+        $chemin=$webpath.$_FILES['client']["name"]["Image"];
+        $destination=move_uploaded_file($_FILES['client']['tmp_name']['Image'],$chemin);
+        $client->setimage($_FILES['client']['name']['Image']);
+      
+        $client->setModifierPar($client->getNom());
+        $client->setModifierLe($dateModification);
+
+        $clientRepository->add($client, true);
+
+        return $this->redirectToRoute('InfosClient', [], Response::HTTP_SEE_OTHER);
+
+    }
+    #[Route('/ModifierLesInformationsDuClientN/{id}', name: 'ModifierInfosClient', methods: ['GET', 'POST'])]
+    public function ModifierInfosClient(Request $request, Client $client, ClientRepository $clientRepository,UserPasswordHasherInterface $passwordhash): Response
+    {
+        $form = $this->createForm(ClientType::class, $client);
+        $form->handleRequest($request);
+
+        $TelNumber=$request->request->get('phone');
+        $dateModification=new \DateTime('@'.strtotime('now'));
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            ///Hash Du Mot De Passe
+            $MotDePasseCripte=$passwordhash->hashPassword($client,$client->getPassword());
+            $client->setpassword($MotDePasseCripte);
+
+            ///insertion de l image dans la base de donées et dans Le Dossier PhotosDeProfil
+            $webpath=$this->params->get("kernel.project_dir").'/public/Clients/PhotosDeProfil/';
+            $chemin=$webpath.$_FILES['client']["name"]["Image"];
+            $destination=move_uploaded_file($_FILES['client']['tmp_name']['Image'],$chemin);
+            $client->setimage($_FILES['client']['name']['Image']);
+
+            ///Insertion des Données A set en BackEnd
+            $client->setModifierPar($client->getNom());
+            $client->setModifierLe($dateModification);
+
+            $clientRepository->add($client, true);
+
+            return $this->redirectToRoute('ModifierInfosClient', [
+            'id'=>$client->getId(),
+            'form'=>$form,
+            'msg'=>"Modification Bien Enregistrées"],
+             Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('clients_dashboard/client/InfosClient.html.twig', [
+            'client' => $client,
+            'form' => $form,
+        ]);
+        
+    }
     #[Route('/AfficherLesInformationsDuClientN/{id}', name: 'InfosClient', methods: ['GET'])]
     public function InfosClient(Client $client): Response
     {
-        return $this->render('client/InfosClient.html.twig', [
+        return $this->render('clients_dashboard/client/InfosClient.html.twig', [
             'client' => $client,
         ]);
     }

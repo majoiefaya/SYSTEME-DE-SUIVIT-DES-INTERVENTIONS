@@ -1,0 +1,14 @@
+{% extends 'AdminsBase.html.twig' %}
+
+{% block Entete %}
+    {% include 'admins_dashboard/Components/InterventionsHeader.html.twig' %}
+{% endblock %}
+
+{% block Contenu %}
+    {% include 'admins_dashboard/Components/ListeDesInterventionsAdmin.html.twig' %}    
+{% endblock %}
+
+{% block Scripts %}
+    {% include('admins_dashboard/Components/Scripts.html.twig') %}
+  
+{% endblock %}

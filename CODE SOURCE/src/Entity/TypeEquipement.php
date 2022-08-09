@@ -8,12 +8,12 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: TypeEquipementRepository::class)]
-class TypeEquipement
+class TypeEquipement extends ActionInfos
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    private $id;
+    protected $id;
 
     #[ORM\Column(type: 'string', length: 255)]
     private $Libelle;
@@ -23,6 +23,9 @@ class TypeEquipement
 
     #[ORM\OneToMany(mappedBy: 'typeEquipement', targetEntity: Equipement::class)]
     private $equipement;
+
+    #[ORM\Column(type: 'integer')]
+    private $QuantiteTypeEquipement;
 
     public function __construct()
     {
@@ -84,6 +87,23 @@ class TypeEquipement
                 $equipement->setTypeEquipement(null);
             }
         }
+
+        return $this;
+    }
+
+    public function __toString() 
+    {
+        return (string) $this->Libelle; 
+    }
+
+    public function getQuantiteTypeEquipement(): ?int
+    {
+        return $this->QuantiteTypeEquipement;
+    }
+
+    public function setQuantiteTypeEquipement(int $QuantiteTypeEquipement): self
+    {
+        $this->QuantiteTypeEquipement = $QuantiteTypeEquipement;
 
         return $this;
     }

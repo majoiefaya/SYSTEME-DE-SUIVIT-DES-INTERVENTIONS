@@ -22,6 +22,9 @@ class Commentaire
     #[ORM\ManyToOne(targetEntity: Client::class, inversedBy: 'commentaire')]
     private $client;
 
+    #[ORM\ManyToOne(targetEntity: Intervention::class, inversedBy: 'commentaires')]
+    private $intervention;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -59,6 +62,18 @@ class Commentaire
     public function setClient(?Client $client): self
     {
         $this->client = $client;
+
+        return $this;
+    }
+
+    public function getIntervention(): ?Intervention
+    {
+        return $this->intervention;
+    }
+
+    public function setIntervention(?Intervention $intervention): self
+    {
+        $this->intervention = $intervention;
 
         return $this;
     }

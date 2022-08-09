@@ -1,0 +1,28 @@
+{% extends 'ClientsBase.html.twig' %}
+
+{% block Css %}
+
+  {% include('clients_dashboard/Components/Css.html.twig')%}
+  <link href="{{asset('Clients/Assets/css/pages/wizard/wizard-1.css')}}" rel="stylesheet" type="text/css"/>
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
+	<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css">
+	<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css">
+
+{% endblock %}
+
+
+{% block Entete %}
+	{% include 'clients_dashboard/Components/AjouterInterventionHeader.html.twig'%}
+{% endblock %}
+
+{% block Contenu %}
+	{% include 'clients_dashboard/Components/AjouterIntervention.html.twig'%}
+{% endblock %}
+
+{% block Scripts %}
+  {% include 'clients_dashboard/Components/Scripts.html.twig' %}
+  <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js" integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og==" crossorigin=""></script>
+  <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+  <script src="{{ asset('Clients/Assets/js/pages/custom/projects/add-project.js')}}"></script>
+  <script src="{{asset('Geolocation/AjoutPosition/js/GeolocationForm.js')}}"></script>
+{% endblock %}

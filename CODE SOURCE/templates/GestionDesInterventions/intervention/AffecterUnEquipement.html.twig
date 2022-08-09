@@ -1,0 +1,41 @@
+{% extends 'AdminsBase.html.twig' %}
+
+{% block Contenu %}
+<div class="card card-custom">
+    <div class="card-header">
+    <h3 class="card-title">
+        Selectionnez L'Equipe a Affecter
+    </h3>
+    </div>
+    <!--begin::Form-->
+    <form class="form" action="{{path('AffecterEquipement',{'id':intervention.id })}}" method="post">
+    <div class="card-body">
+        <div class="form-group row">
+        <label class="col-form-label text-right col-lg-3 col-sm-12">Equipement</label>
+        <div class=" col-lg-4 col-md-9 col-sm-12">
+            <select class="form-control select2" id="kt_select2_1" name="param">
+            {% for equipement in equipements %}     
+                <option value="{{equipement.Libelle}}">{{equipement.Libelle}}</option>
+            {% endfor %}
+            </select>
+        </div>
+        </div>
+    </div>
+    <div class="card-footer">
+        <div class="row">
+        <div class="col-lg-9 ml-lg-auto">
+            <button type="submit" class="btn btn-primary mr-2">Enregistrer</button>
+            <button type="reset" class="btn btn-secondary">Annuler</button>
+        </div>
+        </div>
+    </div>
+    </form>
+    <!--end::Form-->
+</div>
+{% endblock %}
+
+
+{% block Scripts %}
+  {% include('admins_dashboard/Components/Scripts.html.twig') %}
+  <script src="{{asset('Admins/Assets/js/pages/crud/forms/widgets/select2.js')}}"></script>
+{% endblock %}
