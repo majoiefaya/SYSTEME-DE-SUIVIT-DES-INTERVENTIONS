@@ -1,17 +1,18 @@
-{% extends 'AdminsBase.html.twig' %}
+{% extends 'EmployesBase.html.twig' %}
 
 {% block Entete %}
   {% include 'rapport/Components/RapportsHeader.html.twig' %}
 {% endblock %}
 
 {% block Contenu %}
+<div class="container">
   <div class="modal-content">
     <!-- begin::Form -->
-    {{ form_start(form,{'attr':{'id':'kt_inbox_compose_form','novalidate':'novalidate'}}) }}
+    {{ form_start(form,{'attr':{'id':'kt_inbox_compose_form'}}) }}
       <!-- begin::Header -->
       <div class="d-flex align-items-center justify-content-between py-5 pl-8 pr-5 border-bottom">
         <h5 class="font-weight-bold m-0">
-          Creer Un Rapport
+          Rediger Un Rapport
         </h5>
         <div class="d-flex ml-2">
           <span class="btn btn-clean btn-sm btn-icon mr-2">
@@ -36,7 +37,7 @@
             <span class="btn btn-primary font-weight-bold px-6">
                 Destinatire
             </span>
-                  {{ form_widget(form.admin,{'attr':{'class':'btn btn-primary font-weight-bold dropdown-toggle dropdown-toggle-split'}}) }}
+                {{ form_widget(form.admin,{'attr':{'class':'btn btn-primary font-weight-bold dropdown-toggle dropdown-toggle-split'}}) }}
           </div>
           </div>
         </div>
@@ -197,7 +198,8 @@
             rows="13"
             data-gramm="false"
             contenteditable="true"
-            data-placeholder="Type message..."name="contenu">
+            data-placeholder="Type message..."name="contenu"
+            style="border: none">
           </textarea>
           <div class="ql-clipboard" contenteditable="true" tabindex="-1"></div>
           <div class="ql-tooltip ql-hidden">
@@ -245,7 +247,7 @@
               role="button">
 
             </span>
-            <div class="dropdown-menu dropdown-menu-sm dropup p-0 m-0 dropdown-menu-right">
+            {# <div class="dropdown-menu dropdown-menu-sm dropup p-0 m-0 dropdown-menu-right">
               <ul class="navi py-3">
                 <li class="navi-item">
                   <a href="#" class="navi-link">
@@ -272,14 +274,22 @@
                   </a>
                 </li>
               </ul>
-            </div>
+            </div> #}
           </div>
           <!-- end::Send -->
 
           <!-- begin::Other -->
+          {{ form_widget(form.fichier,{'attr':{'class':'dropzone-select btn btn-light-primary font-weight-bold btn-sm dz-clickable','id':'kt_uppy_5_input_control'}}) }}
           <span class="btn btn-icon btn-sm btn-clean mr-2 dz-clickable"
             id="kt_inbox_compose_attachments_select">
-            {{ form_widget(form.fichier,{'attr':{'class':'uppy-FileInput-input uppy-input-control','id':'kt_uppy_5_input_control'}}) }}
+            <span class="svg-icon svg-icon-primary svg-icon-2x"><!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo10\dist/../src/media/svg/icons\Files\File-plus.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <polygon points="0 0 24 0 24 24 0 24"/>
+                    <path d="M5.85714286,2 L13.7364114,2 C14.0910962,2 14.4343066,2.12568431 14.7051108,2.35473959 L19.4686994,6.3839416 C19.8056532,6.66894833 20,7.08787823 20,7.52920201 L20,20.0833333 C20,21.8738751 19.9795521,22 18.1428571,22 L5.85714286,22 C4.02044787,22 4,21.8738751 4,20.0833333 L4,3.91666667 C4,2.12612489 4.02044787,2 5.85714286,2 Z" fill="#000000" fill-rule="nonzero" opacity="0.3"/>
+                    <path d="M11,14 L9,14 C8.44771525,14 8,13.5522847 8,13 C8,12.4477153 8.44771525,12 9,12 L11,12 L11,10 C11,9.44771525 11.4477153,9 12,9 C12.5522847,9 13,9.44771525 13,10 L13,12 L15,12 C15.5522847,12 16,12.4477153 16,13 C16,13.5522847 15.5522847,14 15,14 L13,14 L13,16 C13,16.5522847 12.5522847,17 12,17 C11.4477153,17 11,16.5522847 11,16 L11,14 Z" fill="#000000"/>
+                </g>
+            </svg><!--end::Svg Icon-->
+            </span>
           </span>
           <span class="btn btn-icon btn-sm btn-clean">
             <i class="flaticon2-pin"></i>
@@ -289,27 +299,14 @@
         <!-- end::Actions -->
 
         <!-- begin::Toolbar -->
-        <div class="d-flex align-items-center">
-          <span class="btn btn-icon btn-sm btn-clean mr-2"
-            data-toggle="tooltip"
-            title=""
-            data-original-title="More actions">
-            <i class="flaticon2-settings"></i>
-          </span>
-          <span class="btn btn-icon btn-sm btn-clean"
-            data-inbox="dismiss"
-            data-toggle="tooltip"
-            title=""
-            data-original-title="Dismiss reply">
-            <i class="flaticon2-rubbish-bin-delete-button"></i>
-          </span>
-        </div>
+       
         <!-- end::Toolbar -->
       </div>
       <!-- end::Footer -->
     {{ form_end(form) }}
     <!-- end::Form -->
   </div>
+</div>
 {% endblock %}
 
 {% block Scripts %}

@@ -1,0 +1,14 @@
+{% extends 'ClientsBase.html.twig'%}
+
+{% block Entete %}
+  
+{% endblock %}
+
+{% block Contenu %}
+    {% include 'clients_dashboard/Components/ListeInterventionsClient.html.twig' %}
+{% endblock %}
+
+{% block Scripts %}
+    {% include('clients_dashboard/Components/Scripts.html.twig') %}
+    <script src="{{asset('Client/Assets/js/pages/widgets.js')}}"></script>
+{% endblock %}

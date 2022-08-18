@@ -1,38 +1,13 @@
-{% extends 'AdminsBase.html.twig' %}
-
-{% block Css %}
-  {% include 'admins_dashboard/Components/Css.html.twig' %}
-  <link rel="stylesheet"
-    href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
-    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
-    crossorigin="" />
-  <link rel="stylesheet"
-    href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
-  <link rel="stylesheet"
-    href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
-{% endblock %}
+{% extends 'ClientsBase.html.twig'%}
 
 {% block Entete %}
-  {% include 'admins_dashboard/Components/InfosInterventionHeader.html.twig' %}
+
 {% endblock %}
 
 {% block Contenu %}
   <div class="card card-custom gutter-b">
     <div class="card-body">
       <div class="d-flex">
-      {% if error is defined %}
-        <div class="alert alert-custom alert-light-danger fade show py-4" role="alert">
-          <div class="alert-icon"><i class="flaticon-warning"></i></div>
-          <div class="alert-text font-weight-bold">
-            {{ error }}
-          </div>
-          <div class="alert-close">
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true"><i class="la la-close "></i></span>
-              </button>
-          </div>
-      </div>
-      {% endif %}
         <!-- begin: Pic -->
         <div class="flex-shrink-0 mr-7 mt-lg-0 mt-3">
           <div class="symbol symbol-50 symbol-lg-120">
@@ -63,16 +38,15 @@
           <div class="d-flex align-items-center justify-content-between flex-wrap">
             <div class="mr-3">
               <!-- begin::Name -->
-              {% if intervention.Titre != null %}
-                <a href="#"
-                  class="d-flex align-items-center text-dark text-hover-primary font-size-h5 font-weight-bold mr-3">
-                  {{ intervention.Titre }}
-                  <i class="flaticon2-correct text-success icon-md ml-2"></i>
-                </a>
-              {% else %}
-                <span>Ajouter Un Titre</span>
-              {% endif %}
-
+                {% if intervention.Titre != null %}
+                    <a href="#"
+                    class="d-flex align-items-center text-dark text-hover-primary font-size-h5 font-weight-bold mr-3">
+                    {{ intervention.Titre }}
+                    <i class="flaticon2-correct text-success icon-md ml-2"></i>
+                    </a>
+                {% else %}
+                    <span>Pas De Titre Defini</span>
+                {% endif %}
               <!-- end::Name -->
 
               <!-- begin::Contacts -->
@@ -102,8 +76,7 @@
                       </g>
                     </svg>
                     <!-- end::Svg Icon -->
-                  </span>
-                  {{ intervention.client.email }}
+                  </span> {{ intervention.client.email }}
                 </a>
                 <a href="#"
                   class="text-muted text-hover-primary font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2">
@@ -128,10 +101,9 @@
                       </g>
                     </svg>
                     <!-- end::Svg Icon -->
-                  </span>
-                  {{ intervention.client.Nom }} {{ intervention.client.Prenom }}
+                  </span> {{ intervention.client.Nom }} {{ intervention.client.Prenom }}
                 </a>
-                <a href="{{path('LocaliserIntervention',{'id':intervention.id})}}"
+                <a href="#"
                   class="text-muted text-hover-primary font-weight-bold">
                   <span class="svg-icon svg-icon-md svg-icon-gray-500 mr-1">
                     <!-- begin::Svg Icon | path:assets/media/svg/icons/Map/Marker2.svg -->
@@ -151,34 +123,17 @@
                       </g>
                     </svg>
                     <!-- end::Svg Icon -->
-                  </span> Localiser Intervention
+                  </span> Localisation
                 </a>
               </div>
               <!-- end::Contacts -->
             </div>
             <div class="my-lg-0 my-1">
-            {% if intervention.interventionAss is empty %}
-              <a href="#"
-                class="btn btn-sm btn-info font-weight-bolder text-uppercase">
-                Non Assistée
-              </a>
-            {% else %}
-              <a href="#"
-                class="btn btn-sm btn-light-success font-weight-bolder text-uppercase mr-3">
-                Assistée
-              </a>
-            {% endif %}
-            {% if intervention.DateDebutIntervention==null or intervention.DateFinIntervention==null or intervention.client==null or intervention.equipes is empty %}
-              <a href="{{path('ActiverIntervention',{'id':intervention.id})}}"
-                class="btn btn-sm btn-info font-weight-bolder text-uppercase">
-                Activer
-              </a>
-            {% else %}
-              <a href="#"
-                class="btn btn-sm btn-light-success font-weight-bolder text-uppercase mr-3">
-                Desactiver
-              </a>
-            {% endif %}
+                {% if intervention.DateDebutIntervention==null or intervention.DateFinIntervention==null or intervention.client==null or intervention.equipes is empty %}
+                    En Attente de Comfirmation
+                {% else %}
+                    Intervention En cours 
+                {% endif %}
             </div>
           </div>
           <!-- end: Title -->
@@ -199,7 +154,7 @@
                   <div class="font-weight-bold mb-2">
                     Date Debut
                   </div>
-                  <span class="btn btn-sm btn-text btn-light-danger text-uppercase font-weight-bold">
+                  <span class="btn btn-sm btn-text btn-light-primary text-uppercase font-weight-bold">
                     {% if intervention.DateDebutIntervention != null %}
                       {{ intervention.DateDebutIntervention|date('d-m-Y') }}
                     {% else %}
@@ -246,7 +201,7 @@
         <!-- begin: Item -->
         <div class="d-flex align-items-center flex-lg-fill mr-5 my-1">
           <span class="mr-4">
-            <span class="svg-icon svg-icon-primary svg-icon-2x"><!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo6\dist/../src/media/svg/icons\Devices\Router1.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+              <span class="svg-icon svg-icon-primary svg-icon-2x"><!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo6\dist/../src/media/svg/icons\Devices\Router1.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                     <rect x="0" y="0" width="24" height="24"/>
                     <path d="M15,15 L15,10 C15,9.44771525 15.4477153,9 16,9 C16.5522847,9 17,9.44771525 17,10 L17,15 L20,15 C21.1045695,15 22,15.8954305 22,17 L22,19 C22,20.1045695 21.1045695,21 20,21 L4,21 C2.8954305,21 2,20.1045695 2,19 L2,17 C2,15.8954305 2.8954305,15 4,15 L15,15 Z M5,17 C4.44771525,17 4,17.4477153 4,18 C4,18.5522847 4.44771525,19 5,19 L10,19 C10.5522847,19 11,18.5522847 11,18 C11,17.4477153 10.5522847,17 10,17 L5,17 Z" fill="#000000"/>
@@ -268,7 +223,7 @@
         {% if intervention.admin!=null %}
         <div class="d-flex align-items-center flex-lg-fill mr-5 my-1">
           <span class="mr-4">
-           <span class="svg-icon svg-icon-primary svg-icon-2x"><!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo6\dist/../src/media/svg/icons\Communication\Shield-user.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+            <span class="svg-icon svg-icon-primary svg-icon-2x"><!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo6\dist/../src/media/svg/icons\Communication\Shield-user.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
               <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                   <rect x="0" y="0" width="24" height="24"/>
                   <path d="M4,4 L11.6314229,2.5691082 C11.8750185,2.52343403 12.1249815,2.52343403 12.3685771,2.5691082 L20,4 L20,13.2830094 C20,16.2173861 18.4883464,18.9447835 16,20.5 L12.5299989,22.6687507 C12.2057287,22.8714196 11.7942713,22.8714196 11.4700011,22.6687507 L8,20.5 C5.51165358,18.9447835 4,16.2173861 4,13.2830094 L4,4 Z" fill="#000000" opacity="0.3"/>
@@ -292,7 +247,7 @@
         <!-- begin: Item -->
         <div class="d-flex align-items-center flex-lg-fill mr-5 my-1">
           <span class="mr-4">
-           <span class="svg-icon svg-icon-primary svg-icon-2x"><!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo6\dist/../src/media/svg/icons\Home\Timer.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+             <span class="svg-icon svg-icon-primary svg-icon-2x"><!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo6\dist/../src/media/svg/icons\Home\Timer.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
               <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                   <rect x="0" y="0" width="24" height="24"/>
                   <path d="M12,21 C7.581722,21 4,17.418278 4,13 C4,8.581722 7.581722,5 12,5 C16.418278,5 20,8.581722 20,13 C20,17.418278 16.418278,21 12,21 Z" fill="#000000" opacity="0.3"/>
@@ -306,7 +261,7 @@
           <div class="d-flex flex-column text-dark-75">
             <span class="font-weight-bolder font-size-sm">Durrée Intervention</span>
             <span class="font-weight-bolder font-size-h5">
-              <span class="text-dark-50 font-weight-bold"></span>{{ intervention.DureeIntervention }} heures
+              <span class="text-dark-50 font-weight-bold"></span>{{ intervention.DureeIntervention }}heures
             </span>
           </div>
         </div>
@@ -315,28 +270,7 @@
         <!-- begin: Item -->
         <div class="d-flex align-items-center flex-lg-fill mr-5 my-1">
           <span class="mr-4">
-            <span class="svg-icon svg-icon-primary svg-icon-2x"><!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo6\dist/../src/media/svg/icons\Files\Selected-file.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                    <polygon points="0 0 24 0 24 24 0 24"/>
-                    <path d="M4.85714286,1 L11.7364114,1 C12.0910962,1 12.4343066,1.12568431 12.7051108,1.35473959 L17.4686994,5.3839416 C17.8056532,5.66894833 18,6.08787823 18,6.52920201 L18,19.0833333 C18,20.8738751 17.9795521,21 16.1428571,21 L4.85714286,21 C3.02044787,21 3,20.8738751 3,19.0833333 L3,2.91666667 C3,1.12612489 3.02044787,1 4.85714286,1 Z M8,12 C7.44771525,12 7,12.4477153 7,13 C7,13.5522847 7.44771525,14 8,14 L15,14 C15.5522847,14 16,13.5522847 16,13 C16,12.4477153 15.5522847,12 15,12 L8,12 Z M8,16 C7.44771525,16 7,16.4477153 7,17 C7,17.5522847 7.44771525,18 8,18 L11,18 C11.5522847,18 12,17.5522847 12,17 C12,16.4477153 11.5522847,16 11,16 L8,16 Z" fill="#000000" fill-rule="nonzero" opacity="0.3"/>
-                    <path d="M6.85714286,3 L14.7364114,3 C15.0910962,3 15.4343066,3.12568431 15.7051108,3.35473959 L20.4686994,7.3839416 C20.8056532,7.66894833 21,8.08787823 21,8.52920201 L21,21.0833333 C21,22.8738751 20.9795521,23 19.1428571,23 L6.85714286,23 C5.02044787,23 5,22.8738751 5,21.0833333 L5,4.91666667 C5,3.12612489 5.02044787,3 6.85714286,3 Z M8,12 C7.44771525,12 7,12.4477153 7,13 C7,13.5522847 7.44771525,14 8,14 L15,14 C15.5522847,14 16,13.5522847 16,13 C16,12.4477153 15.5522847,12 15,12 L8,12 Z M8,16 C7.44771525,16 7,16.4477153 7,17 C7,17.5522847 7.44771525,18 8,18 L11,18 C11.5522847,18 12,17.5522847 12,17 C12,16.4477153 11.5522847,16 11,16 L8,16 Z" fill="#000000" fill-rule="nonzero"/>
-                </g>
-            </svg><!--end::Svg Icon-->
-            </span>
-          </span>
-          <div class="d-flex flex-column flex-lg-fill">
-            <span class="text-dark-75 font-weight-bolder font-size-sm">
-              Rapports
-            </span>
-            <a href="#" class="text-primary font-weight-bolder">{{ intervention.rapport|length }}</a>
-          </div>
-        </div>
-        <!-- end: Item -->
-
-        <!-- begin: Item -->
-        <div class="d-flex align-items-center flex-lg-fill mr-5 my-1">
-          <span class="mr-4">
-            <span class="svg-icon svg-icon-primary svg-icon-2x"><!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo6\dist/../src/media/svg/icons\Communication\Chat4.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+             <span class="svg-icon svg-icon-primary svg-icon-2x"><!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo6\dist/../src/media/svg/icons\Communication\Chat4.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
               <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                   <rect x="0" y="0" width="24" height="24"/>
                   <path d="M21.9999843,15.009808 L22.0249378,15 L22.0249378,19.5857864 C22.0249378,20.1380712 21.5772226,20.5857864 21.0249378,20.5857864 C20.7597213,20.5857864 20.5053674,20.4804296 20.317831,20.2928932 L18.0249378,18 L5,18 C3.34314575,18 2,16.6568542 2,15 L2,6 C2,4.34314575 3.34314575,3 5,3 L19,3 C20.6568542,3 22,4.34314575 22,6 L22,15 C22,15.0032706 21.9999948,15.0065399 21.9999843,15.009808 Z M6.16794971,10.5547002 C7.67758127,12.8191475 9.64566871,14 12,14 C14.3543313,14 16.3224187,12.8191475 17.8320503,10.5547002 C18.1384028,10.0951715 18.0142289,9.47430216 17.5547002,9.16794971 C17.0951715,8.86159725 16.4743022,8.98577112 16.1679497,9.4452998 C15.0109146,11.1808525 13.6456687,12 12,12 C10.3543313,12 8.9890854,11.1808525 7.83205029,9.4452998 C7.52569784,8.98577112 6.90482849,8.86159725 6.4452998,9.16794971 C5.98577112,9.47430216 5.86159725,10.0951715 6.16794971,10.5547002 Z" fill="#000000"/>
@@ -344,7 +278,7 @@
            </svg><!--end::Svg Icon-->
            </span>
           </span>
-          <div class="d-flex flex-column">
+          <div class="d-flex flex-column flex-lg-fill">
             <span class="text-dark-75 font-weight-bolder font-size-sm">
               Commentaires
             </span>
@@ -352,7 +286,6 @@
           </div>
         </div>
         <!-- end: Item -->
-
         <!-- begin: Item -->
         <div class="d-flex align-items-center flex-lg-fill my-1">
           <span class="mr-4">
@@ -456,24 +389,7 @@
                 </span>
               </h3>
               <div class="card-toolbar">
-                <a href="{{
-                  path(
-                    'AffecterEquipe',
-                    {
-                      id: intervention.id
-                    }
-                  )
-                  }}"
-                  >
-                 <span class="svg-icon svg-icon-primary svg-icon-2x"><!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo6\dist/../src/media/svg/icons\Code\Plus.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                        <rect x="0" y="0" width="24" height="24"/>
-                        <circle fill="#000000" opacity="0.3" cx="12" cy="12" r="10"/>
-                        <path d="M11,11 L11,7 C11,6.44771525 11.4477153,6 12,6 C12.5522847,6 13,6.44771525 13,7 L13,11 L17,11 C17.5522847,11 18,11.4477153 18,12 C18,12.5522847 17.5522847,13 17,13 L13,13 L13,17 C13,17.5522847 12.5522847,18 12,18 C11.4477153,18 11,17.5522847 11,17 L11,13 L7,13 C6.44771525,13 6,12.5522847 6,12 C6,11.4477153 6.44771525,11 7,11 L11,11 Z" fill="#000000"/>
-                    </g>
-                </svg><!--end::Svg Icon-->
-                </span>
-                </a>
+         
               </div>
             </div>
             <!-- end::Header -->
@@ -549,38 +465,6 @@
                           </svg><!--end::Svg Icon-->
                           </span>
                         </a>
-                        <a href="#"
-                          class="btn btn-icon btn-light btn-hover-primary btn-sm">
-                          <span class="svg-icon svg-icon-md svg-icon-primary">
-                            <!-- begin::Svg Icon | path:assets/media/svg/icons/Navigation/Arrow-right.svg -->
-                            <svg xmlns="http://www.w3.org/2000/svg"
-                              xmlns:xlink="http://www.w3.org/1999/xlink"
-                              width="24px"
-                              height="24px"
-                              viewBox="0 0 24 24"
-                              version="1.1">
-                              <g stroke="none"
-                                stroke-width="1"
-                                fill="none"
-                                fill-rule="evenodd">
-                                <polygon points="0 0 24 0 24 24 0 24"></polygon>
-                                <rect fill="#000000"
-                                  opacity="0.3"
-                                  transform="translate(12.000000, 12.000000) rotate(-90.000000) translate(-12.000000, -12.000000) "
-                                  x="11"
-                                  y="5"
-                                  width="2"
-                                  height="14"
-                                  rx="1"></rect>
-                                <path d="M9.70710318,15.7071045 C9.31657888,16.0976288 8.68341391,16.0976288 8.29288961,15.7071045 C7.90236532,15.3165802 7.90236532,14.6834152 8.29288961,14.2928909 L14.2928896,8.29289093 C14.6714686,7.914312 15.281055,7.90106637 15.675721,8.26284357 L21.675721,13.7628436 C22.08284,14.136036 22.1103429,14.7686034 21.7371505,15.1757223 C21.3639581,15.5828413 20.7313908,15.6103443 20.3242718,15.2371519 L15.0300721,10.3841355 L9.70710318,15.7071045 Z"
-                                  fill="#000000"
-                                  fill-rule="nonzero"
-                                  transform="translate(14.999999, 11.999997) scale(1, -1) rotate(90.000000) translate(-14.999999, -11.999997) "></path>
-                              </g>
-                            </svg>
-                            <!-- end::Svg Icon -->
-                          </span>
-                        </a>
                       </td>
                     </tr>
                   </tbody>
@@ -637,7 +521,9 @@
             <!-- end::Header -->
 
             <!-- begin::Body -->
-         
+            <div id="chart">
+            
+            </div>
             <!-- end::Body -->
           </div>
           <!-- end::Charts Widget 3 -->
@@ -657,78 +543,6 @@
           <h3 class="card-title font-weight-bolder text-dark">
             Equipements
           </h3>
-          <div class="card-toolbar">
-            <div class="dropdown dropdown-inline">
-              <button type="button"
-                class="btn btn-clean btn-hover-light-primary btn-sm btn-icon"
-                data-toggle="modal"
-                data-target="#exampleModal">
-                <span class="svg-icon svg-icon-primary svg-icon-2x"><!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo6\dist/../src/media/svg/icons\Code\Plus.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                        <rect x="0" y="0" width="24" height="24"/>
-                        <circle fill="#000000" opacity="0.3" cx="12" cy="12" r="10"/>
-                        <path d="M11,11 L11,7 C11,6.44771525 11.4477153,6 12,6 C12.5522847,6 13,6.44771525 13,7 L13,11 L17,11 C17.5522847,11 18,11.4477153 18,12 C18,12.5522847 17.5522847,13 17,13 L13,13 L13,17 C13,17.5522847 12.5522847,18 12,18 C11.4477153,18 11,17.5522847 11,17 L11,13 L7,13 C6.44771525,13 6,12.5522847 6,12 C6,11.4477153 6.44771525,11 7,11 L11,11 Z" fill="#000000"/>
-                    </g>
-                </svg>
-                <!--end::Svg Icon-->
-                </span>
-              </button>
-              <div class="modal fade"
-                id="exampleModal"
-                tabindex="-1"
-                role="dialog"
-                aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                  <form class="form"
-                    action="{{
-                    path(
-                      'AffecterEquipement',
-                      {
-                        id: intervention.id
-                      }
-                    )
-                    }}"
-                    method="post">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">
-                          Ajouter Un equipement
-                        </h5>
-                        <button type="button"
-                          class="close"
-                          data-dismiss="modal"
-                          aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
-                      <div class="modal-body">
-                        <select class="form-control select2"
-                          id="kt_select2_1"
-                          name="param">
-                          {% for equipement in equipements %}
-                            <option value="{{ equipement.Libelle }}">
-                              {{ equipement.Libelle }}
-                            </option>
-                          {% endfor %}
-                        </select>
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button"
-                          class="btn btn-secondary"
-                          data-dismiss="modal">
-                          Annuler
-                        </button>
-                        <button type="submit" class="btn btn-primary">
-                          Sauvegarder
-                        </button>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
         <!-- end::Header -->
 
@@ -744,8 +558,7 @@
                   <div class="alert alert-custom alert-light-warning fade show py-4" role="alert">
                       <div class="alert-icon"><i class="flaticon-warning"></i></div>
                       <div class="alert-text font-weight-bold">
-                        Aucun Equipement Selectionner Pour cette Intervention
-                        Cliquer sur Le Boutton + Pour en Ajouter
+                        Aucun Equiment Aaffecté A votre Intervention
                       </div>
                       <div class="alert-close">
                           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -883,7 +696,7 @@
                 <!-- begin::Naviigation -->
                 <ul class="navi">
                   <li class="navi-header font-weight-bold py-5">
-                    <span class="font-size-lg">Add New:</span>
+                    <span class="font-size-lg">Actions:</span>
                     <i class="flaticon2-information icon-md text-muted"
                       data-toggle="tooltip"
                       data-placement="right"
@@ -898,7 +711,7 @@
                       <span class="navi-icon">
                         <i class="flaticon2-shopping-cart-1"></i>
                       </span>
-                      <span class="navi-text">Order</span>
+                      <span class="navi-text">Ajouter</span>
                     </a>
                   </li>
                   <li class="navi-item">
@@ -906,48 +719,12 @@
                       <span class="navi-icon">
                         <i class="navi-icon flaticon2-calendar-8"></i>
                       </span>
-                      <span class="navi-text">Members</span>
+                      <span class="navi-text">Supprimer Tout</span>
                       <span class="navi-label">
                         <span class="label label-light-danger label-rounded font-weight-bold">
                           3
                         </span>
                       </span>
-                    </a>
-                  </li>
-                  <li class="navi-item">
-                    <a href="#" class="navi-link">
-                      <span class="navi-icon">
-                        <i class="navi-icon flaticon2-telegram-logo"></i>
-                      </span>
-                      <span class="navi-text">Project</span>
-                    </a>
-                  </li>
-                  <li class="navi-item">
-                    <a href="#" class="navi-link">
-                      <span class="navi-icon">
-                        <i class="navi-icon flaticon2-new-email"></i>
-                      </span>
-                      <span class="navi-text">Record</span>
-                      <span class="navi-label">
-                        <span class="label label-light-success label-rounded font-weight-bold">
-                          5
-                        </span>
-                      </span>
-                    </a>
-                  </li>
-                  <li class="navi-separator mt-3 opacity-70"></li>
-                  <li class="navi-footer pt-5 pb-4">
-                    <a class="btn btn-light-primary font-weight-bolder btn-sm"
-                      href="#">
-                      More options
-                    </a>
-                    <a class="btn btn-clean font-weight-bold btn-sm d-none"
-                      href="#"
-                      data-toggle="tooltip"
-                      data-placement="right"
-                      title=""
-                      data-original-title="Click to learn more...">
-                      Learn more
                     </a>
                   </li>
                 </ul>
@@ -970,7 +747,7 @@
                   <div class="alert alert-custom alert-light-warning fade show py-4" role="alert">
                       <div class="alert-icon"><i class="flaticon-warning"></i></div>
                       <div class="alert-text font-weight-bold">
-                        Aucun Commentaires Disponible
+                        Vous n'avez encore fais aucun Commentaire Concernant cette Intervention
                       </div>
                       <div class="alert-close">
                           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -1025,162 +802,10 @@
       </div>
       <!-- end::Charts Widget 1 -->
     </div>
-    <div class="col-lg-4">
-      <!-- begin::List Widget 8 -->
-      <div class="card card-custom card-stretch gutter-b">
-        <!-- begin::Header -->
-        <div class="card-header border-0">
-          <h3 class="card-title font-weight-bolder text-dark">
-            Rapports
-          </h3>
-          <div class="card-toolbar">
-            <div class="dropdown dropdown-inline">
-              <a href="#"
-                class="btn btn-clean btn-hover-light-primary btn-sm btn-icon"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false">
-                <i class="ki ki-bold-more-ver"></i>
-              </a>
-              <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
-                <!-- begin::Navigation -->
-                <ul class="navi navi-hover">
-                  <li class="navi-item">
-                    <a href="#" class="navi-link">
-                      <span class="navi-icon">
-                        <i class="flaticon2-shopping-cart-1"></i>
-                      </span>
-                      <span class="navi-text">Order</span>
-                    </a>
-                  </li>
-                  <li class="navi-item">
-                    <a href="#" class="navi-link">
-                      <span class="navi-icon">
-                        <i class="flaticon2-calendar-8"></i>
-                      </span>
-                      <span class="navi-text">Event</span>
-                    </a>
-                  </li>
-                  <li class="navi-item">
-                    <a href="#" class="navi-link">
-                      <span class="navi-icon">
-                        <i class="flaticon2-graph-1"></i>
-                      </span>
-                      <span class="navi-text">Report</span>
-                    </a>
-                  </li>
-                  <li class="navi-item">
-                    <a href="#" class="navi-link">
-                      <span class="navi-icon">
-                        <i class="flaticon2-rocket-1"></i>
-                      </span>
-                      <span class="navi-text">Post</span>
-                    </a>
-                  </li>
-                  <li class="navi-item">
-                    <a href="#" class="navi-link">
-                      <span class="navi-icon">
-                        <i class="flaticon2-writing"></i>
-                      </span>
-                      <span class="navi-text">File</span>
-                    </a>
-                  </li>
-                </ul>
-                <!-- end::Navigation -->
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- end::Header -->
-
-        <!-- begin::Body -->
-        {% if intervention.rapport is empty %}
-        <div class="card-body pt-0">
-            <!-- begin::Item -->
-            <div class="mb-10">
-              <!-- begin::Section -->
-              <div class="d-flex align-items-center">
-              <div class="d-flex flex-column flex-grow-1">
-                  <div class="alert alert-custom alert-light-warning fade show py-4" role="alert">
-                      <div class="alert-icon"><i class="flaticon-warning"></i></div>
-                      <div class="alert-text font-weight-bold">
-                        Aucun Rapport Pour cette Intervention
-                      </div>
-                      <div class="alert-close">
-                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                          <span aria-hidden="true"><i class="la la-close "></i></span>
-                          </button>
-                      </div>
-                  </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        {% else %}
-        {% for rapport in  intervention.rapport %}
-          <div class="card-body pt-0">
-            <!-- begin::Item -->
-            <div class="mb-10">
-              <!-- begin::Section -->
-              <div class="d-flex align-items-center">
-                <!-- begin::Symbol -->
-                <div class="symbol symbol-45 symbol-light mr-5">
-                  <span class="symbol-label">
-                    <img src="assets/media/svg/misc/006-plurk.svg"
-                      class="h-50 align-self-center"
-                      alt="" />
-                  </span>
-                </div>
-                <!-- end::Symbol -->
-
-                <!-- begin::Text -->
-                <div class="d-flex flex-column flex-grow-1">
-                  <a href="#"
-                    class="font-weight-bold text-dark-75 text-hover-primary font-size-lg mb-1">
-                    {{ rapport.SujetRapport }}({{ rapport.employe.Nom }}  {{ rapport.employe.Prenom }})
-                  </a>
-                  <span class="text-muted font-weight-bold">{{ rapport.DateEnvoie }}</span>
-                  <span class="text-muted font-weight-bold">{{ rapport.Statut }}</span>
-                </div>
-                <!-- end::Text -->
-              </div>
-              <!-- end::Section -->
-
-              <!-- begin::Desc -->
-              <p class="text-dark-50 m-0 pt-5 font-weight-normal">
-                {{rapport.Contenu}}
-              </p>
-              <!-- end::Desc -->
-            </div>
-            <!-- end::Item -->
-          </div>
-        {% endfor %}
-        {% endif %}
-        <!-- end::Body -->
-      </div>
-      <!-- end: Card -->
-      <!-- end::List Widget 8 -->
-    </div>
   </div>
-  <!-- end::Row -->
 {% endblock %}
 
-{% block Scripts %}
-  {% include 'admins_dashboard/Components/Scripts.html.twig' %}
-  <script src="{{ asset('Admins/Assets/js/pages/widgets.js') }}"></script>
-  <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
-    integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
-    crossorigin=""></script>
-  <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
-  <script src="{{
-    asset(
-      'Clients/Assets/js/pages/custom/projects/add-project.js'
-    )
-    }}"></script>
-  <script src="{{ asset('Geolocation/AjoutPosition/js/GeolocationForm.js') }}"></script>
-  <script src="{{
-    asset(
-      'Admins/Assets/js/pages/crud/forms/widgets/select2.js'
-    )
-    }}"></script>
-{% endblock %}
+{# {% block Scripts %}
+    {% include('clients_dashboard/Components/Scripts.html.twig') %}
+    <script src="{{asset('Client/Assets/js/pages/widgets.js')}}"></script>
+{% endblock %} #}

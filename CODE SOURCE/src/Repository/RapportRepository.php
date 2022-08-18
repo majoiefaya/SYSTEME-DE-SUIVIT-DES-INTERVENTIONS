@@ -46,10 +46,28 @@ class RapportRepository extends ServiceEntityRepository
         ->getResult();
     }
 
+    public function ListeRapportsNonSupprimésEmploye($id){
+        return $this->createQueryBuilder('r')
+        ->andWhere('r.Enable=True and r.employe=:id')
+        ->setParameter('id',$id)
+        ->getQuery()
+        ->getResult();
+    }
+
     public function ListeRapportsLue()
     {
         return $this->createQueryBuilder('r')
             ->andWhere("r.StatutRapport='Lu'")
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function ListeRapportsLueEmploye($id)
+    {
+        return $this->createQueryBuilder('r')
+            ->andWhere("r.StatutRapport='Lu' and r.employe=:id")
+            ->setParameter('id',$id)
             ->getQuery()
             ->getResult()
         ;
@@ -64,9 +82,27 @@ class RapportRepository extends ServiceEntityRepository
         ;
     }
 
+    public function ListeRapportsNonLueEmploye($id)
+    {
+        return $this->createQueryBuilder('r')
+            ->andWhere("r.StatutRapport='NonLu' and r.employe=:id")
+            ->setParameter('id',$id)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     public function ListeRapportsSupprimés(){
         return $this->createQueryBuilder('r')
         ->andWhere('r.Enable=False')
+        ->getQuery()
+        ->getResult();
+    }
+
+    public function ListeRapportsSupprimésEmploye($id){
+        return $this->createQueryBuilder('r')
+        ->andWhere('r.Enable=False and r.employe=:id')
+        ->setParameter('id',$id)
         ->getQuery()
         ->getResult();
     }

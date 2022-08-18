@@ -24,6 +24,7 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use Goxens\Goxens;
 
 class AuthController extends AbstractController
 {
@@ -294,6 +295,22 @@ class AuthController extends AbstractController
             'form' => $form,
         ]);
 
+    }
+
+
+    #[Route('/EnvoideSmS', name: 'EnvoieDeSms')]
+    public function EnvoideSmsDeComfirmation(RequestStack $requestStack): Response
+    {
+        $apiKey = 'ROD-U021YHJANX4PDF4BUYTGY82HP81E3FEPHMA';
+        $userUid = 'RPILN9';
+        $goxens =  new Goxens($apiKey, $userUid);
+     
+        $number="96329943";
+        $sender="MajoieFaya";
+        $message="Le Message";
+        $send = $goxens->sendSms($apiKey,$userUid,$number,$sender,$message);
+        return $this->json($send);
+        return $this->redirectToRoute('Login',[]);
     }
 
     #[Route('/Deconnexion', name: 'Logout')]

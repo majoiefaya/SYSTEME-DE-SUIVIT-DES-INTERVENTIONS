@@ -1,0 +1,406 @@
+<div class="container-fluid">
+  <!-- begin::Row -->
+ 
+  <div class="row">
+   {% for intervention in interventions %}
+    <div class="col-xl-6">
+      <!-- begin::Card -->
+      <div class="card card-custom gutter-b card-stretch">
+        <!-- begin::Body -->
+        <div class="card-body">
+          <!-- begin::Section -->
+          <div class="d-flex align-items-center">
+            <!-- begin::Pic -->
+            <div class="flex-shrink-0 mr-4 symbol symbol-65 symbol-circle">
+              {% if intervention.client.image==null %}	
+                  <img class="" src="{{asset('Admins/Assets/media/users/blank.png')}}" alt="Pas De Photo De Profil">								          
+              {% else %}
+                  <img src="{{asset('Clients/PhotosDeProfil/')~ intervention.client.image}}" alt="image" />
+              {% endif %}								
+            </div>
+            <!-- end::Pic -->
+            <!-- begin::Info -->
+            <div class="d-flex flex-column mr-auto">
+              <!-- begin: Title -->
+              <a href="#"
+                class="card-title text-hover-primary font-weight-bolder font-size-h5 text-dark mb-1">
+                {% if intervention.Titre!=null %}
+                    {{ intervention.Titre }}
+                {% else%}
+                    Ajouter Un Titre
+                {% endif %}
+              </a>
+              <span class="text-muted font-weight-bold">
+              {% if intervention.client is empty %}
+                <a href="{{path('ModifierIntervention',{'id':intervention.id})}}">Attribuer a un Client</a>
+              {% else %}
+                {{ intervention.client.Nom }} {{ intervention.client.prenom }}
+              {% endif %}
+              </span>
+              <!-- end::Title -->
+            </div>
+            <!-- end::Info -->
+            <!-- begin::Toolbar -->
+            <div class="card-toolbar mb-auto">
+              <div class="dropdown dropdown-inline"
+                data-toggle="tooltip"
+                title=""
+                data-placement="left"
+                data-original-title="Actions Rapides">
+                <a href="#"
+                  class="btn btn-clean btn-hover-light-primary btn-sm btn-icon"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false">
+                  <i class="ki ki-bold-more-hor"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
+                  <!-- begin::Navigation -->
+                  <ul class="navi navi-hover">
+                    <li class="navi-header pb-1">
+                      <span class="text-primary text-uppercase font-weight-bold font-size-sm">
+                        Actions:
+                      </span>
+                    </li>
+                    <li class="navi-item">
+                      <a href="{{path('InfosInterventionTechnicien',{'id':intervention.id})}}" class="navi-link">
+                        <span class="navi-icon">
+                          <i class="flaticon2-plus"></i>
+                        </span>
+                        <span class="navi-text">Plus d'Infos</span>
+                      </a>
+                    </li>
+                    <li class="navi-item">
+                      <a href="" class="navi-link">
+                        <span class="navi-icon">
+                          <i class="flaticon2-pen"></i>
+                        </span>
+                        <span class="navi-text">Localiser</span>
+                      </a>
+                    </li>
+                  </ul>
+                  <!-- end::Navigation -->
+                </div>
+              </div>
+            </div>
+            <!-- end::Toolbar -->
+          </div>
+          <!-- end::Section -->
+          <!-- begin::Content -->
+          <div class="d-flex flex-wrap mt-14">
+            <div class="mr-12 d-flex flex-column mb-7">
+              <span class="d-block font-weight-bold mb-4">Date Debut</span>
+              <span class="btn btn-light-primary btn-sm font-weight-bold btn-upper btn-text">
+                {% if intervention.DateDebutIntervention!=null %}
+                  {{ intervention.DateDebutIntervention|date('d-m-Y') }}
+                {% else %}
+                  N/A
+                {% endif %}
+              </span>
+            </div>
+            <div class="mr-12 d-flex flex-column mb-7">
+              <span class="d-block font-weight-bold mb-4">Date Fin</span>
+              <span class="btn btn-light-danger btn-sm font-weight-bold btn-upper btn-text">
+                {% if intervention.DateFinIntervention!=null %}
+                  {{ intervention.DateFinIntervention|date('d-m-Y') }}
+                {% else %}
+                  N/A
+                {% endif %}
+              </span>
+            </div>
+            <!-- begin::Progress -->
+            {% if intervention.DureeIntervention!=null %}
+            <div class="flex-row-fluid mb-7">
+              <span class="d-block font-weight-bold mb-4">Progression</span>
+              <div class="d-flex align-items-center pt-2">
+                <div class="progress progress-xs mt-2 mb-2 w-100">
+                  <div class="progress-bar bg-warning"
+                    role="progressbar"
+                    style="width: {{ intervention.DureeIntervention }}%;"
+                    aria-valuenow="50"
+                    aria-valuemin="0"
+                    aria-valuemax="100"></div>
+                </div>
+                <span class="ml-3 font-weight-bolder">{{ intervention.DureeIntervention }}%</span>
+              </div>
+            </div>
+            {% else %}
+             <div class="flex-row-fluid mb-7">
+              <span class="d-block font-weight-bold mb-4">Progression</span>
+              <div class="d-flex align-items-center pt-2">
+                <div class="progress progress-xs mt-2 mb-2 w-100">
+                  <div class="progress-bar bg-warning"
+                    role="progressbar"
+                    style="width: 0%;"
+                    aria-valuenow="50"
+                    aria-valuemin="0"
+                    aria-valuemax="100"></div>
+                </div>
+                <span class="ml-3 font-weight-bolder">0%</span>
+              </div>
+            </div>
+            {% endif %}
+            <!-- end::Progress -->
+          </div>
+          <!-- end::Content -->
+          <!-- begin::Text -->
+          <p class="mb-7 mt-3">
+            {% if intervention.description!=null %}
+                <span class="d-block font-weight-bold mb-4">{{ intervention.description }}</span>
+            {% else %}
+                <a class="-block font-weight-bold mb-4" href="{{path('ModifierIntervention',{'id':intervention.id})}}">
+                +Ajouter Une Description</a>
+            {% endif %}
+          </p>
+          <!-- end::Text -->
+          <!-- begin::Blog -->
+          <div class="d-flex flex-wrap">
+            <!-- begin::Item -->
+            <div class="d-flex flex-column flex-lg-fill float-left mb-7">
+              <span class="font-weight-bolder mb-4">Equipe</span>
+              {% if intervention.equipes is empty %}
+                <a href="{{ path('InfosInterventionAdmin',{'id':intervention.id}) }}"
+                  class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3">
+                  <span class="svg-icon svg-icon-primary svg-icon-2x">
+                    <!-- begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo6\dist/../src/media/svg/icons\Code\Plus.svg -->
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                      width="24px"
+                      height="24px"
+                      viewBox="0 0 24 24"
+                      version="1.1">
+                      <g stroke="none"
+                        stroke-width="1"
+                        fill="none"
+                        fill-rule="evenodd">
+                        <rect x="0" y="0" width="24" height="24" />
+                        <circle fill="#000000" opacity="0.3" cx="12" cy="12" r="10" />
+                        <path d="M11,11 L11,7 C11,6.44771525 11.4477153,6 12,6 C12.5522847,6 13,6.44771525 13,7 L13,11 L17,11 C17.5522847,11 18,11.4477153 18,12 C18,12.5522847 17.5522847,13 17,13 L13,13 L13,17 C13,17.5522847 12.5522847,18 12,18 C11.4477153,18 11,17.5522847 11,17 L11,13 L7,13 C6.44771525,13 6,12.5522847 6,12 C6,11.4477153 6.44771525,11 7,11 L11,11 Z"
+                          fill="#000000" />
+                      </g>
+                    </svg>
+                    <!-- end::Svg Icon -->
+                  </span>
+                </a>
+              {% else %}
+                 <div class="symbol-group symbol-hover">
+                  {% for equipe in intervention.equipes %}
+                      <a class="font-weight-bolder mb-4" href="{{path('ModifierEquipe',{'id':equipe.id})}}">{{ equipe.NomEquipe }}</a> 
+                  {% endfor %}
+                </div>
+              {% endif %}
+            </div>
+            <!-- end::Item -->
+            <!-- begin: Item -->
+            <div class="mr-12 d-flex flex-column mb-7">
+              <span class="font-weight-bolder mb-4">Equipements</span>
+              <span class="font-weight-bolder font-size-h5 pt-1">
+                {% if intervention.equipement is empty %}
+                  <a href="{{ path('InfosInterventionAdmin',{'id':intervention.id}) }}"
+                    class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3">
+                    <span class="svg-icon svg-icon-primary svg-icon-2x">
+                      <!-- begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo6\dist/../src/media/svg/icons\Code\Plus.svg -->
+                      <svg xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                        width="24px"
+                        height="24px"
+                        viewBox="0 0 24 24"
+                        version="1.1">
+                        <g stroke="none"
+                          stroke-width="1"
+                          fill="none"
+                          fill-rule="evenodd">
+                          <rect x="0" y="0" width="24" height="24" />
+                          <circle fill="#000000" opacity="0.3" cx="12" cy="12" r="10" />
+                          <path d="M11,11 L11,7 C11,6.44771525 11.4477153,6 12,6 C12.5522847,6 13,6.44771525 13,7 L13,11 L17,11 C17.5522847,11 18,11.4477153 18,12 C18,12.5522847 17.5522847,13 17,13 L13,13 L13,17 C13,17.5522847 12.5522847,18 12,18 C11.4477153,18 11,17.5522847 11,17 L11,13 L7,13 C6.44771525,13 6,12.5522847 6,12 C6,11.4477153 6.44771525,11 7,11 L11,11 Z"
+                            fill="#000000" />
+                        </g>
+                      </svg>
+                      <!-- end::Svg Icon -->
+                    </span>
+                  </a>
+                {% else %}
+                  <a href="{{ path('InfosInterventionAdmin',{'id':intervention.id}) }}"
+                    class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3">
+                   <span class="svg-icon svg-icon-primary svg-icon-2x"><!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo6\dist/../src/media/svg/icons\Code\Done-circle.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <rect x="0" y="0" width="24" height="24"/>
+                            <circle fill="#000000" opacity="0.3" cx="12" cy="12" r="10"/>
+                            <path d="M16.7689447,7.81768175 C17.1457787,7.41393107 17.7785676,7.39211077 18.1823183,7.76894473 C18.5860689,8.1457787 18.6078892,8.77856757 18.2310553,9.18231825 L11.2310553,16.6823183 C10.8654446,17.0740439 10.2560456,17.107974 9.84920863,16.7592566 L6.34920863,13.7592566 C5.92988278,13.3998345 5.88132125,12.7685345 6.2407434,12.3492086 C6.60016555,11.9298828 7.23146553,11.8813212 7.65079137,12.2407434 L10.4229928,14.616916 L16.7689447,7.81768175 Z" fill="#000000" fill-rule="nonzero"/>
+                        </g>
+                    </svg><!--end::Svg Icon-->
+                    </span>
+                  </a>
+                {% endif %}
+              </span>
+            </div>
+            <!-- end::Item -->
+            <!-- begin::Item -->
+            <div class="mr-12 d-flex flex-column mb-7">
+              <span class="font-weight-bolder mb-4">Rapport</span>
+              <span class="font-weight-bolder font-size-h5 pt-1">
+              {% if intervention.rapport is empty  %}
+               <a href="{{ path('InfosInterventionAdmin',{'id':intervention.id}) }}"
+                  class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3">
+                  <span class="svg-icon svg-icon-primary svg-icon-2x"><!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo6\dist/../src/media/svg/icons\Code\Right-circle.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <rect x="0" y="0" width="24" height="24"/>
+                        <circle fill="#000000" opacity="0.3" cx="12" cy="12" r="10"/>
+                        <path d="M7.96323356,15.1775211 C7.62849853,15.5122561 7.08578582,15.5122561 6.75105079,15.1775211 C6.41631576,14.842786 6.41631576,14.3000733 6.75105079,13.9653383 L11.8939067,8.82248234 C12.2184029,8.49798619 12.7409054,8.4866328 13.0791905,8.79672747 L18.2220465,13.5110121 C18.5710056,13.8308912 18.5945795,14.3730917 18.2747004,14.7220508 C17.9548212,15.0710098 17.4126207,15.0945838 17.0636617,14.7747046 L12.5257773,10.6149773 L7.96323356,15.1775211 Z" fill="#000000" fill-rule="nonzero" transform="translate(12.500001, 12.000001) rotate(-270.000000) translate(-12.500001, -12.000001) "/>
+                    </g>
+                    </svg><!--end::Svg Icon-->
+                  </span>
+                </a>
+              {% else %}
+                 <span class="navi-text">Aucun Rapport</span>
+              {% endif %}
+              </span>
+            </div>
+            <!-- end::Item -->
+          </div>
+          <!-- end::Blog -->
+        </div>
+        <!-- end::Body -->
+        <!-- begin::Footer -->
+        <div class="card-footer d-flex align-items-center">
+          <div class="d-flex">
+            <div class="d-flex align-items-center mr-7">
+              <span class="svg-icon svg-icon-gray-500">
+                <!-- begin::Svg Icon | path:assets/media/svg/icons/Text/Bullet-list.svg -->
+                <svg xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  width="24px"
+                  height="24px"
+                  viewBox="0 0 24 24"
+                  version="1.1">
+                  <g stroke="none"
+                    stroke-width="1"
+                    fill="none"
+                    fill-rule="evenodd">
+                    <rect x="0" y="0" width="24" height="24"></rect>
+                    <path d="M10.5,5 L19.5,5 C20.3284271,5 21,5.67157288 21,6.5 C21,7.32842712 20.3284271,8 19.5,8 L10.5,8 C9.67157288,8 9,7.32842712 9,6.5 C9,5.67157288 9.67157288,5 10.5,5 Z M10.5,10 L19.5,10 C20.3284271,10 21,10.6715729 21,11.5 C21,12.3284271 20.3284271,13 19.5,13 L10.5,13 C9.67157288,13 9,12.3284271 9,11.5 C9,10.6715729 9.67157288,10 10.5,10 Z M10.5,15 L19.5,15 C20.3284271,15 21,15.6715729 21,16.5 C21,17.3284271 20.3284271,18 19.5,18 L10.5,18 C9.67157288,18 9,17.3284271 9,16.5 C9,15.6715729 9.67157288,15 10.5,15 Z"
+                      fill="#000000"></path>
+                    <path d="M5.5,8 C4.67157288,8 4,7.32842712 4,6.5 C4,5.67157288 4.67157288,5 5.5,5 C6.32842712,5 7,5.67157288 7,6.5 C7,7.32842712 6.32842712,8 5.5,8 Z M5.5,13 C4.67157288,13 4,12.3284271 4,11.5 C4,10.6715729 4.67157288,10 5.5,10 C6.32842712,10 7,10.6715729 7,11.5 C7,12.3284271 6.32842712,13 5.5,13 Z M5.5,18 C4.67157288,18 4,17.3284271 4,16.5 C4,15.6715729 4.67157288,15 5.5,15 C6.32842712,15 7,15.6715729 7,16.5 C7,17.3284271 6.32842712,18 5.5,18 Z"
+                      fill="#000000"
+                      opacity="0.3"></path>
+                  </g>
+                </svg>
+                <!-- end::Svg Icon -->
+              </span>
+              <a href="#" class="font-weight-bolder text-primary ml-2">
+                Rapports
+              </a>
+            </div>
+            <div class="d-flex align-items-center mr-7">
+              <span class="svg-icon svg-icon-gray-500">
+                <!-- begin::Svg Icon | path:assets/media/svg/icons/Communication/Group-chat.svg -->
+                <svg xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  width="24px"
+                  height="24px"
+                  viewBox="0 0 24 24"
+                  version="1.1">
+                  <g stroke="none"
+                    stroke-width="1"
+                    fill="none"
+                    fill-rule="evenodd">
+                    <rect x="0" y="0" width="24" height="24"></rect>
+                    <path d="M16,15.6315789 L16,12 C16,10.3431458 14.6568542,9 13,9 L6.16183229,9 L6.16183229,5.52631579 C6.16183229,4.13107011 7.29290239,3 8.68814808,3 L20.4776218,3 C21.8728674,3 23.0039375,4.13107011 23.0039375,5.52631579 L23.0039375,13.1052632 L23.0206157,17.786793 C23.0215995,18.0629336 22.7985408,18.2875874 22.5224001,18.2885711 C22.3891754,18.2890457 22.2612702,18.2363324 22.1670655,18.1421277 L19.6565168,15.6315789 L16,15.6315789 Z"
+                      fill="#000000"></path>
+                    <path d="M1.98505595,18 L1.98505595,13 C1.98505595,11.8954305 2.88048645,11 3.98505595,11 L11.9850559,11 C13.0896254,11 13.9850559,11.8954305 13.9850559,13 L13.9850559,18 C13.9850559,19.1045695 13.0896254,20 11.9850559,20 L4.10078614,20 L2.85693427,21.1905292 C2.65744295,21.3814685 2.34093638,21.3745358 2.14999706,21.1750444 C2.06092565,21.0819836 2.01120804,20.958136 2.01120804,20.8293182 L2.01120804,18.32426 C1.99400175,18.2187196 1.98505595,18.1104045 1.98505595,18 Z M6.5,14 C6.22385763,14 6,14.2238576 6,14.5 C6,14.7761424 6.22385763,15 6.5,15 L11.5,15 C11.7761424,15 12,14.7761424 12,14.5 C12,14.2238576 11.7761424,14 11.5,14 L6.5,14 Z M9.5,16 C9.22385763,16 9,16.2238576 9,16.5 C9,16.7761424 9.22385763,17 9.5,17 L11.5,17 C11.7761424,17 12,16.7761424 12,16.5 C12,16.2238576 11.7761424,16 11.5,16 L9.5,16 Z"
+                      fill="#000000"
+                      opacity="0.3"></path>
+                  </g>
+                </svg>
+                <!-- end::Svg Icon -->
+              </span>
+              <a href="#" class="font-weight-bolder text-primary ml-2">
+                Commentaires
+              </a>
+            </div>
+          </div>
+            <a href="{{path('InfosInterventionTechnicien',{'id':intervention.id })}}"
+              class="btn btn-warning btn-shadow font-weight-bold mr-2">
+              Details
+            </a>
+        </div>
+        <!-- end::Footer -->
+      </div>
+      <!-- end::Card -->
+    </div>
+   {% endfor %}
+
+  </div>
+  <!-- end::Row -->
+  <!-- begin::Pagination -->
+  <div class="d-flex justify-content-between align-items-center flex-wrap">
+    <div class="d-flex flex-wrap mr-3">
+      <a href="#" class="btn btn-icon btn-sm btn-light-primary mr-2 my-1">
+        <i class="ki ki-bold-double-arrow-back icon-xs"></i>
+      </a>
+      <a href="#" class="btn btn-icon btn-sm btn-light-primary mr-2 my-1">
+        <i class="ki ki-bold-arrow-back icon-xs"></i>
+      </a>
+      <a href="#"
+        class="btn btn-icon btn-sm border-0 btn-hover-primary mr-2 my-1">
+        ...
+      </a>
+      <a href="#"
+        class="btn btn-icon btn-sm border-0 btn-hover-primary mr-2 my-1">
+        23
+      </a>
+      <a href="#"
+        class="btn btn-icon btn-sm border-0 btn-hover-primary active mr-2 my-1">
+        24
+      </a>
+      <a href="#"
+        class="btn btn-icon btn-sm border-0 btn-hover-primary mr-2 my-1">
+        25
+      </a>
+      <a href="#"
+        class="btn btn-icon btn-sm border-0 btn-hover-primary mr-2 my-1">
+        26
+      </a>
+      <a href="#"
+        class="btn btn-icon btn-sm border-0 btn-hover-primary mr-2 my-1">
+        27
+      </a>
+      <a href="#"
+        class="btn btn-icon btn-sm border-0 btn-hover-primary mr-2 my-1">
+        28
+      </a>
+      <a href="#"
+        class="btn btn-icon btn-sm border-0 btn-hover-primary mr-2 my-1">
+        ...
+      </a>
+      <a href="#" class="btn btn-icon btn-sm btn-light-primary mr-2 my-1">
+        <i class="ki ki-bold-arrow-next icon-xs"></i>
+      </a>
+      <a href="#" class="btn btn-icon btn-sm btn-light-primary mr-2 my-1">
+        <i class="ki ki-bold-double-arrow-next icon-xs"></i>
+      </a>
+    </div>
+    <div class="d-flex align-items-center">
+      <select class="form-control form-control-sm text-primary font-weight-bold mr-4 border-0 bg-light-primary"
+        style="width: 75px;">
+        <option value="10">
+          10
+        </option>
+        <option value="20">
+          20
+        </option>
+        <option value="30">
+          30
+        </option>
+        <option value="50">
+          50
+        </option>
+        <option value="100">
+          100
+        </option>
+      </select>
+      <span class="text-muted">Displaying 10 of 230 records</span>
+    </div>
+  </div>
+  <!-- end::Pagination -->
+</div>

@@ -24,19 +24,19 @@ class Equipe extends ActionInfos
     #[ORM\ManyToOne(targetEntity: Admin::class, inversedBy: 'equipe')]
     private $admin;
 
-    #[ORM\OneToMany(mappedBy: 'equipe', targetEntity: Technicien::class)]
-    private $technicien;
-
     #[ORM\ManyToMany(targetEntity: Intervention::class, inversedBy: 'equipes')]
     private $intervention;
 
     #[ORM\OneToOne(mappedBy: 'chef', targetEntity: Technicien::class, cascade: ['persist', 'remove'])]
     private $technicienChef;
 
+    #[ORM\ManyToMany(targetEntity: Technicien::class, inversedBy: 'equipes')]
+    private $technicien;
+
     public function __construct()
     {
-        $this->technicien = new ArrayCollection();
         $this->intervention = new ArrayCollection();
+        $this->technicien = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -80,35 +80,6 @@ class Equipe extends ActionInfos
         return $this;
     }
 
-    /**
-     * @return Collection<int, Technicien>
-     */
-    public function getTechnicien(): Collection
-    {
-        return $this->technicien;
-    }
-
-    public function addTechnicien(Technicien $technicien): self
-    {
-        if (!$this->technicien->contains($technicien)) {
-            $this->technicien[] = $technicien;
-            $technicien->setEquipe($this);
-        }
-
-        return $this;
-    }
-
-    public function removeTechnicien(Technicien $technicien): self
-    {
-        if ($this->technicien->removeElement($technicien)) {
-            // set the owning side to null (unless already changed)
-            if ($technicien->getEquipe() === $this) {
-                $technicien->setEquipe(null);
-            }
-        }
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Intervention>
@@ -160,5 +131,29 @@ class Equipe extends ActionInfos
     public function __toString() 
     {
         return (string) $this->NomEquipe; 
+    }
+
+    /**
+     * @return Collection<int, Technicien>
+     */
+    public function getTechnicien(): Collection
+    {
+        return $this->technicien;
+    }
+
+    public function addTechnicien(Technicien $technicien): self
+    {
+        if (!$this->technicien->contains($technicien)) {
+            $this->technicien[] = $technicien;
+        }
+
+        return $this;
+    }
+
+    public function removeTechnicien(Technicien $technicien): self
+    {
+        $this->technicien->removeElement($technicien);
+
+        return $this;
     }
 }

@@ -63,7 +63,7 @@
                       </span>
                     </li>
                     <li class="navi-item">
-                      <a href="{{path('InfosIntervention',{'id':intervention.id})}}" class="navi-link">
+                      <a href="{{path('InfosInterventionAdmin',{'id':intervention.id})}}" class="navi-link">
                         <span class="navi-icon">
                           <i class="flaticon2-plus"></i>
                         </span>
@@ -107,8 +107,8 @@
             <div class="mr-12 d-flex flex-column mb-7">
               <span class="d-block font-weight-bold mb-4">Date Debut</span>
               <span class="btn btn-light-primary btn-sm font-weight-bold btn-upper btn-text">
-                {% if intervention.DateFinIntervention!=null %}
-                  {{ intervention.DateFinIntervention|date('d-m-Y') }}
+                {% if intervention.DateDebutIntervention!=null %}
+                  {{ intervention.DateDebutIntervention|date('d-m-Y') }}
                 {% else %}
                   N/A
                 {% endif %}
@@ -117,11 +117,11 @@
             <div class="mr-12 d-flex flex-column mb-7">
               <span class="d-block font-weight-bold mb-4">Date Fin</span>
               <span class="btn btn-light-danger btn-sm font-weight-bold btn-upper btn-text">
-              {% if intervention.DateDebutIntervention!=null %}
-                {{ intervention.DateDebutIntervention|date('d-m-Y') }}
-              {% else %}
-                N/A
-              {% endif %}
+                {% if intervention.DateFinIntervention!=null %}
+                  {{ intervention.DateFinIntervention|date('d-m-Y') }}
+                {% else %}
+                  N/A
+                {% endif %}
               </span>
             </div>
             <!-- begin::Progress -->
@@ -175,7 +175,7 @@
             <div class="d-flex flex-column flex-lg-fill float-left mb-7">
               <span class="font-weight-bolder mb-4">Equipe</span>
               {% if intervention.equipes is empty %}
-                <a href="{{ path('InfosIntervention',{'id':intervention.id}) }}"
+                <a href="{{ path('InfosInterventionAdmin',{'id':intervention.id}) }}"
                   class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3">
                   <span class="svg-icon svg-icon-primary svg-icon-2x">
                     <!-- begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo6\dist/../src/media/svg/icons\Code\Plus.svg -->
@@ -212,7 +212,7 @@
               <span class="font-weight-bolder mb-4">Equipements</span>
               <span class="font-weight-bolder font-size-h5 pt-1">
                 {% if intervention.equipement is empty %}
-                  <a href="{{ path('InfosIntervention',{'id':intervention.id}) }}"
+                  <a href="{{ path('InfosInterventionAdmin',{'id':intervention.id}) }}"
                     class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3">
                     <span class="svg-icon svg-icon-primary svg-icon-2x">
                       <!-- begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo6\dist/../src/media/svg/icons\Code\Plus.svg -->
@@ -236,7 +236,7 @@
                     </span>
                   </a>
                 {% else %}
-                  <a href="{{ path('InfosIntervention',{'id':intervention.id}) }}"
+                  <a href="{{ path('InfosInterventionAdmin',{'id':intervention.id}) }}"
                     class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3">
                    <span class="svg-icon svg-icon-primary svg-icon-2x"><!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo6\dist/../src/media/svg/icons\Code\Done-circle.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -256,7 +256,7 @@
               <span class="font-weight-bolder mb-4">Rapport</span>
               <span class="font-weight-bolder font-size-h5 pt-1">
               {% if intervention.rapport is empty  %}
-               <a href="{{ path('InfosIntervention',{'id':intervention.id}) }}"
+               <a href="{{ path('InfosInterventionAdmin',{'id':intervention.id}) }}"
                   class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3">
                   <span class="svg-icon svg-icon-primary svg-icon-2x"><!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo6\dist/../src/media/svg/icons\Code\Right-circle.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -341,7 +341,7 @@
               Activer
             </a>
           {% else %}
-            <a href="{{path('InfosIntervention',{'id':intervention.id })}}"
+            <a href="{{path('InfosInterventionAdmin',{'id':intervention.id })}}"
               class="btn btn-danger btn-shadow font-weight-bold mr-2">
               Desactiver
             </a>

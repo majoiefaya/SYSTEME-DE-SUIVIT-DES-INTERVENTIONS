@@ -99,8 +99,8 @@ class InterventionController extends AbstractController
         ]);
     }
 
-    #[Route('/InformationsDeLInterventionN/{id}', name: 'InfosIntervention', methods: ['GET'])]
-    public function Information(EquipementRepository $equipementRepository,Intervention $intervention, InterventionRepository $interventionRepository,EquipeRepository $equipeRepository): Response
+    #[Route('/AdminInformationsDeLInterventionN/{id}', name: 'InfosInterventionAdmin', methods: ['GET'])]
+    public function InformationsInterventionAdmin(EquipementRepository $equipementRepository,Intervention $intervention, InterventionRepository $interventionRepository,EquipeRepository $equipeRepository): Response
     {
         $dateActuelle=new \DateTime('@'.strtotime('now'));
 
@@ -129,7 +129,7 @@ class InterventionController extends AbstractController
        
 
         $equipes=$intervention->getEquipes();
-        return $this->render('GestionDesInterventions/intervention/InfosIntervention.html.twig', [
+        return $this->render('GestionDesInterventions/intervention/InfosInterventionAdmin.html.twig', [
             'intervention' => $intervention,
             'NombreInterventions'=>count($interventionRepository->findAll()),
             'equipesIntervention'=>$intervention->getEquipes(),
@@ -141,6 +141,89 @@ class InterventionController extends AbstractController
             'dateActu'=>$dateActuelle
         ]);
     }
+
+
+    #[Route('/TehnicienInformationsDeLInterventionN/{id}', name: 'InfosInterventionTechnicien', methods: ['GET'])]
+    public function InformationsInterventionTechnicien(EquipementRepository $equipementRepository,Intervention $intervention, InterventionRepository $interventionRepository,EquipeRepository $equipeRepository): Response
+    {
+        $dateActuelle=new \DateTime('@'.strtotime('now'));
+
+        if($intervention->getDateFinIntervention()!=null)
+        {
+            $DateFinIntervention=$intervention->getDateFinIntervention();
+            if($DateFinIntervention>$dateActuelle){
+                $diff = $DateFinIntervention->diff($dateActuelle);
+                $NbreHeuresActuelle = $diff->h;
+                $NbreHeuresActuelle = $NbreHeuresActuelle + ($diff->days*24); 
+    
+                $NbreHeuresTotal=$intervention->getDureeIntervention();
+    
+                $pourcentageIntervention=($NbreHeuresActuelle*100)/$NbreHeuresTotal;
+                $pourcentageIntervention=100-$pourcentageIntervention;
+            }else{
+                $pourcentageIntervention=100;
+            }
+
+                
+        }else{
+            $pourcentageIntervention=0;
+        };
+        
+        /////////////////////////////////////////////////////
+       
+
+        $equipes=$intervention->getEquipes();
+        return $this->render('GestionDesInterventions/intervention/InfosInterventionTechnicien.html.twig', [
+            'intervention' => $intervention,
+            'NombreInterventions'=>count($interventionRepository->findAll()),
+            'equipesIntervention'=>$intervention->getEquipes(),
+            'equipes'=>$equipeRepository->findAll(),
+            'equipements'=>$equipementRepository->findAll(),
+            'NombreEquipe'=>count($equipes),
+            'equipementsIntervention'=>$intervention->getEquipement(),
+            'pourcentageIntervention'=>$pourcentageIntervention,
+            'dateActu'=>$dateActuelle
+        ]);
+    }
+
+    #[Route('/ClientInformationsDeLInterventionN/{id}', name: 'InfosInterventionClient', methods: ['GET'])]
+    public function InformationsInterventionClient(EquipementRepository $equipementRepository,Intervention $intervention, InterventionRepository $interventionRepository,EquipeRepository $equipeRepository): Response
+    {
+        $dateActuelle=new \DateTime('@'.strtotime('now'));
+
+        if($intervention->getDateFinIntervention()!=null)
+        {
+            $DateFinIntervention=$intervention->getDateFinIntervention();
+            if($DateFinIntervention>$dateActuelle){
+                $diff = $DateFinIntervention->diff($dateActuelle);
+                $NbreHeuresActuelle = $diff->h;
+                $NbreHeuresActuelle = $NbreHeuresActuelle + ($diff->days*24); 
+    
+                $NbreHeuresTotal=$intervention->getDureeIntervention();
+    
+                $pourcentageIntervention=($NbreHeuresActuelle*100)/$NbreHeuresTotal;
+                $pourcentageIntervention=100-$pourcentageIntervention;
+            }else{
+                $pourcentageIntervention=100;
+            }
+
+                
+        }else{
+            $pourcentageIntervention=0;
+        };
+        
+        /////////////////////////////////////////////////////
+       
+
+        $equipes=$intervention->getEquipes();
+        return $this->render('GestionDesInterventions/intervention/InfosInterventionClient.html.twig', [
+            'intervention' => $intervention,
+            'equipementsIntervention'=>$intervention->getEquipement(),
+            'equipesIntervention'=>$intervention->getEquipes(),
+            'pourcentageIntervention'=>$pourcentageIntervention,
+        ]);
+    }
+
 
     #[Route('/ActivationDeLInterventionN/{id}', name: 'ActiverIntervention', methods: ['GET','POST'])]
     public function ActiverIntervention(Request $request,EquipementRepository $equipementRepository,Intervention $intervention, InterventionRepository $interventionRepository,EquipeRepository $equipeRepository,MailerInterface $mailer): Response
@@ -197,12 +280,15 @@ class InterventionController extends AbstractController
                 if($intervention->getEquipes()->contains($Equipe)){
                     return $this->renderForm('GestionDesInterventions/equipe/AffecterUneEquipe.html.twig', [
                         'error' => 'Equipe Deja Affectée',
+                        'intervention'=>$intervention,
+                        'equipes'=>$equipeRepository->findAll()
                     ]);
                 }else{
                     $intervention->addEquipe($Equipe);
                     $interventionRepository->add($intervention, true);
-                    return $this->redirectToRoute('InfosIntervention', [
-                        'id'=>$intervention->getId()
+                    return $this->redirectToRoute('InfosInterventionAdmin', [
+                        'id'=>$intervention->getId(),
+                        'intervention'=>$intervention
                     ], Response::HTTP_SEE_OTHER);
                 }  
             }
@@ -238,12 +324,12 @@ class InterventionController extends AbstractController
                         $equipementRepository->add($Equipement,true);
                         $intervention->addEquipement($Equipement);
                         $interventionRepository->add($intervention, true);
-                        return $this->redirectToRoute('InfosIntervention', [
+                        return $this->redirectToRoute('InfosInterventionAdmin', [
                             'id'=>$intervention->getId()
                         ], Response::HTTP_SEE_OTHER);
                     }  
                 }else{
-                    return $this->renderForm('GestionDesInterventions/intervention/InfosIntervention.html.twig', [
+                    return $this->renderForm('GestionDesInterventions/intervention/InfosInterventionAdmin.html.twig', [
                         'error' => 'Stock Epuisé',
                         'intervention'=>$intervention
                     ]);

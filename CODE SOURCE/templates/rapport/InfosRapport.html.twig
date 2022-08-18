@@ -242,7 +242,7 @@
                         </svg><!--end::Svg Icon--></span>                                </span>
                   {% if rapport.DateEnvoi is not null %}
                   <span class="btn btn-light-danger btn-sm text-uppercase font-weight-bolder mr-2" data-toggle="tooltip" title="" data-original-title="Change due date">
-                      {{ rapport.DateEnvoi }}
+                      {{ rapport.DateEnvoi|date('d-m-y') }}
                   </span>
                   {% else %}
                   <span class="btn btn-light-danger btn-sm text-uppercase font-weight-bolder mr-2" data-toggle="tooltip" title="" data-original-title="Change due date">
@@ -326,7 +326,7 @@
                                               </tr>
                                               <tr>
                                                   <td class="text-muted py-2">Date:</td>
-                                                  <td>{{ rapport.DateEnvoi }}</td>
+                                                  <td>{{ rapport.DateEnvoi|date('Le d/m/y') }}</td>
                                               </tr>
                                               <tr>
                                                   <td class="text-muted py-2">Subjet:</td>

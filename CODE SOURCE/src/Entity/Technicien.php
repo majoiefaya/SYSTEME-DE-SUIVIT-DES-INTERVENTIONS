@@ -18,19 +18,20 @@ class Technicien extends Employe
     #[ORM\Column(type: 'string', length: 255)]
     private $Type;
 
-    #[ORM\ManyToOne(targetEntity: Equipe::class, inversedBy: 'technicien')]
-    private $equipe;
-
     #[ORM\OneToOne(inversedBy: 'technicienChef', targetEntity: Equipe::class, cascade: ['persist', 'remove'])]
     private $chef;
 
     #[ORM\OneToMany(mappedBy: 'technicien', targetEntity: InterventionAss::class)]
     private $interventionAss;
 
+    #[ORM\ManyToMany(targetEntity: Equipe::class, mappedBy: 'technicien')]
+    private $equipes;
+
     public function __construct()
     {
         parent::__construct();
         $this->interventionAss = new ArrayCollection();
+        $this->equipes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -46,18 +47,6 @@ class Technicien extends Employe
     public function setType(string $Type): self
     {
         $this->Type = $Type;
-
-        return $this;
-    }
-
-    public function getEquipe(): ?Equipe
-    {
-        return $this->equipe;
-    }
-
-    public function setEquipe(?Equipe $equipe): self
-    {
-        $this->equipe = $equipe;
 
         return $this;
     }
@@ -99,6 +88,33 @@ class Technicien extends Employe
             if ($interventionAss->getTechnicien() === $this) {
                 $interventionAss->setTechnicien(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Equipe>
+     */
+    public function getEquipes(): Collection
+    {
+        return $this->equipes;
+    }
+
+    public function addEquipe(Equipe $equipe): self
+    {
+        if (!$this->equipes->contains($equipe)) {
+            $this->equipes[] = $equipe;
+            $equipe->addTechnicien($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEquipe(Equipe $equipe): self
+    {
+        if ($this->equipes->removeElement($equipe)) {
+            $equipe->removeTechnicien($this);
         }
 
         return $this;

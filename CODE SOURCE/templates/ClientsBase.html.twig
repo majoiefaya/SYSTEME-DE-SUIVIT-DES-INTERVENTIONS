@@ -86,12 +86,17 @@ License: You must have a valid license purchased only from themeforest(the above
 
 						{% endblock %}
 						<!--begin::Entry-->
-						<div
-							class="d-flex flex-column-fluid">
+						<div class="d-flex flex-column-fluid">
 							<!--begin::Container-->
-							{% block Contenu %}
-								
-							{% endblock %}
+							<div class="container">
+								{% block Onglets %}
+									{% include 'clients_dashboard/Components/Entete.html.twig'%}
+								{% endblock %}
+							
+								{% block Contenu %}
+									
+								{% endblock %}
+							</div>
 							<!--end::Container-->
 						</div>
 						<!--end::Entry-->

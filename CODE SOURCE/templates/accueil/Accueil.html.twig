@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Simple landing page</title>
+  <title>SDI</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -32,7 +32,7 @@
             </button>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#header-section">APropos<span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="#header-section">{% trans %}About{% endtrans %}<span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#features-section">Guide</a>
@@ -41,7 +41,19 @@
             <a class="nav-link" href="#digital-marketing-section">Services</a>  
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#feedback-section">Temoignages</a>
+            <a class="nav-link" href="#feedback-section">{% trans %}Testimonials{% endtrans %}</a>
+          </li>
+          <li class="nav-item">
+            {% for locale in locales %}
+              {% if locale != app.request.locale %}
+                  <a href="{{path('ChangerLangue',{'locale':locale})}}" class="nav-link" data-offset="0px,0px" aria-expanded="false">
+                      <span class="symbol symbol-20 mr-3">
+                        <img src="/Admins/assets/media/svg/flags/{{ locale }}.svg" alt="{{ locale }}" style="height:18px">
+                      </span>
+                      <span class="navi-text">{{ locale }}</span>
+                  </a>
+                {% endif %}
+            {% endfor %}
           </li>
           <li class="nav-item btn-contact-us pl-4 pl-lg-0">
             <a href="{{path('Login')}}"class="btn btn-info">Connexion</a>
@@ -53,11 +65,11 @@
   </header>
   <div class="banner" >
     <div class="container">
-      <h1 class="font-weight-semibold">Suivit des interventions &<br>Gestion des services.</h1>
-      <h6 class="font-weight-normal text-muted pb-3">Pour permettre a nos clients de jouir plus librement et facilement des produits que nous leurs proposons</h6>
+      <h1 class="font-weight-semibold">{% trans %} Interventions Monitoring {% endtrans %} &<br>{% trans %}Service Management{% endtrans %}.</h1>
+      <h6 class="font-weight-normal text-muted pb-3">{% trans %}To allow our customers to enjoy more freely and easily the products we offer them{% endtrans %}</h6>
       <div>
         <a href="{{path('ChoixTypeCompte')}}" class="btn btn-opacity-light mr-1">Inscription</a>
-        <button class="btn btn-opacity-success ml-1">Plus d'Infos</button>
+        <button class="btn btn-opacity-success ml-1">{% trans %}More informations{% endtrans %}</button>
       </div>
       <img src="{{ asset('Accueil/images/Group171.svg')}}" alt="" class="img-fluid">
     </div>
@@ -66,31 +78,31 @@
     <div class="container">
       <section class="features-overview" id="features-section" >
         <div class="content-header">
-          <h2>Comment ca marche ?</h2>
-          <h6 class="section-subtitle text-muted">Pour profiter de nos services il vous suffit de suivre les Etapes suivantes.</h6>
+          <h2>{% trans %}How it works{% endtrans %}</h2>
+          <h6 class="section-subtitle text-muted">{% trans %}To take advantage of our services, simply follow the following steps{% endtrans %}.</h6>
         </div>
         <div class="d-md-flex justify-content-between">
           <div class="grid-margin d-flex justify-content-start">
             <div class="features-width">
               <img src="{{ asset('Accueil/images/Group12.svg')}}" alt="" class="img-icons">
-              <h5 class="py-3">Créer Un<br>Compte</h5>
-              <p class="text-muted">Pour Créer Un Compte sur Notre Plateforme cliquez sur Le Lien Créer ci-dessous ou rendez vous dans la section <a href="#header-section">A Propos</a> puis cliquez sur Inscription.</p>
+              <h5 class="py-3">{% trans %}Create{% endtrans %}<br>{% trans %}Account{% endtrans %}</h5>
+              <p class="text-muted">{% trans %}To Create An Account on Our Platform click on The Create Link below or go to the section{% endtrans %}<a href="#header-section">{% trans %}About{% endtrans %}</a>{% trans %}then click on Register{% endtrans %}.</p>
               <a href="{{ path('ChoixTypeCompte') }}"><p class="readmore-link">Créer</p></a>  
             </div>
           </div>
           <div class="grid-margin d-flex justify-content-center">
             <div class="features-width">
               <img src="{{ asset('Accueil/images/Group7.svg')}}" alt="" class="img-icons">
-              <h5 class="py-3">Se<br>Connecter</h5>
-              <p class="text-muted">Apres avoir créer Votre Compte et l avoir Validé Connectez-vous et accedez a votre Espace.Vous pouvez cliquez sur le Lien Connexion ci-dessous ou sur le bouton Connexion du Menu</p>
+              <h5 class="py-3">{% trans %}Login{% endtrans %}</h5>
+              <p class="text-muted">{% trans %}After creating Your Account and validating it, Log in and access your Space. You can click on the Connection Link below or on the Connection button in the Menu{% endtrans %}</p>
               <a href="{{ path('Login') }}"><p class="readmore-link">Connexion</p></a>
             </div>
           </div>
           <div class="grid-margin d-flex justify-content-end">
             <div class="features-width">
               <img src="{{ asset('Accueil/images/Group5.svg')}}" alt="" class="img-icons">
-              <h5 class="py-3">Acceder<br>a votre Contenu</h5>
-              <p class="text-muted">Apres vous etre connecter,accedez a votre espace et jouissez de son contenu et de ses fonctionnalités.Les fonctionnalités disponibles varient en fonction du type de Compte que vous avez Créer</p>
+              <h5 class="py-3">{% trans %}Access To your Space{% endtrans %}</h5>
+              <p class="text-muted">{% trans %}After logging in, access your space and enjoy its content and features. The features available vary depending on the type of Account you have created{% endtrans %}</p>
               {# <a href="#"><p class="readmore-link">Readmore</p></a> #}
             </div>
           </div>
@@ -99,10 +111,10 @@
       <section class="digital-marketing-service" id="digital-marketing-section">
         <div class="row align-items-center">
           <div class="col-12 col-lg-7 grid-margin grid-margin-lg-0" data-aos="fade-right">
-            <h3 class="m-0">Nous offrons d' autres services Secondaires!</h3>
+            <h3 class="m-0">{% trans %}We also offer other services {% endtrans %}!</h3>
             <div class="col-lg-7 col-xl-6 p-0">
-              <p class="py-4 m-0 text-muted">Tel que Notre Reseau Social Intégré</p>
-              <p class="font-weight-medium text-muted">Un outil pour permettre aux différents utilisateurs d'echanger et de partager leurs experiences</p>
+              <p class="py-4 m-0 text-muted">{% trans %}Such as an Integrated Social Network{% endtrans %}</p>
+              <p class="font-weight-medium text-muted">{% trans %}A tool to allow different users to exchange and share their experiences{% endtrans %}</p>
             </div>    
           </div>
           <div class="col-12 col-lg-5 p-0 img-digital grid-margin grid-margin-lg-0" data-aos="fade-left">
@@ -114,20 +126,20 @@
             <img src="{{ asset('Accueil/images/Group2.png')}}" alt="" class="img-fluid">
           </div>
           <div class="col-12 col-lg-5 flex-item grid-margin" data-aos="fade-left">
-            <h3 class="m-0">Des Services<br>Divers et Variés.</h3>
+            <h3 class="m-0">{% trans %}Various{% endtrans %}<br>{% trans %}Services{% endtrans %}.</h3>
             <div class="col-lg-9 col-xl-8 p-0">
-              <p class="py-4 m-0 text-muted">Notre Gestionnaire de Tache.</p>
-              <p class="pb-2 font-weight-medium text-muted">Un outil pour vous permttre de mieux organiser et plannifier vos taches.</p>
+              <p class="py-4 m-0 text-muted">{% trans %}Our Task Manager{% endtrans %}.</p>
+              <p class="pb-2 font-weight-medium text-muted">{% trans %}A tool to help you better organize and plan your tasks{% endtrans %}.</p>
             </div>
-            <button class="btn btn-info">Plus d'Infos</button>
+            <button class="btn btn-info">{% trans %}More information{% endtrans %}</button>
           </div>
         </div>
       </section>     
       <section class="case-studies" id="case-studies-section">
         <div class="row grid-margin">
           <div class="col-12 text-center pb-5">
-            <h2>Nos Principaux Services</h2>
-            <h6 class="section-subtitle text-muted">Ce que nous proposons concretement</h6>
+            <h2>{% trans %}Our Main Services{% endtrans %}</h2>
+            <h6 class="section-subtitle text-muted">{% trans %}What we offer concretely{% endtrans %}</h6>
           </div>
           <div class="col-12 col-md-6 col-lg-3 stretch-card mb-3 mb-lg-0" data-aos="zoom-in">
             <div class="card color-cards">
@@ -138,14 +150,14 @@
                   </div>  
                   <div class="card-desc-box d-flex align-items-center justify-content-around">
                     <div>
-                      <h6 class="text-white pb-2 px-3">A Propos des Ressources Materiels</h6>
-                      <button class="btn btn-white">Plus d'Infos</button>
+                      <h6 class="text-white pb-2 px-3">{% trans %}About Material Resources {% endtrans %}</h6>
+                      <button class="btn btn-white">{% trans %}More information{% endtrans %}</button>
                     </div>
                   </div>
                 </div>   
                 <div class="card-details text-center pt-4">
-                    <h6 class="m-0 pb-1">Administration des Ressources Materiels</h6>
-                    <p>Materiels,Equipements</p>
+                    <h6 class="m-0 pb-1">{% trans %}Material Resources Administration{% endtrans %}</h6>
+                    <p>{% trans %}Materials,Equipment{% endtrans %}</p>
                 </div>
               </div>
             </div>
@@ -159,13 +171,13 @@
                   </div>  
                   <div class="card-desc-box d-flex align-items-center justify-content-around">
                     <div>
-                      <h6 class="text-white pb-2 px-3">A Propos du suivit des Interventions</h6>
-                      <button class="btn btn-white">Plus d'Infos</button>
+                      <h6 class="text-white pb-2 px-3">{% trans %}About Tracking Interventions {% endtrans %}</h6>
+                      <button class="btn btn-white">{% trans %}More information {% endtrans %}</button>
                     </div>
                   </div>
                 </div>   
                 <div class="card-details text-center pt-4">
-                    <h6 class="m-0 pb-1">Suivit Des Interventions</h6>
+                    <h6 class="m-0 pb-1">{% trans %}Interventions Monitoring {% endtrans %}</h6>
                     <p>Interventions</p>
                 </div>
               </div>
@@ -180,14 +192,14 @@
                   </div>  
                   <div class="card-desc-box d-flex align-items-center justify-content-around">
                     <div>
-                      <h6 class="text-white pb-2 px-3">A Propos de La Gestion des Rapports</h6>
-                      <button class="btn btn-white">Plus d'Infos</button>
+                      <h6 class="text-white pb-2 px-3">{% trans %}About Report Management {% endtrans %}</h6>
+                      <button class="btn btn-white">{% trans %}More information {% endtrans %}</button>
                     </div>
                   </div>
                 </div>   
                 <div class="card-details text-center pt-4">
-                    <h6 class="m-0 pb-1">Gestion des Rapports</h6>
-                    <p>Rapports</p>
+                    <h6 class="m-0 pb-1">{% trans %}Report Management {% endtrans %}</h6>
+                    <p>{% trans %}Report {% endtrans %}</p>
                 </div>
               </div>
             </div>
@@ -201,14 +213,14 @@
                   </div>  
                   <div class="card-desc-box d-flex align-items-center justify-content-around">
                     <div>
-                      <h6 class="text-white pb-2 px-3">A Propos des Ressources Humaines</h6>
-                      <button class="btn btn-white">Plus d'Infos</button>
+                      <h6 class="text-white pb-2 px-3">{% trans %}About Human Resources{% endtrans %}</h6>
+                      <button class="btn btn-white">{% trans %}More information{% endtrans %}</button>
                     </div>
                   </div>
                 </div>   
                 <div class="card-details text-center pt-4">
-                    <h6 class="m-0 pb-1">Gestion des Ressources Humaines</h6>
-                    <p>Capital Humain</p>
+                    <h6 class="m-0 pb-1">{% trans %}Human Resource Management{% endtrans %}</h6>
+                    <p>{% trans %}Human capital{% endtrans %}</p>
                 </div>
               </div>
             </div>
@@ -218,8 +230,8 @@
       <section class="customer-feedback" id="feedback-section">
         <div class="row">
           <div class="col-12 text-center pb-5">
-            <h2>Temoignages qui nous sont adressés</h2>
-            <h6 class="section-subtitle text-muted m-0">Temoignages de nos utilisateurs</h6>
+            <h2>{% trans %}Testimonials addressed to us{% endtrans %}</h2>
+            <h6 class="section-subtitle text-muted m-0">{% trans %}Testimonials from our users{% endtrans %}</h6>
           </div>
           <div class="owl-carousel owl-theme grid-margin">
               <div class="card customer-cards">
@@ -233,105 +245,17 @@
                   </div>
                 </div>
               </div>
-              <div class="card customer-cards">
-                <div class="card-body">
-                  <div class="text-center">
-                    <img src="{{ asset('Accueil/images/face3.jpg')}}" width="89" height="89" alt="" class="img-customer">
-                    <p class="m-0 py-3 text-muted">Lorem ipsum dolor sit amet, tincidunt vestibulum. Fusce egeabus consectetuer turpis, suspendisse.</p>
-                    <div class="content-divider m-auto"></div>
-                    <h6 class="card-title pt-3">Sophia Armstrong</h6>
-                    <h6 class="customer-designation text-muted m-0">Marketing Manager</h6>
-                  </div>
-                </div>
-              </div>
-              <div class="card customer-cards">
-                <div class="card-body">
-                  <div class="text-center">
-                    <img src="{{ asset('Accueil/images/face20.jpg')}}" width="89" height="89" alt="" class="img-customer">
-                    <p class="m-0 py-3 text-muted">Lorem ipsum dolor sit amet, tincidunt vestibulum. Fusce egeabus consectetuer turpis, suspendisse.</p>
-                    <div class="content-divider m-auto"></div>
-                    <h6 class="card-title pt-3">Cody Lambert</h6>
-                    <h6 class="customer-designation text-muted m-0">Marketing Manager</h6>
-                  </div>
-                </div>
-              </div>
-              <div class="card customer-cards">
-                <div class="card-body">
-                  <div class="text-center">
-                    <img src="{{ asset('Accueil/images/face15.jpg')}}" width="89" height="89" alt="" class="img-customer">
-                    <p class="m-0 py-3 text-muted">Lorem ipsum dolor sit amet, tincidunt vestibulum. Fusce egeabus consectetuer turpis, suspendisse.</p>
-                    <div class="content-divider m-auto"></div>
-                    <h6 class="card-title pt-3">Cody Lambert</h6>
-                    <h6 class="customer-designation text-muted m-0">Marketing Manager</h6>
-                  </div>
-                </div>
-              </div>
-              <div class="card customer-cards">
-                <div class="card-body">
-                  <div class="text-center">
-                    <img src="{{ asset('Accueil/images/face16.jpg')}}" width="89" height="89" alt="" class="img-customer">
-                    <p class="m-0 py-3 text-muted">Lorem ipsum dolor sit amet, tincidunt vestibulum. Fusce egeabus consectetuer turpis, suspendisse.</p>
-                    <div class="content-divider m-auto"></div>
-                    <h6 class="card-title pt-3">Cody Lambert</h6>
-                    <h6 class="customer-designation text-muted m-0">Marketing Manager</h6>
-                  </div>
-                </div>
-              </div>
-              <div class="card customer-cards">
-                <div class="card-body">
-                  <div class="text-center">
-                    <img src="{{ asset('Accueil/images/face1.jpg')}}" width="89" height="89" alt="" class="img-customer">
-                    <p class="m-0 py-3 text-muted">Lorem ipsum dolor sit amet, tincidunt vestibulum. Fusce egeabus consectetuer turpis, suspendisse.</p>
-                    <div class="content-divider m-auto"></div>
-                    <h6 class="card-title pt-3">Tony Martinez</h6>
-                    <h6 class="customer-designation text-muted m-0">Marketing Manager</h6>
-                  </div>
-                </div>
-              </div>
-              <div class="card customer-cards">
-                <div class="card-body">
-                  <div class="text-center">
-                    <img src="{{ asset('Accueil/images/face2.jpg')}}" width="89" height="89" alt="" class="img-customer">
-                    <p class="m-0 py-3 text-muted">Lorem ipsum dolor sit amet, tincidunt vestibulum. Fusce egeabus consectetuer turpis, suspendisse.</p>
-                    <div class="content-divider m-auto"></div>
-                    <h6 class="card-title pt-3">Tony Martinez</h6>
-                    <h6 class="customer-designation text-muted m-0">Marketing Manager</h6>
-                  </div>
-                </div>
-              </div>
-              <div class="card customer-cards">
-                <div class="card-body">
-                  <div class="text-center">
-                    <img src="{{ asset('Accueil/images/face3.jpg')}}" width="89" height="89" alt="" class="img-customer">
-                    <p class="m-0 py-3 text-muted">Lorem ipsum dolor sit amet, tincidunt vestibulum. Fusce egeabus consectetuer turpis, suspendisse.</p>
-                    <div class="content-divider m-auto"></div>
-                    <h6 class="card-title pt-3">Sophia Armstrong</h6>
-                    <h6 class="customer-designation text-muted m-0">Marketing Manager</h6>
-                  </div>
-                </div>
-              </div>
-              <div class="card customer-cards">
-                <div class="card-body">
-                  <div class="text-center">
-                    <img src="{{ asset('Accueil/images/face20.jpg')}}" width="89" height="89" alt="" class="img-customer">
-                    <p class="m-0 py-3 text-muted">Lorem ipsum dolor sit amet, tincidunt vestibulum. Fusce egeabus consectetuer turpis, suspendisse.</p>
-                    <div class="content-divider m-auto"></div>
-                    <h6 class="card-title pt-3">Cody Lambert</h6>
-                    <h6 class="customer-designation text-muted m-0">Marketing Manager</h6>
-                  </div>
-                </div>
-              </div>
           </div>
         </div>
       </section>
       <section class="contact-us" id="contact-section">
         <div class="contact-us-bgimage grid-margin" >
           <div class="pb-4">
-            <h4 class="px-3 px-md-0 m-0" data-aos="fade-down">Avez-vous de quelconques Suggestions?</h4>
-            <h4 class="pt-1" data-aos="fade-down">Contactez-Nous</h4>
+            <h4 class="px-3 px-md-0 m-0" data-aos="fade-down">{% trans %}Do you have any suggestions{% endtrans %}?</h4>
+            <h4 class="pt-1" data-aos="fade-down">{% trans %}Submit them to us{% endtrans %}</h4>
           </div>
           <div data-aos="fade-up">
-            <button class="btn btn-rounded btn-outline-danger" data-toggle="modal" data-target="#exampleModal">Contactez-Nous</button>
+            <button class="btn btn-rounded btn-outline-danger" data-toggle="modal" data-target="#exampleModal">{% trans %}Send an email{% endtrans %}</button>
           </div>          
         </div>
       </section>
@@ -345,24 +269,22 @@
             </div>         
           </div>
           <div class="col-12 col-md-6 col-lg-3 grid-margin">
-            <h5 class="pb-2">Abonnez-vous</h5>
-            <p class="text-muted">Ne ratez aucune de nos Nouvelles<br>souscrivez a notre Newsletter</p>
+            <h5 class="pb-2">{% trans %}Subscribe{% endtrans %}</h5>
+            <p class="text-muted">{% trans %}Don't miss any of our News{% endtrans %}<br>{% trans %}subscribe to our Newsletter{% endtrans %}</p>
             <form>
               <input type="text" class="form-control" id="Email" placeholder="Entrez votre Email">
             </form>
             <div class="pt-3">
-              <button class="btn btn-dark">Souscrire</button>
+              <button class="btn btn-dark">{% trans %}Suscribe{% endtrans %}</button>
             </div>   
           </div>
           <div class="col-12 col-md-6 col-lg-3 grid-margin">
-            <h5 class="pb-2">Règles et Politique</h5>
-            <a href="#"><p class="m-0 pb-2">Terms</p></a>   
-            <a href="#" ><p class="m-0 pt-1 pb-2">Données Personnelles</p></a> 
+            <h5 class="pb-2">{% trans %}Rules and Privacy Policy{% endtrans %}</h5>
             <a href="#"><p class="m-0 pt-1 pb-2">Cookie</p></a> 
-            <a href="#"><p class="m-0 pt-1">Page d'aide</p></a> 
+            <a href="#"><p class="m-0 pt-1">{% trans %}Help Page {% endtrans %}</p></a> 
           </div>
           <div class="col-12 col-md-6 col-lg-3 grid-margin">
-              <h5 class="pb-2">Notre address</h5>
+              <h5 class="pb-2">Address</h5>
               <p class="text-muted">Lomé<br>Togo</p>
               <div class="d-flex justify-content-center justify-content-md-start">
                 <a href="#"><span class="mdi mdi-facebook"></span></a>
@@ -374,21 +296,21 @@
         </div>  
       </section>
       <footer class="border-top">
-        <p class="text-center text-muted pt-4">Copyright © {{ DateInscription|date('Y')}}<a href="https://www.bootstrapdash.com/" class="px-1">SDI.</a>Tous droits Reservés.</p>
+        <p class="text-center text-muted pt-4">Copyright © {{ DateActuelle|date('Y')}}<a href="https://www.bootstrapdash.com/" class="px-1">SDI.</a>Tous droits Reservés.</p>
 
-        <p class="text-center text-muted pt-2">Distribuer Par: <a href="https://www.themewagon.com/" class="px-1" target="_blank"></a></p>
+        <p class="text-center text-muted pt-2">{% trans %}Distribute By{% endtrans %}: <a href="https://www.themewagon.com/" class="px-1" target="_blank"></a></p>
       </footer>
       <!-- Modal for Contact - us Button -->
       <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h4 class="modal-title" id="exampleModalLabel">Nous Contacter</h4>
+              <h4 class="modal-title" id="exampleModalLabel">{% trans %}Send an Mail{% endtrans %}</h4>
             </div>
             <div class="modal-body">
               <form action={{ path('MailDeSuggestion') }} method="post">
                 <div class="form-group">
-                  <label for="Name">Nom</label>
+                  <label for="Name">{% trans %}Name{% endtrans %}</label>
                   <input type="text" class="form-control" id="Name" placeholder="Nom" name="nom">
                 </div>
                 <div class="form-group">
@@ -400,8 +322,8 @@
                   <textarea class="form-control" id="Message" placeholder="Entrez votre Message" name="message"></textarea>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-light" data-dismiss="modal">Fermer</button>
-                    <button type="submit" class="btn btn-success">Envoyer</button>
+                    <button type="button" class="btn btn-light" data-dismiss="modal">{% trans %}Close{% endtrans %}</button>
+                    <button type="submit" class="btn btn-success">{% trans %}Send{% endtrans %}</button>
                 </div>
               </form>
             </div>

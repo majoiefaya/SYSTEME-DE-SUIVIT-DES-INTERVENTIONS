@@ -1,0 +1,37 @@
+<!DOCTYPE  html>
+<html
+	lang="en">
+	<!--begin::Head-->
+	<head>
+    <base href="">
+    <meta charset="utf-8"/>
+    <title>Metronic | Dashboard</title>
+    <meta name="description" content="Updates and statistics"/>
+    <meta
+    name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <style>
+        .container{
+            
+        }
+    </style>
+</html>
+<body>
+        <div class="container">
+            <img src="https://jktuoy.stripocdn.email/content/guids/CABINET_b3ad24678cbb4d23876b91c37b9a8eb8/images/inviterafiki_1.png">
+            <h3>Reponse de SDI</h3>
+            <div class="message">
+            <p>Monsieur {{ Nom }} {{ Prenom }}</p>
+            <p>Votre Demande d'Intervention a été traitée avec succes</p>
+            <p>L intervention debuttera le {{ DateEnvoieRapport|date('d-m-y') }}
+            {{ contenu }}
+            </p>
+            <p>Rendez-vous dans la section Intervention de Notre Application pour plus d'informations</p>
+            </div>
+            {{ "now"|date("Y") }}@SDI
+        </div>
+</body>
+</html>
+		
+	<!--end::Head-->
+
+	<!--begin::Body-->

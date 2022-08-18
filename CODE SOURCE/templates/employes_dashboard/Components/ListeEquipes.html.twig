@@ -1,0 +1,230 @@
+<div class="container-fluid">
+  <!-- begin::Row -->
+  <div class="row">
+    <!-- begin::Column -->
+  {% for Equipe in Equipes %}
+    <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
+      <!-- begin::Card -->
+      
+        <div class="card card-custom gutter-b card-stretch">
+          <!-- begin::Body -->
+          <div class="card-body text-center pt-4">
+            <!-- begin::Toolbar -->
+            <div class="d-flex justify-content-end">
+              <div class="dropdown dropdown-inline"
+                data-toggle="tooltip"
+                title=""
+                data-placement="left"
+                data-original-title="Quick actions">
+                <a href="#"
+                  class="btn btn-clean btn-hover-light-primary btn-sm btn-icon"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false">
+                  <i class="ki ki-bold-more-hor"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-md dropdown-menu-right">
+                  <!-- begin::Navigation -->
+                  <ul class="navi navi-hover">
+                    <li class="navi-header font-weight-bold py-4">
+                      <span class="font-size-lg">Actions:</span>
+                      <i class="flaticon2-information icon-md text-muted"
+                        data-toggle="tooltip"
+                        data-placement="right"
+                        title=""
+                        data-original-title="Click to learn more...">
+
+                      </i>
+                    </li>
+                    <li class="navi-separator mb-3 opacity-70"></li>
+                    <li class="navi-item">
+                      <a href="#" class="navi-link">
+                        <span class="navi-text">
+                          <span class="label label-xl label-inline label-light-success">
+                            + Infos
+                          </span>
+                        </span>
+                      </a>
+                    </li>
+                    <li class="navi-item">
+                      <a href="#" class="navi-link">
+                        <span class="navi-text">
+                          <span class="label label-xl label-inline label-light-danger">
+                            Partner
+                          </span>
+                        </span>
+                      </a>
+                    </li>
+                    <li class="navi-item">
+                      <a href="#" class="navi-link">
+                        <span class="navi-text">
+                          <span class="label label-xl label-inline label-light-warning">
+                            Suplier
+                          </span>
+                        </span>
+                      </a>
+                    </li>
+                    <li class="navi-item">
+                      <a href="#" class="navi-link">
+                        <span class="navi-text">
+                          <span class="label label-xl label-inline label-light-primary">
+                            Member
+                          </span>
+                        </span>
+                      </a>
+                    </li>
+                    <li class="navi-item">
+                      <a href="#" class="navi-link">
+                        <span class="navi-text">
+                          <span class="label label-xl label-inline label-light-dark">
+                            Staff
+                          </span>
+                        </span>
+                      </a>
+                    </li>
+                    <li class="navi-separator mt-3 opacity-70"></li>
+                    <li class="navi-footer py-4">
+                      <a class="btn btn-clean font-weight-bold btn-sm" href="#">
+                        <i class="ki ki-plus icon-sm"></i>
+                        Add new
+                      </a>
+                    </li>
+                  </ul>
+                  <!-- end::Navigation -->
+                </div>
+              </div>
+            </div>
+            <!-- end::Toolbar -->
+
+            <!-- begin::User -->
+            <div class="mt-7">
+              <div class="symbol symbol-circle symbol-lg-90">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <polygon points="0 0 24 0 24 24 0 24"></polygon>
+                    <path d="M18,14 C16.3431458,14 15,12.6568542 15,11 C15,9.34314575 16.3431458,8 18,8 C19.6568542,8 21,9.34314575 21,11 C21,12.6568542 19.6568542,14 18,14 Z M9,11 C6.790861,11 5,9.209139 5,7 C5,4.790861 6.790861,3 9,3 C11.209139,3 13,4.790861 13,7 C13,9.209139 11.209139,11 9,11 Z" fill="#000000" fill-rule="nonzero" opacity="0.3"></path>
+                    <path d="M17.6011961,15.0006174 C21.0077043,15.0378534 23.7891749,16.7601418 23.9984937,20.4 C24.0069246,20.5466056 23.9984937,21 23.4559499,21 L19.6,21 C19.6,18.7490654 18.8562935,16.6718327 17.6011961,15.0006174 Z M0.00065168429,20.1992055 C0.388258525,15.4265159 4.26191235,13 8.98334134,13 C13.7712164,13 17.7048837,15.2931929 17.9979143,20.2 C18.0095879,20.3954741 17.9979143,21 17.2466999,21 C13.541124,21 8.03472472,21 0.727502227,21 C0.476712155,21 -0.0204617505,20.45918 0.00065168429,20.1992055 Z" fill="#000000" fill-rule="nonzero"></path>
+                </g>
+                 </svg>
+              </div>
+            </div>
+            <!-- end::User -->
+
+            <!-- begin::Name -->
+            <div class="my-4">
+              <a href="#"
+                class="text-dark font-weight-bold text-hover-primary font-size-h4">
+                {{ Equipe.NomEquipe }}
+              </a>
+            </div>
+            <!-- end::Name -->
+
+            <!-- begin::Label -->
+            <span class="btn btn-text btn-light-warning btn-sm font-weight-bold">
+            {% if Equipe.intervention is empty %}
+              Inactif
+            {% else %}
+              Actif
+            {% endif %}
+            </span>
+            <!-- end::Label -->
+
+            <!-- begin::Buttons -->
+            <div class="mt-9">
+              <a href="{{path('ListeInterventionsTechnicien',{'id':Equipe.id})}}"
+                class="btn btn-light-primary font-weight-bolder btn-sm py-3 px-6">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <rect x="0" y="0" width="24" height="24"></rect>
+                        <circle fill="#000000" opacity="0.3" cx="12" cy="12" r="10"></circle>
+                        <rect fill="#000000" x="11" y="10" width="2" height="7" rx="1"></rect>
+                        <rect fill="#000000" x="11" y="7" width="2" height="2" rx="1"></rect>
+                    </g>
+                </svg>Interventions
+              </a>
+            </div>
+            <!-- end::Buttons -->
+          </div>
+          <!-- end::Body -->
+        </div>
+      
+      <!-- end::Card -->
+    </div>
+  {% endfor %}
+ 
+    <!-- end::Column -->
+  </div>
+  <!-- end::Row -->
+
+  <!-- begin::Pagination -->
+  <div class="d-flex justify-content-between align-items-center flex-wrap">
+    <div class="d-flex flex-wrap mr-3">
+      <a href="#" class="btn btn-icon btn-sm btn-light-primary mr-2 my-1">
+        <i class="ki ki-bold-double-arrow-back icon-xs"></i>
+      </a>
+      <a href="#" class="btn btn-icon btn-sm btn-light-primary mr-2 my-1">
+        <i class="ki ki-bold-arrow-back icon-xs"></i>
+      </a>
+      <a href="#"
+        class="btn btn-icon btn-sm border-0 btn-hover-primary mr-2 my-1">
+        ...
+      </a>
+      <a href="#"
+        class="btn btn-icon btn-sm border-0 btn-hover-primary mr-2 my-1">
+        23
+      </a>
+      <a href="#"
+        class="btn btn-icon btn-sm border-0 btn-hover-primary active mr-2 my-1">
+        24
+      </a>
+      <a href="#"
+        class="btn btn-icon btn-sm border-0 btn-hover-primary mr-2 my-1">
+        25
+      </a>
+      <a href="#"
+        class="btn btn-icon btn-sm border-0 btn-hover-primary mr-2 my-1">
+        26
+      </a>
+      <a href="#"
+        class="btn btn-icon btn-sm border-0 btn-hover-primary mr-2 my-1">
+        27
+      </a>
+      <a href="#"
+        class="btn btn-icon btn-sm border-0 btn-hover-primary mr-2 my-1">
+        28
+      </a>
+      <a href="#"
+        class="btn btn-icon btn-sm border-0 btn-hover-primary mr-2 my-1">
+        ...
+      </a>
+      <a href="#" class="btn btn-icon btn-sm btn-light-primary mr-2 my-1">
+        <i class="ki ki-bold-arrow-next icon-xs"></i>
+      </a>
+      <a href="#" class="btn btn-icon btn-sm btn-light-primary mr-2 my-1">
+        <i class="ki ki-bold-double-arrow-next icon-xs"></i>
+      </a>
+    </div>
+    <div class="d-flex align-items-center">
+      <select class="form-control form-control-sm text-primary font-weight-bold mr-4 border-0 bg-light-primary"
+        style="width: 75px;">
+        <option value="10">
+          10
+        </option>
+        <option value="20">
+          20
+        </option>
+        <option value="30">
+          30
+        </option>
+        <option value="50">
+          50
+        </option>
+        <option value="100">
+          100
+        </option>
+      </select>
+      <span class="text-muted">Displaying 10 of 230 records</span>
+    </div>
+  </div>
+  <!-- end::Pagination -->
+</div>

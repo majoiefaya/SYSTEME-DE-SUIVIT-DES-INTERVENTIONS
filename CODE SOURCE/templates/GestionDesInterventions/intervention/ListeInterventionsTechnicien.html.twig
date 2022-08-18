@@ -1,0 +1,13 @@
+{% extends 'EmployesBase.html.twig'%}
+
+{% block Entete %}
+    {% include 'employes_dashboard/Components/ListeInterventionsHeader.html.twig' %}
+{% endblock %}
+
+{% block Contenu %}
+    {% include 'employes_dashboard/Components/ListeInterventionsTechnicien.html.twig' %}
+{% endblock %}
+
+{% block Scripts %}
+    {% include('employes_dashboard/Components/Scripts.html.twig') %}
+{% endblock %}

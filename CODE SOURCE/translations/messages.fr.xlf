@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="Tvyg0Qx" resname="About">
+        <source>About</source>
+        <target>A Propos</target>
+      </trans-unit>
+      <trans-unit id="0oJctry" resname="Testimonials">
+        <source>Testimonials</source>
+        <target>Temoignages</target>
+      </trans-unit>
+      <trans-unit id="cK1S4bU" resname="Interventions Monitoring">
+        <source>Interventions Monitoring</source>
+        <target>Gestion Des Interventions</target>
+      </trans-unit>
+      <trans-unit id="1fBOxSL" resname="Service Management">
+        <source>Service Management</source>
+        <target>Gestion Des Services</target>
+      </trans-unit>
+      <trans-unit id="inZ9ehX" resname="To allow our customers to enjoy more freely and easily the products we offer them">
+        <source>To allow our customers to enjoy more freely and easily the products we offer them</source>
+        <target>Pour permettre a nos clients de jouir plus librement et facilement des produits que nous leurs proposons</target>
+      </trans-unit>
+      <trans-unit id="cfyg1vC" resname="More informations">
+        <source>More informations</source>
+        <target>Plus d'Infos</target>
+      </trans-unit>
+      <trans-unit id="nIcKpuX" resname="How it works">
+        <source>How it works</source>
+        <target>Comment ca marche?</target>
+      </trans-unit>
+      <trans-unit id="1Q4WnnN" resname="To take advantage of our services, simply follow the following steps">
+        <source>To take advantage of our services, simply follow the following steps</source>
+        <target>Pour profiter de nos services il vous suffit de suivre les Etapes suivantes</target>
+      </trans-unit>
+      <trans-unit id="R1lJisK" resname="Create">
+        <source>Create</source>
+        <target>Créer Un</target>
+      </trans-unit>
+      <trans-unit id="fhsNVkH" resname="Account">
+        <source>Account</source>
+        <target>Compte</target>
+      </trans-unit>
+      <trans-unit id="fXvuynN" resname="To Create An Account on Our Platform click on The Create Link below or go to the section">
+        <source>To Create An Account on Our Platform click on The Create Link below or go to the section</source>
+        <target>Pour Créer Un Compte sur Notre Plateforme cliquez sur Le Lien Créer ci-dessous ou rendez vous dans la section</target>
+      </trans-unit>
+      <trans-unit id="1lkAtHU" resname="then click on Register">
+        <source>then click on Register</source>
+        <target>Puis cliquez sur S'inscrire</target>
+      </trans-unit>
+      <trans-unit id="nWMiwfT" resname="Login">
+        <source>Login</source>
+        <target>Se Connecter</target>
+      </trans-unit>
+      <trans-unit id="49BDzbu" resname="After creating Your Account and validating it, Log in and access your Space. You can click on the Connection Link below or on the Connection button in the Menu">
+        <source>After creating Your Account and validating it, Log in and access your Space. You can click on the Connection Link below or on the Connection button in the Menu</source>
+        <target>Apres avoir créer Votre Compte et l avoir Validé Connectez-vous et accedez a votre Espace.Vous pouvez cliquez sur le Lien Connexion ci-dessous ou sur le bouton Connexion du Menu</target>
+      </trans-unit>
+      <trans-unit id="4urblwg" resname="Access To your Space">
+        <source>Access To your Space</source>
+        <target>Accedez A votre Espace</target>
+      </trans-unit>
+      <trans-unit id="QCUtiUu" resname="After logging in, access your space and enjoy its content and features. The features available vary depending on the type of Account you have created">
+        <source>After logging in, access your space and enjoy its content and features. The features available vary depending on the type of Account you have created</source>
+        <target>Apres vous etre connecter,accedez a votre espace et jouissez de son contenu et de ses fonctionnalités.Les fonctionnalités disponibles varient en fonction du type de Compte que vous avez Créer</target>
+      </trans-unit>
+      <trans-unit id="LqDj_Ic" resname="We also offer other services">
+        <source>We also offer other services</source>
+        <target>Nous offrons Egalement d' autres services</target>
+      </trans-unit>
+      <trans-unit id="ZFyLuEQ" resname="Such as an Integrated Social Network">
+        <source>Such as an Integrated Social Network</source>
+        <target>Tel qu'Un Reseau Social Intégré</target>
+      </trans-unit>
+      <trans-unit id="Z3fYDGE" resname="A tool to allow different users to exchange and share their experiences">
+        <source>A tool to allow different users to exchange and share their experiences</source>
+        <target>Un outil pour permettre aux différents utilisateurs d'echanger et de partager leurs experiences</target>
+      </trans-unit>
+      <trans-unit id="3GdNmuW" resname="Various">
+        <source>Various</source>
+        <target>Variés</target>
+      </trans-unit>
+      <trans-unit id="YE3ORF4" resname="Services">
+        <source>Services</source>
+        <target>Services</target>
+      </trans-unit>
+      <trans-unit id="OFTdMkr" resname="Our Task Manager">
+        <source>Our Task Manager</source>
+        <target>Notre Gestionnaire de Tache</target>
+      </trans-unit>
+      <trans-unit id="Ducfrg9" resname="A tool to help you better organize and plan your tasks">
+        <source>A tool to help you better organize and plan your tasks</source>
+        <target>Un outil pour vous permttre de mieux organiser et plannifier vos taches</target>
+      </trans-unit>
+      <trans-unit id="CfYkImZ" resname="More information">
+        <source>More information</source>
+        <target>Plus d'Infos</target>
+      </trans-unit>
+      <trans-unit id="Obp4IJu" resname="Our Main Services">
+        <source>Our Main Services</source>
+        <target>Nos Principaux Services</target>
+      </trans-unit>
+      <trans-unit id="LJe98Oa" resname="What we offer concretely">
+        <source>What we offer concretely</source>
+        <target>Ce que nous proposons concretement</target>
+      </trans-unit>
+      <trans-unit id="GrZWW8X" resname="About Material Resources">
+        <source>About Material Resources</source>
+        <target>A propos des Ressources Materiels</target>
+      </trans-unit>
+      <trans-unit id="GXEElYk" resname="Material Resources Administration">
+        <source>Material Resources Administration</source>
+        <target>Administration des Ressources Materiels</target>
+      </trans-unit>
+      <trans-unit id="zLFbZES" resname="Materials,Equipment">
+        <source>Materials,Equipment</source>
+        <target>Materiels,Equipements</target>
+      </trans-unit>
+      <trans-unit id="95zoRRo" resname="About Tracking Interventions">
+        <source>About Tracking Interventions</source>
+        <target>A Propos du suivit des Interventions</target>
+      </trans-unit>
+      <trans-unit id="cP8r7pU" resname="About Report Management">
+        <source>About Report Management</source>
+        <target>A Propos de La Gestion des Rapports</target>
+      </trans-unit>
+      <trans-unit id="f5zYmUi" resname="Report Management">
+        <source>Report Management</source>
+        <target>Gestion Des Rapports</target>
+      </trans-unit>
+      <trans-unit id="ts54jZe" resname="Report">
+        <source>Report</source>
+        <target>Rapports</target>
+      </trans-unit>
+      <trans-unit id="ANNWaFk" resname="About Human Resources">
+        <source>About Human Resources</source>
+        <target>A Propos des Ressources Humaines</target>
+      </trans-unit>
+      <trans-unit id="QhJJZ8s" resname="Human Resource Management">
+        <source>Human Resource Management</source>
+        <target>Gestion Des Ressources Humaines</target>
+      </trans-unit>
+      <trans-unit id="OGwPr8_" resname="Human capital">
+        <source>Human capital</source>
+        <target>Capital Humain</target>
+      </trans-unit>
+      <trans-unit id="gcCljI7" resname="Testimonials addressed to us">
+        <source>Testimonials addressed to us</source>
+        <target>Temoignages qui nous sont adressés</target>
+      </trans-unit>
+      <trans-unit id="bJcSPI9" resname="Testimonials from our users">
+        <source>Testimonials from our users</source>
+        <target>Temoignages de Nos Utilisateurs </target>
+      </trans-unit>
+      <trans-unit id="YvehIYV" resname="Do you have any suggestions">
+        <source>Do you have any suggestions</source>
+        <target>Avez-vous de quelconques Suggestions</target>
+      </trans-unit>
+      <trans-unit id="UlvKpyR" resname="Submit them to us">
+        <source>Submit them to us</source>
+        <target>Soummettez les Nous</target>
+      </trans-unit>
+      <trans-unit id="J65ifU6" resname="Send an email">
+        <source>Send an email</source>
+        <target>Envoyer-Nous Un Mail</target>
+      </trans-unit>
+      <trans-unit id="zA442px" resname="Subscribe">
+        <source>Subscribe</source>
+        <target>Souscrire</target>
+      </trans-unit>
+      <trans-unit id="oECQcdf" resname="Don't miss any of our News">
+        <source>Don't miss any of our News</source>
+        <target>Ne ratez aucune de nos Nouvelles</target>
+      </trans-unit>
+      <trans-unit id="_VBu0w3" resname="subscribe to our Newsletter">
+        <source>subscribe to our Newsletter</source>
+        <target>Souscrivez a notre Newsletter</target>
+      </trans-unit>
+      <trans-unit id="3LRey70" resname="Suscribe">
+        <source>Suscribe</source>
+        <target>Souscrire</target>
+      </trans-unit>
+      <trans-unit id="x0OeihW" resname="Rules and Privacy Policy">
+        <source>Rules and Privacy Policy</source>
+        <target>Règles et Politique de Confidentialité</target>
+      </trans-unit>
+      <trans-unit id="fLJs.Ns" resname="Help Page">
+        <source>Help Page</source>
+        <target>Page d'Aide</target>
+      </trans-unit>
+      <trans-unit id="ebSJ84T" resname="Distribute By">
+        <source>Distribute By</source>
+        <target>Distribuer Par</target>
+      </trans-unit>
+      <trans-unit id="jRWAVp7" resname="Send an Mail">
+        <source>Send an Mail</source>
+        <target>Envoyer Un Mail</target>
+      </trans-unit>
+      <trans-unit id="3NHVIj9" resname="Name">
+        <source>Name</source>
+        <target>Nom</target>
+      </trans-unit>
+      <trans-unit id="fZ63rLE" resname="Close">
+        <source>Close</source>
+        <target>Fermer</target>
+      </trans-unit>
+      <trans-unit id="9vRoj.I" resname="Send">
+        <source>Send</source>
+        <target>Envoyer</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

@@ -15,10 +15,10 @@ class AccueilController extends AbstractController
     #[Route('/', name: 'Accueil')]
     public function index(): Response
     {
-        $dateCreation=new \DateTime('@'.strtotime('now'));
+        $date=new \DateTime('@'.strtotime('now'));
         return $this->render('accueil/Accueil.html.twig', [
             'controller_name' => 'AccueilController',
-            'DateInscription' =>  $dateCreation,
+            'DateActuelle' =>  $date,
         ]);
     }
 

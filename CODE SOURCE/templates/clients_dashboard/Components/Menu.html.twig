@@ -43,7 +43,7 @@
 												</span>
 											</div>
 
-											<input type="text" class="form-control h-45px" placeholder="Search..."/>
+											<input type="text" class="form-control h-45px" placeholder="Rechercher..."/>
 
 											<div class="input-group-append">
 												<span class="input-group-text">
@@ -130,9 +130,9 @@
 									class="dropdown">
 									<!--begin::Toggle-->
 									<div class="topbar-item mr-4" data-toggle="dropdown" data-offset="10px,0px">
-										<div class="btn font-weight-bolder btn-sm btn-light-success px-5">
-											Create
-										</div>
+										<a  href="" class="btn font-weight-bolder btn-sm btn-light-success px-5">
+											Actions
+										</a>
 									</div>
 									<!--end::Toggle-->
 
@@ -142,30 +142,19 @@
 										<!--begin::Navigation-->
 										<ul class="navi navi-hover py-5">
 											<li class="navi-item">
-												<a href="#" class="navi-link">
+												<a href="{{path('Accueil')}}" class="navi-link">
 													<span class="navi-icon">
 														<i class="flaticon2-drop"></i>
 													</span>
-													<span class="navi-text">New Group</span>
+													<span class="navi-text">Accueil de SDI</span>
 												</a>
 											</li>
 											<li class="navi-item">
-												<a href="#" class="navi-link">
+												<a href="{{ path('Logout') }}" class="navi-link">
 													<span class="navi-icon">
 														<i class="flaticon2-list-3"></i>
 													</span>
-													<span class="navi-text">Contacts</span>
-												</a>
-											</li>
-											<li class="navi-item">
-												<a href="#" class="navi-link">
-													<span class="navi-icon">
-														<i class="flaticon2-rocket-1"></i>
-													</span>
-													<span class="navi-text">Groups</span>
-													<span class="navi-link-badge">
-														<span class="label label-light-primary label-inline font-weight-bold">new</span>
-													</span>
+													<span class="navi-text">Deconnexion</span>
 												</a>
 											</li>
 											<li class="navi-item">
@@ -173,7 +162,7 @@
 													<span class="navi-icon">
 														<i class="flaticon2-bell-2"></i>
 													</span>
-													<span class="navi-text">Calls</span>
+													<span class="navi-text">Credits</span>
 												</a>
 											</li>
 											<li class="navi-item">
@@ -181,7 +170,7 @@
 													<span class="navi-icon">
 														<i class="flaticon2-gear"></i>
 													</span>
-													<span class="navi-text">Settings</span>
+													<span class="navi-text">Parametres</span>
 												</a>
 											</li>
 
@@ -192,18 +181,7 @@
 													<span class="navi-icon">
 														<i class="flaticon2-magnifier-tool"></i>
 													</span>
-													<span class="navi-text">Help</span>
-												</a>
-											</li>
-											<li class="navi-item">
-												<a href="#" class="navi-link">
-													<span class="navi-icon">
-														<i class="flaticon2-bell-2"></i>
-													</span>
-													<span class="navi-text">Privacy</span>
-													<span class="navi-link-badge">
-														<span class="label label-light-danger label-rounded font-weight-bold">5</span>
-													</span>
+													<span class="navi-text">Aide</span>
 												</a>
 											</li>
 										</ul>
