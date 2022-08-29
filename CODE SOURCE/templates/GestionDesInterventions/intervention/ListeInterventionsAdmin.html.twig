@@ -10,5 +10,10 @@
 
 {% block Scripts %}
     {% include('admins_dashboard/Components/Scripts.html.twig') %}
-  
+    <script>
+        $("#InfosActions").click(function(e) {
+            Swal.fire("Infos!", "Selectionnez Une Des Actions de La Liste Pour L'Effectuer!", "info");
+        });
+    </script>
+
 {% endblock %}

@@ -14,9 +14,13 @@ class ActiverInterventionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-           
-            ->add('DateDebutIntervention')
-            ->add('DateFinIntervention')
+        
+            ->add('DateDebutIntervention', DateTimeType::class, [
+                'date_widget' => 'single_text'
+            ])
+            ->add('DateFinIntervention', DateTimeType::class, [
+                'date_widget' => 'single_text'
+            ])
  
         ;
     }

@@ -1,0 +1,38 @@
+<div class="col-xl-12 col-xxl-7">
+	<!--begin::Form Wizard Form-->
+	{{ form_start(form, {'attr':{'class':'form fv-plugins-bootstrap fv-plugins-framework'}})}}
+	
+	<!--begin::Form Wizard Step 1-->
+	<div class="pb-5" data-wizard-type="step-content" data-wizard-state="current">
+
+		<div class="row">
+			<div class="col-xl-12">
+
+				<div class="form-group row fv-plugins-icon-container">
+					<label class="col-xl-3 col-lg-3 col-form-label">Votre Commentaire: </label>
+					<div class="col-lg-9 col-xl-9">
+                    {{ form_widget(form.Contenu, {'attr':{'class':'form-control form-control-lg form-control-solid'}})}}
+					
+						<div class="fv-plugins-message-container"></div>
+					</div>
+				</div>
+
+		    </div>
+	    </div>
+	<!--end::Form Wizard Step 1-->
+
+
+	<!--begin::Wizard Actions-->
+	<div class="d-flex justify-content-between border-top pt-10">
+		<div class="mr-2">
+			
+		</div>
+		<div>
+        <button type="submit" class="btn btn-primary">Enregistrer</button>
+			
+			
+		</div>
+	</div>
+
+	{{ form_end(form)}}
+</div>

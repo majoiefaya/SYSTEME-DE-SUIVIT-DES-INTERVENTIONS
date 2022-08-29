@@ -2,6 +2,7 @@ twig:
     default_path: '%kernel.project_dir%/templates'
     globals:
         locales: '%app.locales%'
+        PourcentageDeTouteLesInterventions: 0
 
 when@test:
     twig:

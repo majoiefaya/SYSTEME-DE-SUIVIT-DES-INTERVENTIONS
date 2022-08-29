@@ -1,0 +1,101 @@
+{% extends 'AdminsBase.html.twig' %}
+
+{% block Contenu %}
+<div class="card card-custom">
+    <div class="card-header">
+        <div class="row">
+            <h3 class="card-title">
+                Creer Un Evenement
+            </h3>
+        </div>
+    </div>
+    <!--begin::Form-->
+    {{ form_start(form,{'attr':{'class':'form fv-plugins-bootstrap fv-plugins-framework','id':'kt_projects_add_form'}}) }}
+        <div class="card-body">
+            <div class="form-group row">
+                <label class="col-lg-2 col-form-label text-right">Titre:</label>
+                <div class="col-lg-4">
+                    {{ form_widget(form.title,{'attr':{'class':'form-control form-control-lg form-control-solid'}}) }}
+                    <span class="form-text text-muted">Renseignez Un Titre</span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-lg-2 col-form-label text-right">Description:</label>
+                <div class="col-lg-4">
+                    {{ form_widget(form.description,{'attr':{'class':'form-control form-control-lg form-control-solid'}}) }}
+                    <span class="form-text text-muted">Decrivez L'Evenement</span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-lg-2 col-form-label text-right">Tous Les Jours</label>
+                {{ form_widget(form.all_day) }}    
+            </div>
+            <div class="form-group row">
+                <label class="col-form-label text-right col-lg-3 col-sm-12">Date Debut</label>
+                <div class="col-lg-4 col-md-9 col-sm-12">
+                    <div class="input-group date" id="kt_datetimepicker_2" data-target-input="nearest">
+                        {{ form_widget(form.start) }}
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-form-label text-right col-lg-3 col-sm-12">Date Fin</label>
+                <div class="col-lg-4 col-md-9 col-sm-12">
+                    <div class="input-group date" id="kt_datetimepicker_2" data-target-input="nearest">
+                        {{ form_widget(form.end) }}
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-group row align-items-center">
+                <label class="col-lg-2 col-form-label text-right">Element Concerné:</label>
+                <div class="col-xl-8 col-lg-8 col-sm-12 col-md-12 d-flex align-items-center">
+                    <div class="checkbox-inline">
+                        <label class="select">Intervention</label>
+                            {{ form_widget(form.intervention,{'attr':{'class':'form-control'}}) }}
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="separator separator-dashed my-8"></div>
+
+            <div id="">
+                <div class="form-group row" id="kt_repeater_1">
+                    <label class="col-lg-2 col-form-label text-right">Parametres d'Affichage:</label>
+                    <div data-repeater-list="" class="col-lg-10">
+                        <div data-repeater-item class="form-group row align-items-center">
+                            <div class="col-md-3">
+                                <label>Couleur de BackGround:</label>
+                                {{ form_widget(form.background_color,{'attr':{'class':'form-control'}}) }}
+                                <div class="d-md-none mb-2"></div>
+                            </div>
+                            <div class="col-md-3">
+                                <label>Couleur de Bordure:</label>
+                                {{ form_widget(form.border_color,{'attr':{'class':'form-control'}}) }}
+                                <div class="d-md-none mb-2"></div>
+                            </div>
+                            <div class="col-md-3">
+                                <label>Couleur de Texte:</label>
+                                {{ form_widget(form.text_color,{'attr':{'class':'form-control'}}) }}
+                                <div class="d-md-none mb-2"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-lg-2"></div>
+                <div class="col-lg-2">
+                    <button type="submit" class="btn font-weight-bold btn-success mr-2">Sauvegarder</button>
+                    <button type="reset" class="btn font-weight-bold btn-secondary">Annuler</button>
+                </div>
+            </div>
+        </div>
+    {{ form_end(form) }}
+    <!--end::Form-->
+</div>
+{% endblock %}

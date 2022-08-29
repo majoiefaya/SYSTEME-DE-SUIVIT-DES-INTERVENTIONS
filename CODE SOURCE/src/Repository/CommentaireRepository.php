@@ -39,6 +39,29 @@ class CommentaireRepository extends ServiceEntityRepository
         }
     }
 
+    public function findAllTemoignages(): array
+     {
+         return $this->createQueryBuilder('c')
+             ->andWhere('c.intervention = :val')
+             ->setParameter('val',null)
+             ->orderBy('c.id', 'ASC')
+             ->getQuery()
+             ->getResult()
+         ;
+     }
+
+     public function findAllCommentaires(): array
+     {
+         return $this->createQueryBuilder('c')
+             ->andWhere('c.intervention != :val')
+             ->setParameter('val',null)
+             ->orderBy('c.id', 'ASC')
+             ->getQuery()
+             ->getResult()
+         ;
+     }
+    
+
 //    /**
 //     * @return Commentaire[] Returns an array of Commentaire objects
 //     */

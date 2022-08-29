@@ -19,13 +19,24 @@ use App\Repository\TypeEquipementRepository;
 class AdminsDashboardController extends AbstractController
 {
     #[Route('/DashboardAdmin', name: 'AdminsDashboard')]
-    public function index(AdminRepository $adminRepository,ClientRepository $clientRepository,UtilisateurRepository $utilisateursRepository): Response
+    public function index(AdminRepository $adminRepository,ClientRepository $clientRepository,UtilisateurRepository $utilisateursRepository,InterventionRepository $interventionRepository): Response
     {
+        $dateActuelle=new \DateTime('@'.strtotime('now'));
+        $Interventions=$interventionRepository->findAll();
+        $NombreTotalInterventions=count($Interventions);
+        $NbreInterventionsTerminées=0;
+        foreach($Interventions as $intervention){
+            if($intervention->getDateFinIntervention()< $dateActuelle){
+                $NbreInterventionsTerminées+=1;
+            }
+        }
+        $PourcentageDeTouteLesInterventions=($NbreInterventionsTerminées*100)/$NombreTotalInterventions;
         return $this->render('admins_dashboard/AccueilAdmins.html.twig', [
             'controller_name' => 'AdminsDashboardController',
             'admins' => $adminRepository->findAll(),
             'clients'=> $clientRepository->findAll(),
-            'NombreUtilisateurs'=>count($utilisateursRepository->findAll())
+            'NombreUtilisateurs'=>count($utilisateursRepository->findAll()),
+            'PourcentageDeTouteLesInterventions'=>$PourcentageDeTouteLesInterventions
         ]);
     }
 
@@ -36,12 +47,12 @@ class AdminsDashboardController extends AbstractController
     EquipeRepository $equipeRepository): Response
     {
         return $this->render('admins_dashboard/ListeUtilisateurs.html.twig', [
-            'admins' => $adminRepository->findAll(),
-            'employes'=>$employeRepository->findAll(),
-            'personnels' => $personnelRepository->findAll(),
-            'techniciens' => $technicienRepository->findAll(),
-            'clients'=> $clientRepository->findAll(),
-            'equipes' => $equipeRepository->findAll(),
+            'admins' => $adminRepository->findBy([],['Nom'=>'ASC']),
+            'employes'=>$employeRepository->findBy([],['Nom'=>'ASC']),
+            'personnels' => $personnelRepository->findBy([],['Nom'=>'ASC']),
+            'techniciens' => $technicienRepository->findBy([],['Nom'=>'ASC']),
+            'clients'=> $clientRepository->findBy([],['Nom'=>'ASC']),
+            'equipes' => $equipeRepository->findBy([],['NomEquipe'=>'ASC']),
             
             'NombreUtilisateurs'=>count($utilisateursRepository->findAll()),
             

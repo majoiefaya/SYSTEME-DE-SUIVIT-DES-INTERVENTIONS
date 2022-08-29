@@ -1,0 +1,26 @@
+{% extends 'EmployesBase.html.twig' %}
+
+{% block Entete %}
+    {% include ('employes_dashboard/Components/InfosInterventionTechnicienHeader.html.twig') %}
+{% endblock %}
+
+{% block Css%}
+    {% include('employes_dashboard/Components/Css.html.twig') %}
+    {% include('GestionDesInterventions/Components/LocaliserIntervention/css/LocaliserInterventionCss.html.twig')%}
+{% endblock %}
+
+{% block Contenu %}
+    <div class=" container-fluid ">
+        <div class="card-body p-0">
+            <div id="maCarte">
+            
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block Scripts %}
+    {% include('employes_dashboard/Components/Scripts.html.twig') %}
+    {% include('GestionDesInterventions/Components/LocaliserIntervention/js/LocaliserInterventionScripts.html.twig')%}
+{% endblock %}
+ 

@@ -127,32 +127,36 @@
             <!-- begin::Progress -->
             {% if intervention.DureeIntervention!=null %}
             <div class="flex-row-fluid mb-7">
-              <span class="d-block font-weight-bold mb-4">Progression</span>
+              <span class="d-block font-weight-bold mb-4">Durrée</span>
               <div class="d-flex align-items-center pt-2">
-                <div class="progress progress-xs mt-2 mb-2 w-100">
-                  <div class="progress-bar bg-warning"
-                    role="progressbar"
-                    style="width: {{ intervention.DureeIntervention }}%;"
-                    aria-valuenow="50"
-                    aria-valuemin="0"
-                    aria-valuemax="100"></div>
-                </div>
-                <span class="ml-3 font-weight-bolder">{{ intervention.DureeIntervention }}%</span>
+                <span class="svg-icon svg-icon-success svg-icon-2x"><!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo6\dist/../src/media/svg/icons\Home\Timer.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <rect x="0" y="0" width="24" height="24"></rect>
+                        <path d="M12,21 C7.581722,21 4,17.418278 4,13 C4,8.581722 7.581722,5 12,5 C16.418278,5 20,8.581722 20,13 C20,17.418278 16.418278,21 12,21 Z" fill="#000000" opacity="0.3"></path>
+                        <path d="M13,5.06189375 C12.6724058,5.02104333 12.3386603,5 12,5 C11.6613397,5 11.3275942,5.02104333 11,5.06189375 L11,4 L10,4 C9.44771525,4 9,3.55228475 9,3 C9,2.44771525 9.44771525,2 10,2 L14,2 C14.5522847,2 15,2.44771525 15,3 C15,3.55228475 14.5522847,4 14,4 L13,4 L13,5.06189375 Z" fill="#000000"></path>
+                        <path d="M16.7099142,6.53272645 L17.5355339,5.70710678 C17.9260582,5.31658249 18.5592232,5.31658249 18.9497475,5.70710678 C19.3402718,6.09763107 19.3402718,6.73079605 18.9497475,7.12132034 L18.1671361,7.90393167 C17.7407802,7.38854954 17.251061,6.92750259 16.7099142,6.53272645 Z" fill="#000000"></path>
+                        <path d="M11.9630156,7.5 L12.0369844,7.5 C12.2982526,7.5 12.5154733,7.70115317 12.5355117,7.96165175 L12.9585886,13.4616518 C12.9797677,13.7369807 12.7737386,13.9773481 12.4984096,13.9985272 C12.4856504,13.9995087 12.4728582,14 12.4600614,14 L11.5399386,14 C11.2637963,14 11.0399386,13.7761424 11.0399386,13.5 C11.0399386,13.4872031 11.0404299,13.4744109 11.0414114,13.4616518 L11.4644883,7.96165175 C11.4845267,7.70115317 11.7017474,7.5 11.9630156,7.5 Z" fill="#000000"></path>
+                    </g>
+                </svg><!--end::Svg Icon-->
+                </span>
+                <span class="ml-3 font-weight-bolder">{{ intervention.DureeIntervention }} heures</span>
               </div>
             </div>
             {% else %}
              <div class="flex-row-fluid mb-7">
-              <span class="d-block font-weight-bold mb-4">Progression</span>
+              <span class="d-block font-weight-bold mb-4">Durée</span>
               <div class="d-flex align-items-center pt-2">
-                <div class="progress progress-xs mt-2 mb-2 w-100">
-                  <div class="progress-bar bg-warning"
-                    role="progressbar"
-                    style="width: 0%;"
-                    aria-valuenow="50"
-                    aria-valuemin="0"
-                    aria-valuemax="100"></div>
-                </div>
-                <span class="ml-3 font-weight-bolder">0%</span>
+                <span class="svg-icon svg-icon-warning svg-icon-2x"><!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo6\dist/../src/media/svg/icons\Home\Timer.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <rect x="0" y="0" width="24" height="24"></rect>
+                        <path d="M12,21 C7.581722,21 4,17.418278 4,13 C4,8.581722 7.581722,5 12,5 C16.418278,5 20,8.581722 20,13 C20,17.418278 16.418278,21 12,21 Z" fill="#000000" opacity="0.3"></path>
+                        <path d="M13,5.06189375 C12.6724058,5.02104333 12.3386603,5 12,5 C11.6613397,5 11.3275942,5.02104333 11,5.06189375 L11,4 L10,4 C9.44771525,4 9,3.55228475 9,3 C9,2.44771525 9.44771525,2 10,2 L14,2 C14.5522847,2 15,2.44771525 15,3 C15,3.55228475 14.5522847,4 14,4 L13,4 L13,5.06189375 Z" fill="#000000"></path>
+                        <path d="M16.7099142,6.53272645 L17.5355339,5.70710678 C17.9260582,5.31658249 18.5592232,5.31658249 18.9497475,5.70710678 C19.3402718,6.09763107 19.3402718,6.73079605 18.9497475,7.12132034 L18.1671361,7.90393167 C17.7407802,7.38854954 17.251061,6.92750259 16.7099142,6.53272645 Z" fill="#000000"></path>
+                        <path d="M11.9630156,7.5 L12.0369844,7.5 C12.2982526,7.5 12.5154733,7.70115317 12.5355117,7.96165175 L12.9585886,13.4616518 C12.9797677,13.7369807 12.7737386,13.9773481 12.4984096,13.9985272 C12.4856504,13.9995087 12.4728582,14 12.4600614,14 L11.5399386,14 C11.2637963,14 11.0399386,13.7761424 11.0399386,13.5 C11.0399386,13.4872031 11.0404299,13.4744109 11.0414114,13.4616518 L11.4644883,7.96165175 C11.4845267,7.70115317 11.7017474,7.5 11.9630156,7.5 Z" fill="#000000"></path>
+                    </g>
+                </svg><!--end::Svg Icon-->
+                </span>
+                <span class="ml-3 font-weight-bolder">N/A</span>
               </div>
             </div>
             {% endif %}
@@ -256,7 +260,15 @@
               <span class="font-weight-bolder mb-4">Rapport</span>
               <span class="font-weight-bolder font-size-h5 pt-1">
               {% if intervention.rapport is empty  %}
-               <a href="{{ path('InfosInterventionAdmin',{'id':intervention.id}) }}"
+                <span class="svg-icon svg-icon-danger svg-icon-2x"><!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo6\dist/../src/media/svg/icons\Code\Error-circle.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <rect x="0" y="0" width="24" height="24"/>
+                        <circle fill="#000000" opacity="0.3" cx="12" cy="12" r="10"/>
+                        <path d="M12.0355339,10.6213203 L14.863961,7.79289322 C15.2544853,7.40236893 15.8876503,7.40236893 16.2781746,7.79289322 C16.6686989,8.18341751 16.6686989,8.81658249 16.2781746,9.20710678 L13.4497475,12.0355339 L16.2781746,14.863961 C16.6686989,15.2544853 16.6686989,15.8876503 16.2781746,16.2781746 C15.8876503,16.6686989 15.2544853,16.6686989 14.863961,16.2781746 L12.0355339,13.4497475 L9.20710678,16.2781746 C8.81658249,16.6686989 8.18341751,16.6686989 7.79289322,16.2781746 C7.40236893,15.8876503 7.40236893,15.2544853 7.79289322,14.863961 L10.6213203,12.0355339 L7.79289322,9.20710678 C7.40236893,8.81658249 7.40236893,8.18341751 7.79289322,7.79289322 C8.18341751,7.40236893 8.81658249,7.40236893 9.20710678,7.79289322 L12.0355339,10.6213203 Z" fill="#000000"/>
+                    </g>
+                </svg><!--end::Svg Icon--></span>
+              {% else %}
+                <a href="{{ path('InfosInterventionAdmin',{'id':intervention.id}) }}"
                   class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3">
                   <span class="svg-icon svg-icon-primary svg-icon-2x"><!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo6\dist/../src/media/svg/icons\Code\Right-circle.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -267,8 +279,6 @@
                     </svg><!--end::Svg Icon-->
                   </span>
                 </a>
-              {% else %}
-                 <span class="navi-text">Aucun Rapport</span>
               {% endif %}
               </span>
             </div>
@@ -303,8 +313,8 @@
                 </svg>
                 <!-- end::Svg Icon -->
               </span>
-              <a href="#" class="font-weight-bolder text-primary ml-2">
-                Rapports
+              <a href="#" class="font-weight-bolder text-warning ml-2">
+                Rapports {{ intervention.rapport|length }}
               </a>
             </div>
             <div class="d-flex align-items-center mr-7">
@@ -330,8 +340,8 @@
                 </svg>
                 <!-- end::Svg Icon -->
               </span>
-              <a href="#" class="font-weight-bolder text-primary ml-2">
-                Commentaires
+              <a href="#" class="font-weight-bolder text-danger ml-2">
+                Commentaires{{ intervention.commentaires|length }}
               </a>
             </div>
           </div>

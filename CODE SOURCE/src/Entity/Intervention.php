@@ -63,6 +63,9 @@ class Intervention extends ActionInfos
     #[ORM\Column(type: 'datetime', nullable: true)]
     private $DateFinIntervention;
 
+    #[ORM\OneToOne(mappedBy: 'intervention', targetEntity: Calendar::class, cascade: ['persist', 'remove'])]
+    private $calendar;
+
     public function __construct()
     {
         $this->equipes = new ArrayCollection();
@@ -351,6 +354,28 @@ class Intervention extends ActionInfos
     public function setDateFinIntervention(?\DateTimeInterface $DateFinIntervention): self
     {
         $this->DateFinIntervention = $DateFinIntervention;
+
+        return $this;
+    }
+
+    public function getCalendar(): ?Calendar
+    {
+        return $this->calendar;
+    }
+
+    public function setCalendar(?Calendar $calendar): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($calendar === null && $this->calendar !== null) {
+            $this->calendar->setIntervention(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($calendar !== null && $calendar->getIntervention() !== $this) {
+            $calendar->setIntervention($this);
+        }
+
+        $this->calendar = $calendar;
 
         return $this;
     }

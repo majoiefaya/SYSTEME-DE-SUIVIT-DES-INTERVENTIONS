@@ -65,6 +65,18 @@
   </header>
   <div class="banner" >
     <div class="container">
+      {% for message in app.flashes('Succes') %}
+          <div class="alert alert-success alert-dismissible fade show">
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+              {{ message }}
+          </div>
+      {% endfor %}
+      {% for message in app.flashes('Error') %}
+          <div class="alert alert-danger alert-dismissible fade show">
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+              {{ message }}
+          </div>
+      {% endfor %}
       <h1 class="font-weight-semibold">{% trans %} Interventions Monitoring {% endtrans %} &<br>{% trans %}Service Management{% endtrans %}.</h1>
       <h6 class="font-weight-normal text-muted pb-3">{% trans %}To allow our customers to enjoy more freely and easily the products we offer them{% endtrans %}</h6>
       <div>
@@ -234,17 +246,31 @@
             <h6 class="section-subtitle text-muted m-0">{% trans %}Testimonials from our users{% endtrans %}</h6>
           </div>
           <div class="owl-carousel owl-theme grid-margin">
+          {% for temoignage in temoignages %}
               <div class="card customer-cards">
                 <div class="card-body">
                   <div class="text-center">
-                    <img src="{{ asset('Accueil/images/face2.jpg')}}" width="89" height="89" alt="" class="img-customer">
-                    <p class="m-0 py-3 text-muted">Lorem ipsum dolor sit amet, tincidunt vestibulum. Fusce egeabus consectetuer turpis, suspendisse.</p>
+                    {% if temoignage.client!=null %}
+                      <img src="{{ asset('Clients/PhotosDeProfil/')~temoignage.client.image}}" width="89" height="89" alt="" class="img-customer">
+                    {% else %}
+                      <img src="{{ asset('Admins/Assets/media/users/blank.png') }}" width="89" height="89" alt="" class="img-customer">
+                    {% endif %}
+                    <p class="m-0 py-3 text-muted">
+                      {{ temoignage.Contenu }}
+                    </p>
                     <div class="content-divider m-auto"></div>
-                    <h6 class="card-title pt-3">Tony Martinez</h6>
-                    <h6 class="customer-designation text-muted m-0">Marketing Manager</h6>
+                    <h6 class="card-title pt-3">
+                      {% if temoignage.client!=null %}
+                        {{ temoignage.client.Nom }}
+                      {% else %}
+                        Utilisateur Anonyme
+                      {% endif %}
+                    </h6>
+                    <h6 class="customer-designation text-muted m-0">client</h6>
                   </div>
                 </div>
               </div>
+          {% endfor %}
           </div>
         </div>
       </section>
@@ -271,12 +297,12 @@
           <div class="col-12 col-md-6 col-lg-3 grid-margin">
             <h5 class="pb-2">{% trans %}Subscribe{% endtrans %}</h5>
             <p class="text-muted">{% trans %}Don't miss any of our News{% endtrans %}<br>{% trans %}subscribe to our Newsletter{% endtrans %}</p>
-            <form>
-              <input type="text" class="form-control" id="Email" placeholder="Entrez votre Email">
+            <form method="post" action="{{path('Newsletter')}}">
+              <input type="text" class="form-control" id="Email" placeholder="Entrez votre Email" name="email">
+              <div class="pt-3">
+                <button class="btn btn-dark">{% trans %}Suscribe{% endtrans %}</button>
+              </div>   
             </form>
-            <div class="pt-3">
-              <button class="btn btn-dark">{% trans %}Suscribe{% endtrans %}</button>
-            </div>   
           </div>
           <div class="col-12 col-md-6 col-lg-3 grid-margin">
             <h5 class="pb-2">{% trans %}Rules and Privacy Policy{% endtrans %}</h5>
@@ -337,5 +363,19 @@
   <script src="{{ asset('Accueil/vendors/owl-carousel/js/owl.carousel.min.js')}}"></script>
   <script src="{{ asset('Accueil/vendors/aos/js/aos.js')}}"></script>
   <script src="{{ asset('Accueil/js/landingpage.js')}}"></script>
+  <script>
+    var botmanWidget = {
+        frameEndpoint: '{{ path("chat_frame") }}',
+        chatServer: '{{ path("chat_message") }}',
+        introMessage: 'Hello, I am a Chatbot',
+        title: 'My Chatbot',
+        mainColor: '#f59e08',
+        color: '#ffffff',
+        bubbleBackground: '#e39206',
+        aboutText: ''
+    };
+  </script>
+  <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'>
+  </script>
 </body>
 </html>

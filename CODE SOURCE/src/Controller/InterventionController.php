@@ -6,6 +6,7 @@ use App\Entity\Intervention;
 use App\Entity\Equipe;
 use App\Form\InterventionType;
 use App\Form\InterventionType2;
+use App\Repository\CalendarRepository;
 use App\Form\ActiverInterventionType;
 use App\Repository\InterventionRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -278,14 +279,15 @@ class InterventionController extends AbstractController
             if ($equipeRepository->findOneBy(["NomEquipe"=>$NomEquipe])) {
                 $Equipe=$equipeRepository->findOneBy(["NomEquipe"=>$NomEquipe]);
                 if($intervention->getEquipes()->contains($Equipe)){
-                    return $this->renderForm('GestionDesInterventions/equipe/AffecterUneEquipe.html.twig', [
-                        'error' => 'Equipe Deja Affectée',
-                        'intervention'=>$intervention,
-                        'equipes'=>$equipeRepository->findAll()
-                    ]);
+                    $this->addFlash('Error', "Cette Equipe a deja été Affectée a cette Intervention");
+                    return $this->redirectToRoute('InfosInterventionAdmin', [
+                        'id'=>$intervention->getId(),
+                        'intervention'=>$intervention
+                    ], Response::HTTP_SEE_OTHER);
                 }else{
                     $intervention->addEquipe($Equipe);
                     $interventionRepository->add($intervention, true);
+                    $this->addFlash('Success', "Equipe Ajoutée a l'Intervention Avec Succes");
                     return $this->redirectToRoute('InfosInterventionAdmin', [
                         'id'=>$intervention->getId(),
                         'intervention'=>$intervention
@@ -309,30 +311,31 @@ class InterventionController extends AbstractController
             if ($equipementRepository->findOneBy(["Libelle"=>$NomEquipement])) {
                 $Equipement=$equipementRepository->findOneBy(["Libelle"=>$NomEquipement]);
                 if($Equipement->getQuantiteEquipement()>0){
-                    if($intervention->getEquipes()->contains($Equipement)){
-                        return $this->renderForm('GestionDesInterventions/intervention/InfosIntervention.html.twig', [
-                            'error' => 'Equipement Deja Affectée',
-                            'intervention'=>$intervention
-                        ]);
+                    if($intervention->getEquipement()->contains($Equipement)){
+                        $this->addFlash('Error', "Cet Equipement a deja été Affectée a cette Intervention");
+                        return $this->redirectToRoute('InfosInterventionAdmin', [
+                            'id'=>$intervention->getId()
+                        ], Response::HTTP_SEE_OTHER);
                     }else{
                         $NombreUtilisation=$Equipement->getNombreUtilisation();
                         $NombreUtilisation=$NombreUtilisation+=1;
                         $Equipement->setNombreUtilisation($NombreUtilisation);
                         $QuantiteEquipement=$Equipement->getQuantiteEquipement();
-                        $QuantiteEquipement-=$QuantiteEquipement;
+                        $QuantiteEquipement=$QuantiteEquipement-1;
                         $Equipement->setQuantiteEquipement($QuantiteEquipement);
                         $equipementRepository->add($Equipement,true);
                         $intervention->addEquipement($Equipement);
                         $interventionRepository->add($intervention, true);
+                        $this->addFlash('Success', "Equipement Affecté avec succes");
                         return $this->redirectToRoute('InfosInterventionAdmin', [
                             'id'=>$intervention->getId()
                         ], Response::HTTP_SEE_OTHER);
                     }  
                 }else{
-                    return $this->renderForm('GestionDesInterventions/intervention/InfosInterventionAdmin.html.twig', [
-                        'error' => 'Stock Epuisé',
-                        'intervention'=>$intervention
-                    ]);
+                    $this->addFlash('Error', "Stock Epuisé");
+                    return $this->redirectToRoute('InfosInterventionAdmin', [
+                        'id'=>$intervention->getId()
+                    ], Response::HTTP_SEE_OTHER);
                 }
                
             }
@@ -346,15 +349,55 @@ class InterventionController extends AbstractController
 
 
     #[Route("/RetirerUneEquipeD'UneLInterventionN/{idEquipe}/{idIntervention}", name: 'RetirerEquipe', methods: ['GET','POST'])]
-    public function RetirerEquipe(Intervention $intervention,Equipe $equipe,InterventionRepository $interventionRepository): Response
+    public function RetirerEquipe(Request $request,InterventionRepository $interventionRepository,EquipeRepository $equipeRepository,$idEquipe,$idIntervention): Response
     {
+        $equipe=$equipeRepository->findOneBy(["id"=>$idEquipe]);
+        $intervention=$interventionRepository->findOneBy(["id"=>$idIntervention]);
         $intervention->removeEquipe($equipe);
         $interventionRepository->add($intervention,true);
 
-        return $this->redirectToRoute('intervention', [
+        $this->addFlash('Success', "Equipe Retirée avec Succes");
+        
+        return $this->redirectToRoute('InfosInterventionAdmin', [
             'id'=>$intervention->getId()
         ], Response::HTTP_SEE_OTHER);
        
+    }
+
+    #[Route("/AccederAuPlanificateurDIntervention", name: 'PlanificateurIntervention', methods: ['GET','POST'])]
+    public function PlanificateurIntervention(CalendarRepository $calendar): Response
+    {
+        $events = $calendar->findAll();
+
+        $rdvs = [];
+
+        foreach($events as $event){
+            $rdvs[] = [
+                'id' => $event->getId(),
+                'start' => $event->getStart()->format('Y-m-d H:i:s'),
+                'end' => $event->getEnd()->format('Y-m-d H:i:s'),
+                'title' => $event->getTitle(),
+                'description' => $event->getDescription(),
+                'backgroundColor' => $event->getBackgroundColor(),
+                'borderColor' => $event->getBorderColor(),
+                'textColor' => $event->getTextColor(),
+                'allDay' => $event->isAllDay(),
+            ];
+        }
+
+        $data = json_encode($rdvs);
+
+        return $this->render('GestionDesInterventions/intervention/PlanificateurDIntervention.html.twig', compact('data'));
+       
+    }
+    
+
+    #[Route('/RechercherUnItinerairePourLInterventionN/{id}', name: 'RechercherItineraire', methods: ['GET'])]
+    public function RechercherItineraireDUneIntervention(InterventionRepository $interventionRepository,Intervention $intervention,): Response
+    {
+        return $this->render('GestionDesInterventions/intervention/RechercherItineraireDUneIntervention.html.twig', [
+            'intervention'=>$intervention
+        ]);
     }
 
 
@@ -367,6 +410,14 @@ class InterventionController extends AbstractController
         ]);
     }
 
+    #[Route('/TechnicienLocaliserLInterventionN/{id}', name: 'LocaliserInterventionTechnicien', methods: ['GET'])]
+    public function LocaliserInterventionTechnicien(Intervention $intervention, InterventionRepository $interventionRepository): Response
+    {
+        return $this->render('GestionDesInterventions/intervention/LocaliserInterventionTechnicien.html.twig', [
+            'intervention' => $intervention,
+            'NombreInterventions'=>count($interventionRepository->findAll())
+        ]);
+    }
 
     #[Route('/ModifierLInterventionN/{id}', name: 'ModifierIntervention', methods: ['GET', 'POST'])]
     public function edit(Request $request, Intervention $intervention, InterventionRepository $interventionRepository,EquipeRepository $equipeRepository): Response

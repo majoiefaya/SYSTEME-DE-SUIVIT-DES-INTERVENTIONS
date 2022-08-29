@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Equipement;
-use App\Entity\TypeEquipement;
 use App\Form\EquipementType;
 use App\Repository\EquipementRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

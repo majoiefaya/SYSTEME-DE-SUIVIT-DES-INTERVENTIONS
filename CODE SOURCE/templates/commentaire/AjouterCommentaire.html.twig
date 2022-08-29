@@ -1,0 +1,18 @@
+{% extends 'ClientsBase.html.twig'%}
+
+{% block Entete %}{% endblock %}
+
+{% block Contenu %}
+
+	<div class=" container ">
+		 {% include ('commentaire/_form.html.twig') %}
+
+	</div>
+{% endblock %}
+
+
+{% block Scripts %}
+	{% include('clients_dashboard/Components/Scripts.html.twig') %}
+	<script src="{{asset('Clients/Assets/js/pages/custom/contacts/add-contact.js')}}"></script>
+
+{% endblock %}

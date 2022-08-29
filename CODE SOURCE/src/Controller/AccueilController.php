@@ -5,45 +5,41 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use App\Repository\CommentaireRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\User\UserInterface;
+use App\Repository\UtilisateurRepository;
 
 class AccueilController extends AbstractController
 {
     #[Route('/', name: 'Accueil')]
-    public function index(): Response
+    public function index(CommentaireRepository $commentaireRepository): Response
     {
         $date=new \DateTime('@'.strtotime('now'));
         return $this->render('accueil/Accueil.html.twig', [
+            'temoignages'=>$commentaireRepository->findAllTemoignages(),
             'controller_name' => 'AccueilController',
             'DateActuelle' =>  $date,
         ]);
     }
 
-    #[Route('/EnvoieDeMailDeSuggestion', name: 'MailDeSuggestion')]
-    public function EnvoieDeMail(MailerInterface $mailer,Request $request): Response
+    #[Route('/SouscriptionANotreNewsletter', name: 'Newsletter')]
+    public function SouscriptionAlaNewsletter(Request $request,UserInterface $user,UtilisateurRepository $utilisateurRepository): Response
     {
-        $Nom=$request->request->get('nom');
-        $Email=$request->request->get('email');
-        $Message=$request->request->get('message');
-        if(!($Nom and $Email and $Message)==null){
-            $email = (new TemplatedEmail())
-            ->from($Email)
-            ->to('majoiefaya@gmail.com')
-            ->subject("Suggestion de ".$Nom." Pour SDI")
-            ->htmlTemplate('emails/MailDeSuggestion.html.twig')
-            ->context([
-                'nom' => $Nom,
-                'message'=>$Message
-            ])
-            ;
-            $mailer->send($email);
+        $email=$request->request->get('email');
+
+        if($utilisateurRepository->findOneBy(["Email"=>$email])){
+            $user=$utilisateurRepository->findOneBy(["Email"=>$email]);
+            $user->setNewsletter(True);
+            $utilisateurRepository->add($user,true);
+            $this->addFlash('Succes', "Souscription Réussie,Vous Recevrez des Mails a chaque fois qu'il y aura quelconque informations a Transmettre");
+        }else{
+            $this->addFlash('Error', 'Créez Un Compte et Réessayez');
         }
 
         return $this->redirectToRoute('Accueil', [], Response::HTTP_SEE_OTHER);
     }
+
 
     #[Route("/ControlDuTypeDUtilisateur", name: 'ControlRole')]
     public function UserSpace(Request $request,UserInterface $user): Response

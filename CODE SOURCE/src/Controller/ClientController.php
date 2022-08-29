@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Client;
 use App\Form\ClientType;
-use App\Form\ClientType2;
 use App\Repository\ClientRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;

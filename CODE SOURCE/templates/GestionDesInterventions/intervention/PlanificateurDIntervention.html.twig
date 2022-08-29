@@ -1,0 +1,37 @@
+{% extends 'AdminsBase.html.twig' %}
+
+{% block Css %}
+  {% include 'admins_dashboard/Components/Css.html.twig' %}
+  {% include 'GestionDesInterventions/Components/CalendarApiComponents/CalendarApiCss.html.twig' %}
+{% endblock %}
+
+{% block Entete %}
+ 
+{% endblock %}
+
+{% block Contenu %}
+  <div class="card card-custom">
+    <div class="card-header">
+        <div class="card-title">
+            <h3 class="card-label">
+              Planificateur
+            </h3>
+        </div>
+        <div class="card-toolbar">
+            <a href="{{ path('CreerEvenementCalendrier') }}" class="btn btn-light-primary font-weight-bold">
+                <i class="ki ki-plus icon-md mr-2"></i> Ajouter
+            </a>
+        </div>
+    </div>
+    <div class="card-body">
+      <div id="calendrier" class="fc fc-ltr fc-unthemed" >
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block Scripts %}
+  {% include 'admins_dashboard/Components/Scripts.html.twig' %}
+  {% include 'GestionDesInterventions/Components/CalendarApiComponents/CalendarApiJs.html.twig' %}
+  <script src="{{ asset('Admins/Assets/js/pages/widgets.js') }}"></script>
+{% endblock %}

@@ -9,10 +9,8 @@ use App\Entity\Technicien;
 use App\Form\TechnicienType2;
 use App\Repository\TechnicienRepository;
 use App\Entity\Personnel;
-use App\Entity\Utilisateur;
 use App\Form\PersonnelType2;
 use App\Repository\PersonnelRepository;
-use App\Repository\UtilisateurRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -21,7 +19,6 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
-use Symfony\Component\Mime\Email;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Goxens\Goxens;
@@ -202,27 +199,7 @@ class AuthController extends AbstractController
         ]);
     }
 
-    #[Route('/ComfirmationDeMail', name: 'ComfirmationDeMail')]
-    public function ComfirmationDeMail(Request $request,UtilisateurRepository $utilisateurRepository): Response
-    {
-        $Code=$request->request->get('code');
-        if(isset($Code)){
-            if($utilisateurRepository->findOneBy(["Code"=>$Code])){
-                $user=$utilisateurRepository->findOneBy(["Code"=>$Code]);
-                $user->setEnable(True);
-                $utilisateurRepository->add($user);
-                return $this->redirectToRoute('Login', [], Response::HTTP_SEE_OTHER);
-            }else{
-                return $this->renderForm('auth/CodeDeComfirmation.html.twig',[
-                    "error"=>"Le code que vous avez entrer est incorrecte"
-                ]);;
-            }
-        }
-
-        return $this->renderForm('auth/CodeDeComfirmation.html.twig',[
-        ]);;
-    }
-
+   
     #[Route('/CreationDeComptePersonnel', name: 'InscriptionPersonnel')]
     public function InscriptionPersonnel(Request $request, PersonnelRepository $personnelRepository,UserPasswordHasherInterface $passwordhash,MailerInterface $mailer): Response
     {

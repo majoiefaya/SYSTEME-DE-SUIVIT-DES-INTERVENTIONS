@@ -58,6 +58,9 @@ implements UserInterface,PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', length: 255)]
     private $Code;
 
+    #[ORM\Column(type: 'boolean', nullable: true)]
+    private $Newsletter;
+
     public function __construct()
     {
         $this->message = new ArrayCollection();
@@ -259,6 +262,18 @@ implements UserInterface,PasswordAuthenticatedUserInterface
     public function setCode(string $Code): self
     {
         $this->Code = $Code;
+
+        return $this;
+    }
+
+    public function isNewsletter(): ?bool
+    {
+        return $this->Newsletter;
+    }
+
+    public function setNewsletter(?bool $Newsletter): self
+    {
+        $this->Newsletter = $Newsletter;
 
         return $this;
     }
