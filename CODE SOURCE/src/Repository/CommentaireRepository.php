@@ -42,8 +42,7 @@ class CommentaireRepository extends ServiceEntityRepository
     public function findAllTemoignages(): array
      {
          return $this->createQueryBuilder('c')
-             ->andWhere('c.intervention = :val')
-             ->setParameter('val',null)
+             ->andWhere('c.intervention is NULL')
              ->orderBy('c.id', 'ASC')
              ->getQuery()
              ->getResult()
@@ -53,9 +52,19 @@ class CommentaireRepository extends ServiceEntityRepository
      public function findAllCommentaires(): array
      {
          return $this->createQueryBuilder('c')
-             ->andWhere('c.intervention != :val')
-             ->setParameter('val',null)
+             ->andWhere('c.intervention is NULL')
              ->orderBy('c.id', 'ASC')
+             ->getQuery()
+             ->getResult()
+         ;
+     }
+
+     public function TemoignagesRecents(): array
+     {
+         return $this->createQueryBuilder('c')
+             ->andWhere('c.intervention is NULL')
+             ->orderBy('c.id', 'ASC')
+             ->setMaxResults(5)
              ->getQuery()
              ->getResult()
          ;

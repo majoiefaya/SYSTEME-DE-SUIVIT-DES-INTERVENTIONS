@@ -116,6 +116,45 @@ License: You must have a valid license purchased only from themeforest(the above
                 class="form"
                 novalidate="novalidate">
                 <!-- begin::Title -->
+                {% for message in app.flashes('SuccessSignUp') %}
+                    <div class="alert alert-custom alert-light-success fade show py-4" role="alert">
+                      <div class="alert-icon"><i class="flaticon-warning"></i></div>
+                      <div class="alert-text font-weight-bold">
+                        {{ message }}
+                      </div>
+                      <div class="alert-close">
+                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true"><i class="la la-close "></i></span>
+                          </button>
+                      </div>
+                    </div>
+                {% endfor %}
+                {% for message in app.flashes('ErrorSignUp') %}
+                    <div class="alert alert-custom alert-light-danger fade show py-4" role="alert">
+                      <div class="alert-icon"><i class="flaticon-warning"></i></div>
+                      <div class="alert-text font-weight-bold">
+                        {{ message }}
+                      </div>
+                      <div class="alert-close">
+                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true"><i class="la la-close "></i></span>
+                          </button>
+                      </div>
+                    </div>
+                {% endfor %}
+                {% for message in app.flashes('ErrorLogin') %}
+                    <div class="alert alert-custom alert-light-danger fade show py-4" role="alert">
+                      <div class="alert-icon"><i class="flaticon-warning"></i></div>
+                      <div class="alert-text font-weight-bold">
+                        {{ message }}
+                      </div>
+                      <div class="alert-close">
+                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true"><i class="la la-close "></i></span>
+                          </button>
+                      </div>
+                    </div>
+                {% endfor %}
                 {% if error %}
                   <div class="alert alert-custom alert-light-danger fade show py-4" role="alert">
                       <div class="alert-icon"><i class="flaticon-warning"></i></div>
@@ -134,7 +173,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     Bienvenu Sur Notre Plateforme
                   </h3>
                   <span class="text-muted font-weight-bold font-size-h4">
-                    Il s'agit de Votre 1ere Fois? <a href="{{ path('ChoixTypeCompte') }}" id="kt_login_signup" class="text-danger font-weight-bolder">Créez
+                    Il s'agit de Votre 1ere Fois? <a href="{{ path('ChoixTypeCompte') }}" id="kt_login_signup" class="text-primary font-weight-bolder">Créez
                       Un Compte</a>
                   </span>
                 </div>
@@ -162,7 +201,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     </label>
 
                     <a href="javascript:;"
-                      class="text-danger font-size-h6 font-weight-bolder text-hover-danger pt-5"
+                      class="text-primary font-size-h6 font-weight-bolder text-hover-danger pt-5"
                       id="kt_login_forgot">
                       Mot De Passe Oublié ?
                     </a>
@@ -179,23 +218,23 @@ License: You must have a valid license purchased only from themeforest(the above
                 <!-- begin::Action -->
 
                 <div class="pb-lg-0 pb-5">
-                  <button class="btn btn-success font-weight-bolder font-size-h6 px-8 py-4 my-3 mr-3"
+                  <button class="btn btn-primary font-weight-bolder font-size-h6 px-8 py-4 my-3 mr-3"
                     id="kt_login_signin_submit">
                     Connexion
                   </button>
                   <input type="hidden"
                     name="_target_path"
                     value="{{ path('ControlRole') }}" />
-                  <button type="button"
-                    class="btn btn-light-warning font-weight-bolder px-8 py-4 my-3 font-size-lg">
-                    <span class="svg-icon svg-icon-md svg-icon-danger svg-icon-2x"><!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo10\dist/../src/media/svg/icons\Code\Compiling.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                  <a href="{{path('Accueil')}}"
+                    class="btn btn-light-primary font-weight-bolder px-8 py-4 my-3 font-size-lg">
+                    <span class="svg-icon svg-icon-primary svg-icon-2x"><!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo6\dist/../src/media/svg/icons\Code\Left-circle.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                             <rect x="0" y="0" width="24" height="24"/>
-                            <path d="M2.56066017,10.6819805 L4.68198052,8.56066017 C5.26776695,7.97487373 6.21751442,7.97487373 6.80330086,8.56066017 L8.9246212,10.6819805 C9.51040764,11.267767 9.51040764,12.2175144 8.9246212,12.8033009 L6.80330086,14.9246212 C6.21751442,15.5104076 5.26776695,15.5104076 4.68198052,14.9246212 L2.56066017,12.8033009 C1.97487373,12.2175144 1.97487373,11.267767 2.56066017,10.6819805 Z M14.5606602,10.6819805 L16.6819805,8.56066017 C17.267767,7.97487373 18.2175144,7.97487373 18.8033009,8.56066017 L20.9246212,10.6819805 C21.5104076,11.267767 21.5104076,12.2175144 20.9246212,12.8033009 L18.8033009,14.9246212 C18.2175144,15.5104076 17.267767,15.5104076 16.6819805,14.9246212 L14.5606602,12.8033009 C13.9748737,12.2175144 13.9748737,11.267767 14.5606602,10.6819805 Z" fill="#000000" opacity="0.3"/>
-                            <path d="M8.56066017,16.6819805 L10.6819805,14.5606602 C11.267767,13.9748737 12.2175144,13.9748737 12.8033009,14.5606602 L14.9246212,16.6819805 C15.5104076,17.267767 15.5104076,18.2175144 14.9246212,18.8033009 L12.8033009,20.9246212 C12.2175144,21.5104076 11.267767,21.5104076 10.6819805,20.9246212 L8.56066017,18.8033009 C7.97487373,18.2175144 7.97487373,17.267767 8.56066017,16.6819805 Z M8.56066017,4.68198052 L10.6819805,2.56066017 C11.267767,1.97487373 12.2175144,1.97487373 12.8033009,2.56066017 L14.9246212,4.68198052 C15.5104076,5.26776695 15.5104076,6.21751442 14.9246212,6.80330086 L12.8033009,8.9246212 C12.2175144,9.51040764 11.267767,9.51040764 10.6819805,8.9246212 L8.56066017,6.80330086 C7.97487373,6.21751442 7.97487373,5.26776695 8.56066017,4.68198052 Z" fill="#000000"/>
+                            <circle fill="#000000" opacity="0.3" cx="12" cy="12" r="10"/>
+                            <path d="M6.96323356,15.1775211 C6.62849853,15.5122561 6.08578582,15.5122561 5.75105079,15.1775211 C5.41631576,14.842786 5.41631576,14.3000733 5.75105079,13.9653383 L10.8939067,8.82248234 C11.2184029,8.49798619 11.7409054,8.4866328 12.0791905,8.79672747 L17.2220465,13.5110121 C17.5710056,13.8308912 17.5945795,14.3730917 17.2747004,14.7220508 C16.9548212,15.0710098 16.4126207,15.0945838 16.0636617,14.7747046 L11.5257773,10.6149773 L6.96323356,15.1775211 Z" fill="#000000" fill-rule="nonzero" transform="translate(11.500001, 12.000001) scale(-1, 1) rotate(-270.000000) translate(-11.500001, -12.000001) "/>
                         </g>
                     </svg><!--end::Svg Icon--></span>Acceuil
-                  </button>
+                  </a>
                 </div>
                 <!-- end::Action -->
               </form>

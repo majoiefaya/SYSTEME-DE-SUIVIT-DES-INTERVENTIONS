@@ -17,43 +17,75 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+#[Route('/SdiBot')]
 class ChatController extends AbstractController
 {
-    /**
-     * @Route("/", name="chat_index")
-     */
+    
+    #[Route('/', name: 'SdiBot')]
     public function index(): Response
     {
         return $this->render('chat/index.html.twig');
     }
-
-    /**
-     * @Route("/chat/message", name="chat_message")
-     */
+    #[Route('/message', name: 'BotMessage')]
     public function message(SymfonyCache $symfonyCache): Response
     {
         DriverManager::loadDriver(WebDriver::class);
         $botman = BotManFactory::create([], $symfonyCache);
 
         $botman->middleware->received(new ReceiveMiddleware());
+        
         $botman->hears(
-            '(.*)',
+            'hello{salut}',
             function (BotMan $bot) {
-                $bot->reply(sprintf('[%s] %s', $bot->getMessage()->getExtras('timestamp'), $bot->getMessage()->getText()));
+                $bot->reply('Hello,Je suis Votre Assistant SDI');
             }
         );
 
-        // basic
-        // --------------------------------
+        $botman->hears('My First Message', function ($bot) {
+            $bot->reply('Your First Response');
+        });
+
         $botman->hears(
-            'hi',
+            'How are {you}',
             function (BotMan $bot) {
-                $bot->reply('Hello, I am a Chatbot in Symfony 5!');
+                $bot->reply('Fine And you');
             }
         );
 
-        // remote API
-        // --------------------------------
+        $botman->hears('Call me {name}', function(BotMan $bot, $name) {
+            $bot->typesAndWaits(2);
+        
+            $bot->reply('Hi '.$name);
+            $bot->reply('Nice to meet you 😊');
+        });
+
+        $botman->hears('Aide {name}', function(BotMan $bot, $name) {
+            $bot->typesAndWaits(2);
+            $bot->reply('Dis Moi Concretement ce que tu veux');
+        });
+
+        $botman->hears('Je {name}', function(BotMan $bot, $name) {
+            $bot->typesAndWaits(2);
+            $bot->reply('Je te deteste aussi,Chien La 😊');
+        });
+
+        $botman->hears('comment faire une demande  {name}', function(BotMan $bot, $name) {
+            $bot->typesAndWaits(2);
+            $bot->reply('Créez un Compte,Connectez-vous et rendez-vou sur votre Dashboard');
+        });
+
+        $botman->hears('Creer Moi un {name}', function(BotMan $bot, $name) {
+            $bot->typesAndWaits(2);
+            $bot->reply('Quel genre de Compte Desirez-Vous Creer');
+            $bot->typesAndWaits(2);
+            $bot->reply('Client/Personnel/Technicien?');
+        });
+
+        $botman->hears('{Client}', function(BotMan $bot, $name) {
+            $bot->typesAndWaits(2);
+            $bot->reply("D'accord");
+        });
+
         $botman->hears(
             'weather in {location}',
             function (BotMan $bot, string $location) {
@@ -63,8 +95,7 @@ class ChatController extends AbstractController
             }
         );
 
-        // attachment
-        // --------------------------------
+       
         $botman->hears(
             '/gif {name}',
             function (BotMan $bot, string $name) {
@@ -75,8 +106,7 @@ class ChatController extends AbstractController
             }
         );
 
-        // data provider: user info
-        // --------------------------------
+       
         $botman->hears(
             'my name is {name}',
             function (BotMan $bot, string $name) {
@@ -92,9 +122,7 @@ class ChatController extends AbstractController
             }
         );
 
-        // User information:
-        // botman will provide the user information by passing user object implemented UserInterface
-        // --------------------------------
+    
         $botman->hears(
             'information',
             function (BotMan $bot) {
@@ -103,8 +131,7 @@ class ChatController extends AbstractController
             }
         );
 
-        // conversation
-        // --------------------------------
+    
         $botman->hears(
             'survey',
             function (BotMan $bot) {
@@ -127,8 +154,6 @@ class ChatController extends AbstractController
             }
         )->stopsConversation();
 
-        // question with buttons
-        // --------------------------------
         $botman->hears(
             'question',
             function (BotMan $bot) {
@@ -136,22 +161,20 @@ class ChatController extends AbstractController
             }
         );
 
-        // fallback, nothing matched
-        // --------------------------------
+      
         $botman->fallback(
             function (BotMan $bot) {
-                $bot->reply('Sorry, I did not understand.');
+                $bot->reply('Sorry, I did not understand these commands. Here is a list of commands I understand: ...');
             }
         );
 
         $botman->listen();
 
         return new Response();
+        
     }
 
-    /**
-     * @Route("/chat/frame", name="chat_frame")
-     */
+    #[Route('/frame', name: 'Botframe')]
     public function chatframe(): Response
     {
         return $this->render('chat/frame.html.twig');
@@ -159,7 +182,7 @@ class ChatController extends AbstractController
 
     private function fetchWeatherData(string $location): stdClass
     {
-        //😀 dirty, but simple and fine for me in POC
+       
         $url = 'http://api.weatherstack.com/current?access_key=18895c6bcedd7b4a6194ffd07400025a&query=' . urlencode($location);
 
         return json_decode(file_get_contents($url));

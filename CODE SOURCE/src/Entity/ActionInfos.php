@@ -36,6 +36,9 @@ class ActionInfos
     #[ORM\Column(type: 'date', nullable: true)]
     private $SupprimerLe;
 
+    #[ORM\Column]
+    private ?bool $active = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -121,6 +124,18 @@ class ActionInfos
     public function setSupprimerLe(?\DateTimeInterface $SupprimerLe): self
     {
         $this->SupprimerLe = $SupprimerLe;
+
+        return $this;
+    }
+
+    public function isActive(): ?bool
+    {
+        return $this->active;
+    }
+
+    public function setActive(bool $active): self
+    {
+        $this->active = $active;
 
         return $this;
     }

@@ -661,7 +661,7 @@
               <!-- begin::Datetime -->
               <div class="mt-2 mr-3 font-weight-bolder w-50px text-right"
                 data-toggle="view">
-                {{ rapport.DateEnvoi }}
+                {{ rapport.DateEnvoi|date('d-m-y') }}
                 </a> <a href="{{ path('SupprimerRapport', {'id': rapport.id}) }}" class="btn btn-sm btn-default btn-text-primary btn-hover-primary btn-icon" title="Delete">
                     <span class="svg-icon svg-icon-md">
                       <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">

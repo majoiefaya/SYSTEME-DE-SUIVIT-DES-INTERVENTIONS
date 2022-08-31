@@ -201,11 +201,15 @@
               <div class="d-flex align-items-center my-2">
                   <div class="d-flex align-items-center">
                       <div class="symbol symbol-35 mr-3">
-                      {% if rapport.employe.Type is defined %}
-                          <div class="symbol-label" style="background-image: url('{{ asset('Employes/Technicien/PhotosDeProfil/')~ rapport.employe.image }}')"></div>
-                      {% else %}
-                          <div class="symbol-label" style="background-image: url('{{ asset('Employes/Personnel/PhotosDeProfil/')~ rapport.employe.image }}')"></div>
-                      {% endif %}
+                        {% if rapport.employe.image!=null %}
+                          {% if rapport.employe.Type is defined %}
+                              <span class="symbol-label" style="background-image: url('{{ asset('Employes/Technicien/PhotosDeProfil/')~ rapport.employe.image }}')"></span>
+                          {% else %}
+                              <span class="symbol-label" style="background-image: url('{{ asset('Employes/Personnel/PhotosDeProfil/')~ rapport.employe.image }}')"></span>
+                          {% endif %}  
+                        {% else %}
+                          <span class="symbol-label" style="background-image: url('{{ asset('Admins/Assets/media/users/blank.png') }}')"></span>
+                        {% endif %}
                       </div>
                       <a href="#" class="text-dark-75 font-size-lg text-hover-primary font-weight-bolder">
                           {{ rapport.employe.Nom }}
@@ -265,12 +269,19 @@
                   <div class="d-flex flex-column mr-2 py-2">
                       <a href="#" class="text-dark text-hover-primary font-weight-bold font-size-h4 mr-3">{{ rapport.SujetRapport }}</a>
                       <div class="d-flex align-items-center py-1">
-                          <a href="#" class="d-flex align-items-center text-muted text-hover-primary mr-2">
-                              <span class="fa fa-genderless text-danger icon-md mr-2"></span> In progress
-                          </a>
-                          <a href="#" class="d-flex align-items-center text-muted text-hover-primary">
-                              <span class="fa fa-genderless text-success icon-md mr-2"></span> Urgent
-                          </a>
+                          {% if rapport.intervention.DateFinIntervention > dateActu %}
+                            <a href="{{ path('InfosInterventionAdmin',{'id':rapport.intervention.id}) }}" class="d-flex align-items-center text-muted text-hover-primary mr-2">
+                              <span class="fa fa-genderless text-warning icon-md mr-2"></span> Non Debuté
+                            </a>
+                          {% elseif rapport.intervention.DateFinIntervention < dateActu %}
+                            <a href="{{ path('InfosInterventionAdmin',{'id':rapport.intervention.id}) }}" class="d-flex align-items-center text-muted text-hover-primary mr-2">
+                              <span class="fa fa-genderless text-success icon-md mr-2"></span> Terminé
+                            </a>
+                          {% else %}
+                            <a href="{{ path('InfosInterventionAdmin',{'id':rapport.intervention.id}) }}" class="d-flex align-items-center text-muted text-hover-primary mr-2">
+                              <span class="fa fa-genderless text-danger icon-md mr-2"></span> En Cours
+                            </a>
+                          {% endif %}
                       </div>
                   </div>
                   <!--end::Title-->
@@ -309,7 +320,8 @@
                               <div class="d-flex">
                                   <a href="#" class="font-size-lg font-weight-bolder text-dark-75 text-hover-primary mr-2">{{ rapport.admin.Nom}}</a>
                                   <div class="font-weight-bold text-muted">
-                                      <span class="label label-success label-dot mr-2"></span> 1 Day ago
+                                      <span class="label label-success label-dot mr-2"></span>
+                                       {{ Durrée }}
                                   </div>
                               </div>
                               <div class="d-flex flex-column">
@@ -326,7 +338,7 @@
                                               </tr>
                                               <tr>
                                                   <td class="text-muted py-2">Date:</td>
-                                                  <td>{{ rapport.DateEnvoi|date('Le d/m/y') }}</td>
+                                                  <td>Le{{ rapport.DateEnvoi|date('d/m/y') }}</td>
                                               </tr>
                                               <tr>
                                                   <td class="text-muted py-2">Subjet:</td>
@@ -346,13 +358,13 @@
                           </div>
                           <div class="d-flex align-items-center">
                               <div class="font-weight-bold text-muted mr-2">
-                                  11:19AM
+                                   {{ rapport.DateEnvoi|date('H:i') }}
                               </div>
                               <div class="d-flex align-items-center" data-inbox="toolbar">
-                                  <span class="btn btn-clean btn-xs btn-icon mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Star">
+                                  <span class="btn btn-clean btn-xs btn-icon mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Attribuer Une Etoile">
                                       <i class="flaticon-star icon-1x text-warning"></i>
                                   </span>
-                                  <span class="btn btn-clean btn-xs btn-icon" data-toggle="tooltip" data-placement="top" title="" data-original-title="Mark as important">
+                                  <span class="btn btn-clean btn-xs btn-icon" data-toggle="tooltip" data-placement="top" title="" data-original-title="Marquer Comme Important">
                                       <i class="flaticon-add-label-button icon-1x"></i>
                                   </span>
                               </div>
@@ -393,11 +405,15 @@
                       <div class="d-flex align-items-start card-spacer-x py-4">
                           <!--begin::User Photo-->
                           <span class="symbol symbol-35 mr-3 mt-1">
+                          {% if rapport.employe.image!=null %}
                             {% if rapport.employe.Type is defined %}
                                 <span class="symbol-label" style="background-image: url('{{ asset('Employes/Technicien/PhotosDeProfil/')~ rapport.employe.image }}')"></span>
                             {% else %}
                                 <span class="symbol-label" style="background-image: url('{{ asset('Employes/Personnel/PhotosDeProfil/')~ rapport.employe.image }}')"></span>
                             {% endif %}  
+                          {% else %}
+                            <span class="symbol-label" style="background-image: url('{{ asset('Admins/Assets/media/users/blank.png') }}')"></span>
+                          {% endif %}
                           </span>
                           <!--end::User Photo-->
 
@@ -406,87 +422,19 @@
                               <div class="d-flex">
                                   <a href="#" class="font-size-lg font-weight-bolder text-dark-75 text-hover-primary mr-2">{{ rapport.employe.Nom }}</a>
                                   <div class="font-weight-bold text-muted">
-                                      <span class="label label-success label-dot mr-2"></span> 3 Day ago
-                                  </div>
-                              </div>
-                              <div class="d-flex flex-column">
-                                  <div class="toggle-off-item">
-                                      <span class="font-weight-bold text-muted cursor-pointer" data-toggle="dropdown">
-                                          to me
-                                          <i class="flaticon2-down icon-xs ml-1 text-dark-50"></i>
+                                      <span class="label label-success label-dot mr-2">
                                       </span>
-                                      <div class="dropdown-menu dropdown-menu-md dropdown-menu-left p-5">
-                                          <table>
-                                              <tbody><tr>
-                                                  <td class="text-muted w-75px py-2">From</td>
-                                                  <td>Mark Andre</td>
-                                              </tr>
-                                              <tr>
-                                                  <td class="text-muted py-2">Date:</td>
-                                                  <td>11:27 PM</td>
-                                              </tr>
-                                              <tr>
-                                                  <td class="text-muted py-2">Subject:</td>
-                                                  <td>Trip Reminder. Thank you for flying with us!</td>
-                                              </tr>
-                                              <tr>
-                                                  <td class="text-muted py-2">Reply to:</td>
-                                                  <td>mark.andre@gmail.com</td>
-                                              </tr>
-                                          </tbody></table>
-                                      </div>
+                                      {% if Disponibilité==1 %}
+                                        Disponible
+                                      {% else %}
+                                        Indisponible
+                                      {% endif %}
                                   </div>
-                                  <div class="text-muted font-weight-bold toggle-on-item" data-inbox="toggle">
-                                      Tache Actuelle
-                                  </div>
-                              </div>
-                          </div>
-                          <div class="d-flex align-items-center">
-                              <div class="font-weight-bold text-muted mr-2">
-                                  10:30AM
-                              </div>
-                              <div class="d-flex align-items-center" data-inbox="toolbar">
-                                  <span class="btn btn-clean btn-xs btn-icon mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Star">
-                                      <i class="flaticon-star icon-1x text-warning"></i>
-                                  </span>
-                                  <span class="btn btn-clean btn-xs btn-icon" data-toggle="tooltip" data-placement="top" title="" data-original-title="Mark as important">
-                                      <i class="flaticon-add-label-button icon-1x"></i>
-                                  </span>
                               </div>
                           </div>
                           <!--end::User Details-->
                       </div>
                       <!--end::Info-->
-
-                      <!--begin::Comment-->
-                      <div class="card-spacer-x pt-2 pb-5 toggle-off-item">
-                          <!--begin::Text-->
-                          <div class="mb-1">
-                              <p>Hi Bob,</p>
-                              <p>
-                                  With resrpect, i must disagree with Mr.Zinsser. We all know the most part of important part of
-                                  any article is the title.Without a compelleing title, your reader won't even get to the first
-                                  sentence.
-                              </p>
-                              <p>
-                                  Best regards,<br>
-                                  Jason Muller
-                              </p>
-                          </div>
-                          <!--end::Text-->
-
-                          <!--begin::Attachments-->
-                          <div class="d-flex flex-column font-size-sm font-weight-bold">
-          <a href="#" class="d-flex align-items-center text-muted text-hover-primary py-1">
-                <span class="flaticon2-clip-symbol text-warning icon-1x mr-2"></span> Agreement Samle.pdf
-                              </a>
-                              <a href="#" class="d-flex align-items-center text-muted text-hover-primary py-1">
-                <span class="flaticon2-clip-symbol text-warning icon-1x mr-2"></span> Requirements.docx
-                              </a>
-        </div>
-                          <!--end::Attachments-->
-                      </div>
-                      <!--end::Comment-->
                   </div>
                   <!--end::Message-->
               </div>
@@ -501,7 +449,47 @@
                               <!--begin::Body-->
                               <div class="d-block">
                                   <!--begin::Message-->
-                                  <div class="ql-toolbar ql-snow px-5 border-top-0 border-left-0 border-right-0"><span class="ql-formats"><span class="ql-header ql-picker"><span class="ql-picker-label" tabindex="0" role="button" aria-expanded="false" aria-controls="ql-picker-options-0"><svg viewBox="0 0 18 18"> <polygon class="ql-stroke" points="7 11 9 13 11 11 7 11"></polygon> <polygon class="ql-stroke" points="7 7 9 5 11 7 7 7"></polygon> </svg></span><span class="ql-picker-options" aria-hidden="true" tabindex="-1" id="ql-picker-options-0"><span tabindex="0" role="button" class="ql-picker-item" data-value="1"></span><span tabindex="0" role="button" class="ql-picker-item" data-value="2"></span><span tabindex="0" role="button" class="ql-picker-item" data-value="3"></span><span tabindex="0" role="button" class="ql-picker-item ql-selected"></span></span></span><select class="ql-header" style="display: none;"><option value="1"></option><option value="2"></option><option value="3"></option><option selected="selected"></option></select></span><span class="ql-formats"><button type="button" class="ql-bold"><svg viewBox="0 0 18 18"> <path class="ql-stroke" d="M5,4H9.5A2.5,2.5,0,0,1,12,6.5v0A2.5,2.5,0,0,1,9.5,9H5A0,0,0,0,1,5,9V4A0,0,0,0,1,5,4Z"></path> <path class="ql-stroke" d="M5,9h5.5A2.5,2.5,0,0,1,13,11.5v0A2.5,2.5,0,0,1,10.5,14H5a0,0,0,0,1,0,0V9A0,0,0,0,1,5,9Z"></path> </svg></button><button type="button" class="ql-italic"><svg viewBox="0 0 18 18"> <line class="ql-stroke" x1="7" x2="13" y1="4" y2="4"></line> <line class="ql-stroke" x1="5" x2="11" y1="14" y2="14"></line> <line class="ql-stroke" x1="8" x2="10" y1="14" y2="4"></line> </svg></button><button type="button" class="ql-underline"><svg viewBox="0 0 18 18"> <path class="ql-stroke" d="M5,3V9a4.012,4.012,0,0,0,4,4H9a4.012,4.012,0,0,0,4-4V3"></path> <rect class="ql-fill" height="1" rx="0.5" ry="0.5" width="12" x="3" y="15"></rect> </svg></button><button type="button" class="ql-link"><svg viewBox="0 0 18 18"> <line class="ql-stroke" x1="7" x2="11" y1="7" y2="11"></line> <path class="ql-even ql-stroke" d="M8.9,4.577a3.476,3.476,0,0,1,.36,4.679A3.476,3.476,0,0,1,4.577,8.9C3.185,7.5,2.035,6.4,4.217,4.217S7.5,3.185,8.9,4.577Z"></path> <path class="ql-even ql-stroke" d="M13.423,9.1a3.476,3.476,0,0,0-4.679-.36,3.476,3.476,0,0,0,.36,4.679c1.392,1.392,2.5,2.542,4.679.36S14.815,10.5,13.423,9.1Z"></path> </svg></button></span><span class="ql-formats"><button type="button" class="ql-list" value="ordered"><svg viewBox="0 0 18 18"> <line class="ql-stroke" x1="7" x2="15" y1="4" y2="4"></line> <line class="ql-stroke" x1="7" x2="15" y1="9" y2="9"></line> <line class="ql-stroke" x1="7" x2="15" y1="14" y2="14"></line> <line class="ql-stroke ql-thin" x1="2.5" x2="4.5" y1="5.5" y2="5.5"></line> <path class="ql-fill" d="M3.5,6A0.5,0.5,0,0,1,3,5.5V3.085l-0.276.138A0.5,0.5,0,0,1,2.053,3c-0.124-.247-0.023-0.324.224-0.447l1-.5A0.5,0.5,0,0,1,4,2.5v3A0.5,0.5,0,0,1,3.5,6Z"></path> <path class="ql-stroke ql-thin" d="M4.5,10.5h-2c0-.234,1.85-1.076,1.85-2.234A0.959,0.959,0,0,0,2.5,8.156"></path> <path class="ql-stroke ql-thin" d="M2.5,14.846a0.959,0.959,0,0,0,1.85-.109A0.7,0.7,0,0,0,3.75,14a0.688,0.688,0,0,0,.6-0.736,0.959,0.959,0,0,0-1.85-.109"></path> </svg></button><button type="button" class="ql-list" value="bullet"><svg viewBox="0 0 18 18"> <line class="ql-stroke" x1="6" x2="15" y1="4" y2="4"></line> <line class="ql-stroke" x1="6" x2="15" y1="9" y2="9"></line> <line class="ql-stroke" x1="6" x2="15" y1="14" y2="14"></line> <line class="ql-stroke" x1="3" x2="3" y1="4" y2="4"></line> <line class="ql-stroke" x1="3" x2="3" y1="9" y2="9"></line> <line class="ql-stroke" x1="3" x2="3" y1="14" y2="14"></line> </svg></button></span><span class="ql-formats"><button type="button" class="ql-clean"><svg class="" viewBox="0 0 18 18"> <line class="ql-stroke" x1="5" x2="13" y1="3" y2="3"></line> <line class="ql-stroke" x1="6" x2="9.35" y1="12" y2="3"></line> <line class="ql-stroke" x1="11" x2="15" y1="11" y2="15"></line> <line class="ql-stroke" x1="15" x2="11" y1="11" y2="15"></line> <rect class="ql-fill" height="1" rx="0.5" ry="0.5" width="7" x="2" y="14"></rect> </svg></button></span></div><div id="kt_todo_reply_editor" class="border-0 ql-container ql-snow" style="height: 200px"><div class="ql-editor ql-blank px-8" data-gramm="false" contenteditable="true" data-placeholder="Type message..."><p><br></p></div><div class="ql-clipboard" contenteditable="true" tabindex="-1"></div><div class="ql-tooltip ql-hidden"><a class="ql-preview" rel="noopener noreferrer" target="_blank" href="about:blank"></a><input type="text" data-formula="e=mc^2" data-link="https://quilljs.com" data-video="Embed URL"><a class="ql-action"></a><a class="ql-remove"></a></div></div>
+                                  <div class="ql-toolbar ql-snow px-5 border-top-0 border-left-0 border-right-0">
+                                  <span class="ql-formats">
+                                  <span class="ql-header ql-picker">
+                                  <span class="ql-picker-label" tabindex="0" role="button" aria-expanded="false" aria-controls="ql-picker-options-0">
+                                  <svg viewBox="0 0 18 18"> <polygon class="ql-stroke" points="7 11 9 13 11 11 7 11"></polygon> 
+                                  <polygon class="ql-stroke" points="7 7 9 5 11 7 7 7"></polygon> </svg></span>
+                                  <span class="ql-picker-options" aria-hidden="true" tabindex="-1" id="ql-picker-options-0">
+                                  <span tabindex="0" role="button" class="ql-picker-item" data-value="1">
+                                  </span><span tabindex="0" role="button" class="ql-picker-item" data-value="2">
+                                  </span><span tabindex="0" role="button" class="ql-picker-item" data-value="3"></span>
+                                  <span tabindex="0" role="button" class="ql-picker-item ql-selected"></span></span></span>
+                                  <select class="ql-header" style="display: none;"><option value="1"></option><option value="2">
+                                  </option><option value="3"></option><option selected="selected"></option></select></span>
+                                  <span class="ql-formats"><button type="button" class="ql-bold"><svg viewBox="0 0 18 18"> <
+                                  path class="ql-stroke" d="M5,4H9.5A2.5,2.5,0,0,1,12,6.5v0A2.5,2.5,0,0,1,9.5,9H5A0,0,0,0,1,5,9V4A0,0,0,0,1,5,4Z"></>
+                                   <path class="ql-stroke" d="M5,9h5.5A2.5,2.5,0,0,1,13,11.5v0A2.5,2.5,0,0,1,10.5,14H5a0,0,0,0,1,0,0V9A0,0,0,0,1,5,9Z">
+                                   </path> </svg></button><button type="button" class="ql-italic"><svg viewBox="0 0 18 18"> 
+                                   <line class="ql-stroke" x1="7" x2="13" y1="4" y2="4"></line> 
+                                   <line class="ql-stroke" x1="5" x2="11" y1="14" y2="14"></line> 
+                                   <line class="ql-stroke" x1="8" x2="10" y1="14" y2="4"></line>
+                                    </svg></button><button type="button" class="ql-underline">
+                                    <svg viewBox="0 0 18 18"> <path class="ql-stroke" d="M5,3V9a4.012,4.012,0,0,0,4,4H9a4.012,4.012,0,0,0,4-4V3">
+                                    </path> <rect class="ql-fill" height="1" rx="0.5" ry="0.5" width="12" x="3" y="15"></rect> </svg></button>
+                                    <button type="button" class="ql-link"><svg viewBox="0 0 18 18"> 
+                                    <line class="ql-stroke" x1="7" x2="11" y1="7" y2="11"></line> 
+                                    <path class="ql-even ql-stroke" d="M8.9,4.577a3.476,3.476,0,0,1,.36,4.679A3.476,3.476,0,0,1,4.577,8.9C3.185,7.5,2.035,6.4,4.217,4.217S7.5,3.185,8.9,4.577Z">
+                                    </path> <path class="ql-even ql-stroke" d="M13.423,9.1a3.476,3.476,0,0,0-4.679-.36,3.476,3.476,0,0,0,.36,4.679c1.392,1.392,2.5,2.542,4.679.36S14.815,10.5,13.423,9.1Z"></path> </svg></button></span><span class="ql-formats"><button type="button" class="ql-list" value="ordered"><svg viewBox="0 0 18 18"> 
+                                    <line class="ql-stroke" x1="7" x2="15" y1="4" y2="4"></line> <line class="ql-stroke" x1="7" x2="15" y1="9" y2="9"></line>
+                                     <line class="ql-stroke" x1="7" x2="15" y1="14" y2="14"></line> <line class="ql-stroke ql-thin" x1="2.5" x2="4.5" y1="5.5" y2="5.5"></line>
+                                      <path class="ql-fill" d="M3.5,6A0.5,0.5,0,0,1,3,5.5V3.085l-0.276.138A0.5,0.5,0,0,1,2.053,3c-0.124-.247-0.023-0.324.224-0.447l1-.5A0.5,0.5,0,0,1,4,2.5v3A0.5,0.5,0,0,1,3.5,6Z"></path> <path class="ql-stroke ql-thin" d="M4.5,10.5h-2c0-.234,1.85-1.076,1.85-2.234A0.959,0.959,0,0,0,2.5,8.156"></path>
+                                       <path class="ql-stroke ql-thin" d="M2.5,14.846a0.959,0.959,0,0,0,1.85-.109A0.7,0.7,0,0,0,3.75,14a0.688,0.688,0,0,0,.6-0.736,0.959,0.959,0,0,0-1.85-.109"></path> </svg></button><button type="button" class="ql-list" value="bullet"><svg viewBox="0 0 18 18"> <line class="ql-stroke" x1="6" x2="15" y1="4" y2="4"></line> <line class="ql-stroke" x1="6" x2="15" y1="9" y2="9"></line> <line class="ql-stroke" x1="6" x2="15" y1="14" y2="14"></line> <line class="ql-stroke" x1="3" x2="3" y1="4" y2="4"></line> <line class="ql-stroke" x1="3" x2="3" y1="9" y2="9"></line> <line class="ql-stroke" x1="3" x2="3" y1="14" y2="14"></line> </svg></button></span><span class="ql-formats"><button type="button" class="ql-clean"><svg class="" viewBox="0 0 18 18"> <line class="ql-stroke" x1="5" x2="13" y1="3" y2="3"></line> <line class="ql-stroke" x1="6" x2="9.35" y1="12" y2="3"></line>
+                                       <line class="ql-stroke" x1="11" x2="15" y1="11" y2="15"></line>
+                                        <line class="ql-stroke" x1="15" x2="11" y1="11" y2="15"></line> 
+                                        <rect class="ql-fill" height="1" rx="0.5" ry="0.5" width="7" x="2" y="14">
+                                        </rect> </svg></button></span></div><div id="kt_todo_reply_editor" class="border-0 ql-container ql-snow" style="height: 200px">
+                                        <div class="ql-editor ql-blank px-8" data-gramm="false" 
+                                        contenteditable="true" data-placeholder="Redigez Le Message..." id="message">
+                                       <p><br></p></div><div class="ql-clipboard" contenteditable="true" tabindex="-1"></div
+                                       ><div class="ql-tooltip ql-hidden"><a class="ql-preview" rel="noopener noreferrer" target="_blank" href="about:blank"></a><input type="text" data-formula="e=mc^2" data-link="https://quilljs.com" data-video="Embed URL"><a class="ql-action"></a><a class="ql-remove"></a></div></div>
+                                      <span hidden id="MailReceiverId">{{rapport.employe.id}}</span>
+                                      <span hidden id="idRapport">{{rapport.id}}</span>
                                   <!--end::Message-->
 
                                   <!--begin::Attachments-->
@@ -520,33 +508,9 @@
                                   <div class="d-flex align-items-center mr-3">
                                       <!--begin::Send-->
                                       <div class="btn-group mr-4">
-                                          <span class="btn btn-primary font-weight-bold px-6">
-                                              Send
-                                          </span>
-                                          <span class="btn btn-primary font-weight-bold dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" role="button">
-                                          </span>
-                                          <div class="dropdown-menu dropdown-menu-sm dropup p-0 m-0 dropdown-menu-right">
-                                              <ul class="navi py-3">
-                                                  <li class="navi-item">
-                                                      <a href="#" class="navi-link">
-                                                          <span class="navi-icon"><i class="flaticon2-writing"></i></span>
-                                                          <span class="navi-text">Schedule Send</span>
-                                                      </a>
-                                                  </li>
-                                                  <li class="navi-item">
-                                                      <a href="#" class="navi-link">
-                                                          <span class="navi-icon"><i class="flaticon2-medical-records"></i></span>
-                                                          <span class="navi-text">Save &amp; archive</span>
-                                                      </a>
-                                                  </li>
-                                                  <li class="navi-item">
-                                                      <a href="#" class="navi-link">
-                                                          <span class="navi-icon"><i class="flaticon2-hourglass-1"></i></span>
-                                                          <span class="navi-text">Cancel</span>
-                                                      </a>
-                                                  </li>
-                                              </ul>
-                                          </div>
+                                          <button id="EnvoyerUnMail" class="btn btn-primary font-weight-bold px-6">
+                                              Envoyer
+                                          </button>
                                       </div>
                                       <!--end::Send-->
 
@@ -1286,464 +1250,6 @@
             </div>
           </div>
           <!-- end::Messages -->
-
-          <!-- begin::Reply -->
-          <div class="card-spacer mb-3" id="kt_inbox_reply">
-            <div class="card card-custom shadow-sm">
-              <div class="card-body p-0">
-                <!-- begin::Form -->
-                <form id="kt_inbox_reply_form">
-                  <!-- begin::Body -->
-                  <div class="d-block">
-                    <!-- begin::To -->
-                    <div class="d-flex align-items-center border-bottom inbox-to px-8 min-h-50px">
-                      <div class="text-dark-50 w-75px">
-                        To:
-                      </div>
-                      <div class="d-flex align-items-center flex-grow-1">
-                        <tags class="tagify form-control border-0"
-                          tabindex="-1">
-                          <tag title="Chris Muller"
-                            contenteditable="false"
-                            spellcheck="false"
-                            tabindex="-1"
-                            class="tagify__tag tagify__tag--primary tagify--noAnim"
-                            role="tag"
-                            __isvalid="true"
-                            pic="./assets/media/users/100_11.jpg"
-                            email="chris.muller@wix.com"
-                            value="Chris Muller">
-                            <x title=""
-                              class="tagify__tag__removeBtn"
-                              role="button"
-                              aria-label="remove tag"></x>
-                            <div>
-                              <span class="tagify__tag-text">Chris Muller</span>
-                            </div>
-                          </tag>
-                          <tag title="Lina Nilson"
-                            contenteditable="false"
-                            spellcheck="false"
-                            tabindex="-1"
-                            class="tagify__tag tagify__tag--primary tagify--noAnim"
-                            role="tag"
-                            __isvalid="true"
-                            pic="./assets/media/users/100_15.jpg"
-                            initialsstate="danger"
-                            initials="LN"
-                            email="lina.nilson@loop.com"
-                            value="Lina Nilson">
-                            <x title=""
-                              class="tagify__tag__removeBtn"
-                              role="button"
-                              aria-label="remove tag"></x>
-                            <div>
-                              <span class="tagify__tag-text">Lina Nilson</span>
-                            </div>
-                          </tag><span contenteditable=""
-                            data-placeholder="&ZeroWidthSpace;"
-                            aria-placeholder=""
-                            class="tagify__input"
-                            role="textbox"
-                            aria-autocomplete="both"
-                            aria-multiline="false">
-
-                          </span>
-                        </tags>
-                        <input type="text"
-                          class="form-control border-0"
-                          name="compose_to"
-                          value="Chris Muller, Lina Nilson" />
-                      </div>
-                      <div class="ml-2">
-                        <span class="text-muted font-weight-bold cursor-pointer text-hover-primary mr-2"
-                          data-inbox="cc-show">
-                          Cc
-                        </span>
-                        <span class="text-muted font-weight-bold cursor-pointer text-hover-primary"
-                          data-inbox="bcc-show">
-                          Bcc
-                        </span>
-                      </div>
-                    </div>
-                    <!-- end::To -->
-
-                    <!-- begin::CC -->
-                    <div class="d-none align-items-center border-bottom inbox-to-cc pl-8 pr-5 min-h-50px">
-                      <div class="text-dark-50 w-75px">
-                        Cc:
-                      </div>
-                      <div class="flex-grow-1">
-                        <tags class="tagify form-control border-0"
-                          tabindex="-1">
-                          <span contenteditable=""
-                            data-placeholder="&ZeroWidthSpace;"
-                            aria-placeholder=""
-                            class="tagify__input"
-                            role="textbox"
-                            aria-autocomplete="both"
-                            aria-multiline="false">
-
-                          </span>
-                        </tags>
-                        <input type="text"
-                          class="form-control border-0"
-                          name="compose_cc"
-                          value="" />
-                      </div>
-                      <span class="btn btn-clean btn-xs btn-icon"
-                        data-inbox="cc-hide">
-                        <i class="la la-close"></i>
-                      </span>
-                    </div>
-                    <!-- end::CC -->
-
-                    <!-- begin::BCC -->
-                    <div class="d-none align-items-center border-bottom inbox-to-bcc pl-8 pr-5 min-h-50px">
-                      <div class="text-dark-50 w-75px">
-                        Bcc:
-                      </div>
-                      <div class="flex-grow-1">
-                        <tags class="tagify form-control border-0"
-                          tabindex="-1">
-                          <span contenteditable=""
-                            data-placeholder="&ZeroWidthSpace;"
-                            aria-placeholder=""
-                            class="tagify__input"
-                            role="textbox"
-                            aria-autocomplete="both"
-                            aria-multiline="false">
-
-                          </span>
-                        </tags>
-                        <input type="text"
-                          class="form-control border-0"
-                          name="compose_bcc"
-                          value="" />
-                      </div>
-                      <span class="btn btn-clean btn-xs btn-icon"
-                        data-inbox="bcc-hide">
-                        <i class="la la-close"></i>
-                      </span>
-                    </div>
-                    <!-- end::BCC -->
-
-                    <!-- begin::Subject -->
-                    <div class="border-bottom">
-                      <input class="form-control border-0 px-8 min-h-45px"
-                        name="compose_subject"
-                        placeholder="Subject" />
-                    </div>
-                    <!-- end::Subject -->
-
-                    <!-- begin::Message -->
-                    <div class="ql-toolbar ql-snow px-5 border-top-0 border-left-0 border-right-0">
-                      <span class="ql-formats">
-                        <span class="ql-header ql-picker">
-                          <span class="ql-picker-label"
-                            tabindex="0"
-                            role="button"
-                            aria-expanded="false"
-                            aria-controls="ql-picker-options-0">
-                            <svg viewBox="0 0 18 18">
-                              <polygon class="ql-stroke"
-                                points="7 11 9 13 11 11 7 11"></polygon> <polygon class="ql-stroke"
-                                points="7 7 9 5 11 7 7 7"></polygon>
-                            </svg>
-                          </span><span class="ql-picker-options"
-                            aria-hidden="true"
-                            tabindex="-1"
-                            id="ql-picker-options-0">
-                            <span tabindex="0"
-                              role="button"
-                              class="ql-picker-item"
-                              data-value="1">
-
-                            </span><span tabindex="0"
-                              role="button"
-                              class="ql-picker-item"
-                              data-value="2">
-
-                            </span><span tabindex="0"
-                              role="button"
-                              class="ql-picker-item"
-                              data-value="3">
-
-                            </span><span tabindex="0"
-                              role="button"
-                              class="ql-picker-item ql-selected">
-
-                            </span>
-                          </span>
-                        </span><select class="ql-header" style="display: none;">
-                          <option value="1"></option>
-                          <option value="2"></option>
-                          <option value="3"></option>
-                          <option selected="selected"></option>
-                        </select>
-                      </span><span class="ql-formats">
-                        <button type="button" class="ql-bold">
-                          <svg viewBox="0 0 18 18">
-                            <path class="ql-stroke"
-                              d="M5,4H9.5A2.5,2.5,0,0,1,12,6.5v0A2.5,2.5,0,0,1,9.5,9H5A0,0,0,0,1,5,9V4A0,0,0,0,1,5,4Z"></path>
-                            <path class="ql-stroke"
-                              d="M5,9h5.5A2.5,2.5,0,0,1,13,11.5v0A2.5,2.5,0,0,1,10.5,14H5a0,0,0,0,1,0,0V9A0,0,0,0,1,5,9Z"></path>
-                          </svg>
-                        </button><button type="button" class="ql-italic">
-                          <svg viewBox="0 0 18 18">
-                            <line class="ql-stroke"
-                              x1="7"
-                              x2="13"
-                              y1="4"
-                              y2="4"></line> <line class="ql-stroke"
-                              x1="5"
-                              x2="11"
-                              y1="14"
-                              y2="14"></line> <line class="ql-stroke"
-                              x1="8"
-                              x2="10"
-                              y1="14"
-                              y2="4"></line>
-                          </svg>
-                        </button><button type="button" class="ql-underline">
-                          <svg viewBox="0 0 18 18">
-                            <path class="ql-stroke"
-                              d="M5,3V9a4.012,4.012,0,0,0,4,4H9a4.012,4.012,0,0,0,4-4V3"></path>
-                            <rect class="ql-fill"
-                              height="1"
-                              rx="0.5"
-                              ry="0.5"
-                              width="12"
-                              x="3"
-                              y="15"></rect>
-                          </svg>
-                        </button><button type="button" class="ql-link">
-                          <svg viewBox="0 0 18 18">
-                            <line class="ql-stroke"
-                              x1="7"
-                              x2="11"
-                              y1="7"
-                              y2="11"></line> <path class="ql-even ql-stroke"
-                              d="M8.9,4.577a3.476,3.476,0,0,1,.36,4.679A3.476,3.476,0,0,1,4.577,8.9C3.185,7.5,2.035,6.4,4.217,4.217S7.5,3.185,8.9,4.577Z"></path>
-                            <path class="ql-even ql-stroke"
-                              d="M13.423,9.1a3.476,3.476,0,0,0-4.679-.36,3.476,3.476,0,0,0,.36,4.679c1.392,1.392,2.5,2.542,4.679.36S14.815,10.5,13.423,9.1Z"></path>
-                          </svg>
-                        </button>
-                      </span><span class="ql-formats">
-                        <button type="button" class="ql-list" value="ordered">
-                          <svg viewBox="0 0 18 18">
-                            <line class="ql-stroke"
-                              x1="7"
-                              x2="15"
-                              y1="4"
-                              y2="4"></line> <line class="ql-stroke"
-                              x1="7"
-                              x2="15"
-                              y1="9"
-                              y2="9"></line> <line class="ql-stroke"
-                              x1="7"
-                              x2="15"
-                              y1="14"
-                              y2="14"></line> <line class="ql-stroke ql-thin"
-                              x1="2.5"
-                              x2="4.5"
-                              y1="5.5"
-                              y2="5.5"></line> <path class="ql-fill"
-                              d="M3.5,6A0.5,0.5,0,0,1,3,5.5V3.085l-0.276.138A0.5,0.5,0,0,1,2.053,3c-0.124-.247-0.023-0.324.224-0.447l1-.5A0.5,0.5,0,0,1,4,2.5v3A0.5,0.5,0,0,1,3.5,6Z"></path>
-                            <path class="ql-stroke ql-thin"
-                              d="M4.5,10.5h-2c0-.234,1.85-1.076,1.85-2.234A0.959,0.959,0,0,0,2.5,8.156"></path>
-                            <path class="ql-stroke ql-thin"
-                              d="M2.5,14.846a0.959,0.959,0,0,0,1.85-.109A0.7,0.7,0,0,0,3.75,14a0.688,0.688,0,0,0,.6-0.736,0.959,0.959,0,0,0-1.85-.109"></path>
-                          </svg>
-                        </button><button type="button"
-                          class="ql-list"
-                          value="bullet">
-                          <svg viewBox="0 0 18 18">
-                            <line class="ql-stroke"
-                              x1="6"
-                              x2="15"
-                              y1="4"
-                              y2="4"></line> <line class="ql-stroke"
-                              x1="6"
-                              x2="15"
-                              y1="9"
-                              y2="9"></line> <line class="ql-stroke"
-                              x1="6"
-                              x2="15"
-                              y1="14"
-                              y2="14"></line> <line class="ql-stroke"
-                              x1="3"
-                              x2="3"
-                              y1="4"
-                              y2="4"></line> <line class="ql-stroke"
-                              x1="3"
-                              x2="3"
-                              y1="9"
-                              y2="9"></line> <line class="ql-stroke"
-                              x1="3"
-                              x2="3"
-                              y1="14"
-                              y2="14"></line>
-                          </svg>
-                        </button>
-                      </span><span class="ql-formats">
-                        <button type="button" class="ql-clean">
-                          <svg class="" viewBox="0 0 18 18">
-                            <line class="ql-stroke"
-                              x1="5"
-                              x2="13"
-                              y1="3"
-                              y2="3"></line> <line class="ql-stroke"
-                              x1="6"
-                              x2="9.35"
-                              y1="12"
-                              y2="3"></line> <line class="ql-stroke"
-                              x1="11"
-                              x2="15"
-                              y1="11"
-                              y2="15"></line> <line class="ql-stroke"
-                              x1="15"
-                              x2="11"
-                              y1="11"
-                              y2="15"></line> <rect class="ql-fill"
-                              height="1"
-                              rx="0.5"
-                              ry="0.5"
-                              width="7"
-                              x="2"
-                              y="14"></rect>
-                          </svg>
-                        </button>
-                      </span>
-                    </div>
-                    <div id="kt_inbox_reply_editor"
-                      class="border-0 ql-container ql-snow"
-                      style="height: 250px">
-                      <div class="ql-editor ql-blank px-8"
-                        data-gramm="false"
-                        contenteditable="true"
-                        data-placeholder="Type message...">
-                        <p>
-                          <br />
-                        </p>
-                      </div>
-                      <div class="ql-clipboard"
-                        contenteditable="true"
-                        tabindex="-1"></div>
-                      <div class="ql-tooltip ql-hidden">
-                        <a class="ql-preview"
-                          rel="noopener noreferrer"
-                          target="_blank"
-                          href="about:blank">
-
-                        </a><input type="text"
-                          data-formula="e=mc^2"
-                          data-link="https://quilljs.com"
-                          data-video="Embed URL" /><a class="ql-action"></a><a class="ql-remove"></a>
-                      </div>
-                    </div>
-                    <!-- end::Message -->
-
-                    <!-- begin::Attachments -->
-                    <div class="dropzone dropzone-multi px-8 py-4"
-                      id="kt_inbox_reply_attachments">
-                      <div class="dropzone-items"></div>
-                      <div class="dz-default dz-message">
-                        <button class="dz-button" type="button">
-                          Uploadez des Fichiers
-                        </button>
-                      </div>
-                    </div>
-                    <!-- end::Attachments -->
-                  </div>
-                  <!-- end::Body -->
-
-                  <!-- begin::Footer -->
-                  <div class="d-flex align-items-center justify-content-between py-5 pl-8 pr-5 border-top">
-                    <!-- begin::Actions -->
-                    <div class="d-flex align-items-center mr-3">
-                      <!-- begin::Send -->
-                      <div class="btn-group mr-4">
-                        <span class="btn btn-primary font-weight-bold px-6">
-                          Send
-                        </span>
-                        <span class="btn btn-primary font-weight-bold dropdown-toggle dropdown-toggle-split"
-                          data-toggle="dropdown"
-                          aria-haspopup="true"
-                          aria-expanded="true"
-                          role="button">
-
-                        </span>
-                        <div class="dropdown-menu dropdown-menu-sm dropup p-0 m-0 dropdown-menu-right">
-                          <ul class="navi py-3">
-                            <li class="navi-item">
-                              <a href="#" class="navi-link">
-                                <span class="navi-icon">
-                                  <i class="flaticon2-writing"></i>
-                                </span>
-                                <span class="navi-text">Schedule Send</span>
-                              </a>
-                            </li>
-                            <li class="navi-item">
-                              <a href="#" class="navi-link">
-                                <span class="navi-icon">
-                                  <i class="flaticon2-medical-records"></i>
-                                </span>
-                                <span class="navi-text">
-                                  Save &amp; archives
-                                </span>
-                              </a>
-                            </li>
-                            <li class="navi-item">
-                              <a href="#" class="navi-link">
-                                <span class="navi-icon">
-                                  <i class="flaticon2-hourglass-1"></i>
-                                </span>
-                                <span class="navi-text">Aannuler</span>
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                      <!-- end::Send -->
-
-                      <!-- begin::Other -->
-                      <span class="btn btn-icon btn-sm btn-clean mr-2 dz-clickable"
-                        id="kt_inbox_reply_attachments_select">
-                        <i class="flaticon2-clip-symbol"></i>
-                      </span>
-                      <span class="btn btn-icon btn-sm btn-clean">
-                        <i class="flaticon2-pin"></i>
-                      </span>
-                      <!-- end::Other -->
-                    </div>
-                    <!-- end::Actions -->
-
-                    <!-- begin::Toolbar -->
-                    <div class="d-flex align-items-center">
-                      <span class="btn btn-icon btn-sm btn-clean mr-2"
-                        data-toggle="tooltip"
-                        title=""
-                        data-original-title="More actions">
-                        <i class="flaticon2-settings"></i>
-                      </span>
-                      <span class="btn btn-icon btn-sm btn-clean"
-                        data-inbox="dismiss"
-                        data-toggle="tooltip"
-                        title=""
-                        data-original-title="Dismiss reply">
-                        <i class="flaticon2-rubbish-bin-delete-button"></i>
-                      </span>
-                    </div>
-                    <!-- end::Toolbar -->
-                  </div>
-                  <!-- end::Footer -->
-                </form>
-                <!-- end::Form -->
-              </div>
-            </div>
-          </div>
-          <!-- end::Reply -->
         </div>
         <!-- end::Body -->
       </div>
@@ -2207,5 +1713,24 @@
 {% block Scripts %}
     {% include('admins_dashboard/Components/Scripts.html.twig') %}
     <script src="{{ asset('Admins/Assets/js/pages/custom/user/list-datatable.js') }}"></script>
+    <script>
+      msg=document.getElementById('message').textContent;
+      var MailReceiver_id=document.getElementById('MailReceiverId').textContent
+      var idRapport=document.getElementById('idRapport').textContent
+      console.log(msg);
+      $("#EnvoyerUnMail").click(function(e) {
+        let url = `/Mail/EnvoyerUnMailAUnUtilisateurN/${MailReceiver_id}`
+        let donnees = {
+            "message": msg,
+            "idRapport":idRapport
+        }
+        
+        let xhr = new XMLHttpRequest
+
+        xhr.open("POST", url)
+        xhr.send(JSON.stringify(donnees))
+        Swal.fire("Envoyé!");
+      });
+    </script>
 {% endblock %}
 

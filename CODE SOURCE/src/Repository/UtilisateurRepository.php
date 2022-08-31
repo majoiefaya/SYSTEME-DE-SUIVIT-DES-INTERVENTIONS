@@ -32,12 +32,36 @@ class UtilisateurRepository extends ServiceEntityRepository
 
     public function remove(Utilisateur $entity, bool $flush = false): void
     {
-        $this->getEntityManager()->remove($entity);
+    $this->getEntityManager()->remove($entity);
 
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
+    if ($flush) {
+        $this->getEntityManager()->flush();
     }
+}
+
+    public function findAllUsersActive(): array
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.active = :val')
+            ->setParameter('val', True)
+            ->orderBy('u.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    
+    public function findAllUsersInactive(): array
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.active = :val')
+            ->setParameter('val', False)
+            ->orderBy('u.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
 
 //    /**
 //     * @return Utilisateur[] Returns an array of Utilisateur objects

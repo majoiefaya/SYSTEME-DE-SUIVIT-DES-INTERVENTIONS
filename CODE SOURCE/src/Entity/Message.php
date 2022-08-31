@@ -16,15 +16,14 @@ class Message
     #[ORM\Column(type: 'string', length: 255)]
     private $Contenu;
 
-    #[ORM\ManyToOne(targetEntity: Utilisateur::class, inversedBy: 'messages')]
-    #[ORM\JoinColumn(nullable: false)]
-    private $MessageSender;
-
-    #[ORM\ManyToOne(targetEntity: Utilisateur::class, inversedBy: 'messages')]
-    private $MessageReceiver;
-
     #[ORM\Column(type: 'datetime')]
     private $DateEnvoi;
+
+    #[ORM\ManyToOne(inversedBy: 'messagesSender')]
+    private ?Utilisateur $MessageSender = null;
+
+    #[ORM\ManyToOne(inversedBy: 'messagesReceiver')]
+    private ?Utilisateur $MessageReceiver = null;
 
     public function getId(): ?int
     {
@@ -43,6 +42,17 @@ class Message
         return $this;
     }
 
+    public function getDateEnvoi(): ?\DateTimeInterface
+    {
+        return $this->DateEnvoi;
+    }
+
+    public function setDateEnvoi(\DateTimeInterface $DateEnvoi): self
+    {
+        $this->DateEnvoi = $DateEnvoi;
+
+        return $this;
+    }
 
     public function getMessageSender(): ?Utilisateur
     {
@@ -68,15 +78,4 @@ class Message
         return $this;
     }
 
-    public function getDateEnvoi(): ?\DateTimeInterface
-    {
-        return $this->DateEnvoi;
-    }
-
-    public function setDateEnvoi(\DateTimeInterface $DateEnvoi): self
-    {
-        $this->DateEnvoi = $DateEnvoi;
-
-        return $this;
-    }
 }

@@ -75,3 +75,17 @@
 <!--begin::Page Scripts(used by this page)-->
     <script src="{{asset('Admins/assets/js/pages/widgets.js')}}"></script>
 <!--end::Page Scripts-->
+<script>
+    var botmanWidget = {
+        frameEndpoint: '{{ path("Botframe") }}',
+        chatServer: '{{ path("BotMessage") }}',
+        introMessage: 'Bonjour,Je suis votre Assistant de SDI',
+        title: 'SDI Assistant',
+        mainColor: '#0BB7AF',
+        color: '#0BB7AF',
+        bubbleBackground: '#0BB7AF',
+        aboutText: ''
+    };
+</script>
+<script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'>
+</script>

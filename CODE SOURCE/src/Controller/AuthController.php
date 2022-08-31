@@ -6,6 +6,8 @@ use App\Entity\Client;
 use App\Form\ClientType2;
 use App\Repository\ClientRepository;
 use App\Entity\Technicien;
+use App\Entity\Employe;
+use App\Repository\EmployeRepository;
 use App\Form\TechnicienType2;
 use App\Repository\TechnicienRepository;
 use App\Entity\Personnel;
@@ -91,7 +93,8 @@ class AuthController extends AbstractController
 
             ///Insertion des Données En BackEnd
             $client->setTelephone($TelNumber);
-            $client->setEnable(True);
+            $client->setEnable(False);
+            $client->setActive(False);
             $client->setRoles(["ROLE_CLIENT"]);
 
             ///Envoie d'Un Mail de Comfirmation
@@ -163,34 +166,14 @@ class AuthController extends AbstractController
             $technicien->setCode($Uuid);
             $technicien->setCreerLe($dateCreation);
             $technicien->setEnable(False);
+            $technicien->setActive(False);
             $technicien->setRoles(["ROLE_TECHNICIEN"]);
             $technicien->setTelephone($TelNumber);
-
-            ///Envoie d'Un Mail de Comfirmation
-            $email = (new TemplatedEmail())
-            ->from('majoiefaya@gmail.com')
-            ->to($technicien->getEmail())
-            ->subject("Comfirmation d'Inscription")
-            ->text('Veuillez Confirmer votre Inscription')
-            ->htmlTemplate('emails/ConfirmationDInscription.html.twig')
-            ->context([
-                'Nom' => $technicien->getNom(),
-                'Prenom'=> $technicien->getPrenom(),
-                'NumTel'=>$technicien->getTelephone(),
-                'Age'=>$technicien->getAge(),
-                'Adresse'=>$technicien->getAdresse(),
-                'Sexe'=>$technicien->getSexe(),
-                'Code'=>$Uuid,
-                'DateInscription' =>  $dateCreation,
-                'mail'=>$technicien->getEmail()
-            ]);
-
-            $mailer->send($email);
     
             ///Ajout de L instance créer dans la base de données
             $technicienRepository->add($technicien, true);
-
-            return $this->redirectToRoute('ComfirmationDeMail', [], Response::HTTP_SEE_OTHER);
+            $this->addFlash('SuccessSignUp', "Compte Créer avec success.Vous Recevrez une Confirmation de La part de votre Service.Veuillez Regulierement consulter vos Mails sur:".$technicien->getEmail());
+            return $this->redirectToRoute('Login', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('auth/InscriptionTechnicien.html.twig', [
@@ -199,7 +182,62 @@ class AuthController extends AbstractController
         ]);
     }
 
-   
+    #[Route('/ValiderLaCreationDeCompteDeLEmployeN/{id}', name: 'ValiderCreationCompte')]
+    public function ValidationCreationCompteEmploye(Employe $employe,EmployeRepository $employeRepository,MailerInterface $mailer): Response
+    {
+         ///Envoie d'Un Mail de Comfirmation
+         $email = (new TemplatedEmail())
+         ->from('majoiefaya@gmail.com')
+         ->to($employe->getEmail())
+         ->subject("Comfirmation d'Inscription")
+         ->text('Veuillez Confirmer votre Inscription')
+         ->htmlTemplate('emails/ConfirmationDInscription.html.twig')
+         ->context([
+             'Nom' => $employe->getNom(),
+             'Prenom'=> $employe->getPrenom(),
+             'NumTel'=>$employe->getTelephone(),
+             'Age'=>$employe->getAge(),
+             'Adresse'=>$employe->getAdresse(),
+             'Sexe'=>$employe->getSexe(),
+             'Code'=>$employe->getCode(),
+             'DateInscription' =>  $employe->getCreerLe(),
+             'mail'=>$employe->getEmail()
+         ]);
+         $mailer->send($email);
+
+        $employe->setEnable(True);
+        $employe->setActive(True);
+        $employeRepository->add($employe,true);
+        return $this->redirectToRoute('AdminsDashboard', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/RefuserLaCreationDeCompteDeLEmployeN/{id}', name: 'RefuserCreationCompte')]
+    public function RefuserCreationCompteEmploye(Employe $employe,EmployeRepository $employeRepository,MailerInterface $mailer): Response
+    {
+         ///Envoie d'Un Mail de Comfirmation
+         $email = (new TemplatedEmail())
+         ->from('majoiefaya@gmail.com')
+         ->to($employe->getEmail())
+         ->subject("Comfirmation d'Inscription")
+         ->text('Veuillez Confirmer votre Inscription')
+         ->htmlTemplate('emails/ConfirmationDInscription.html.twig')
+         ->context([
+             'Nom' => $employe->getNom(),
+             'Prenom'=> $employe->getPrenom(),
+             'NumTel'=>$employe->getTelephone(),
+             'Age'=>$employe->getAge(),
+             'Adresse'=>$employe->getAdresse(),
+             'Sexe'=>$employe->getSexe(),
+             'Code'=>$employe->getCode(),
+             'DateInscription' =>  $employe->getCreerLe(),
+             'mail'=>$employe->getEmail()
+         ]);
+         $mailer->send($email);
+
+        return $this->redirectToRoute('AdminsDashboard', [], Response::HTTP_SEE_OTHER);
+    }
+
+
     #[Route('/CreationDeComptePersonnel', name: 'InscriptionPersonnel')]
     public function InscriptionPersonnel(Request $request, PersonnelRepository $personnelRepository,UserPasswordHasherInterface $passwordhash,MailerInterface $mailer): Response
     {
@@ -236,35 +274,15 @@ class AuthController extends AbstractController
             $personnel->setCode($Uuid);
             $personnel->setCreerLe($dateCreation);
             $personnel->setEnable(False);
+            $personnel->setActive(False);
             $personnel->setRoles(["ROLE_PERSONNEL"]);
             $personnel->setTelephone($TelNumber);
-
-
-             ///Envoie d'Un Mail de Comfirmation
-             $email = (new TemplatedEmail())
-             ->from('majoiefaya@gmail.com')
-             ->to($personnel->getEmail())
-             ->subject("Comfirmation d'Inscription")
-             ->text('Veuillez Confirmer votre Inscription')
-             ->htmlTemplate('emails/ConfirmationDInscription.html.twig')
-             ->context([
-                 'Nom' => $personnel->getNom(),
-                 'Prenom'=> $personnel->getPrenom(),
-                 'NumTel'=>$personnel->getTelephone(),
-                 'Age'=>$personnel->getAge(),
-                 'Adresse'=>$personnel->getAdresse(),
-                 'Sexe'=>$personnel->getSexe(),
-                 'Code'=>$Uuid,
-                 'DateInscription' =>  $dateCreation,
-                 'mail'=>$personnel->getEmail()
-             ]);
-             $mailer->send($email);
-
 
             ///Ajout de L instance créer dans la base de données
             $personnelRepository->add($personnel, true);
 
-            return $this->redirectToRoute('ComfirmationDeMail', [], Response::HTTP_SEE_OTHER);
+            $this->addFlash('SuccessSignUp', "Compte Créer avec success.Vous Recevrez une Confirmation de La part de votre Service.Veuillez Regulierement consulter vos Mails sur:".$personnel->getEmail());
+            return $this->redirectToRoute('Login', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('auth/InscriptionPersonnel.html.twig', [

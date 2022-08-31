@@ -38,6 +38,16 @@ class TacheRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    public function TachesRecentes(): array
+      {
+          return $this->createQueryBuilder('t')
+              ->orderBy('t.CreerLe', 'ASC')
+              ->setMaxResults(5)
+              ->getQuery()
+              ->getResult()
+          ;
+      }
+
 
 //    /**
 //     * @return Tache[] Returns an array of Tache objects

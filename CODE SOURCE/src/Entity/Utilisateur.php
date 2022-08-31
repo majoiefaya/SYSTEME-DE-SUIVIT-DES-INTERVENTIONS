@@ -49,9 +49,6 @@ implements UserInterface,PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'json')]
     private $Roles = [];
 
-    #[ORM\OneToMany(mappedBy: 'utilisateur', targetEntity: Message::class)]
-    private $message;
-
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $Image;
 
@@ -61,9 +58,16 @@ implements UserInterface,PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'boolean', nullable: true)]
     private $Newsletter;
 
+    #[ORM\OneToMany(mappedBy: 'MessageSender', targetEntity: Message::class)]
+    private Collection $messagesSender;
+
+    #[ORM\OneToMany(mappedBy: 'MessageReceiver', targetEntity: Message::class)]
+    private Collection $messagesReceiver;
+
     public function __construct()
     {
-        $this->message = new ArrayCollection();
+        $this->messagesSender = new ArrayCollection();
+        $this->messagesReceiver = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -194,7 +198,7 @@ implements UserInterface,PasswordAuthenticatedUserInterface
     }
 
 
-    public function getPassword(): string
+    public function getPassword(): ? string
     {
         return $this->MotDePasse;
     }
@@ -202,36 +206,6 @@ implements UserInterface,PasswordAuthenticatedUserInterface
     public function setPassword(string $password): self
     {
         $this->MotDePasse = $password;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Message>
-     */
-    public function getMessage(): Collection
-    {
-        return $this->message;
-    }
-
-    public function addMessage(Message $message): self
-    {
-        if (!$this->message->contains($message)) {
-            $this->message[] = $message;
-            $message->setUtilisateur($this);
-        }
-
-        return $this;
-    }
-
-    public function removeMessage(Message $message): self
-    {
-        if ($this->message->removeElement($message)) {
-            // set the owning side to null (unless already changed)
-            if ($message->getUtilisateur() === $this) {
-                $message->setUtilisateur(null);
-            }
-        }
 
         return $this;
     }
@@ -278,5 +252,64 @@ implements UserInterface,PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    /**
+     * @return Collection<int, Message>
+     */
+    public function getMessagesSender(): Collection
+    {
+        return $this->messagesSender;
+    }
+
+    public function addMessagesSender(Message $messagesSender): self
+    {
+        if (!$this->messagesSender->contains($messagesSender)) {
+            $this->messagesSender->add($messagesSender);
+            $messagesSender->setMessageSender($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMessagesSender(Message $messagesSender): self
+    {
+        if ($this->messagesSender->removeElement($messagesSender)) {
+            // set the owning side to null (unless already changed)
+            if ($messagesSender->getMessageSender() === $this) {
+                $messagesSender->setMessageSender(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Message>
+     */
+    public function getMessagesReceiver(): Collection
+    {
+        return $this->messagesReceiver;
+    }
+
+    public function addMessagesReceiver(Message $messagesReceiver): self
+    {
+        if (!$this->messagesReceiver->contains($messagesReceiver)) {
+            $this->messagesReceiver->add($messagesReceiver);
+            $messagesReceiver->setMessageReceiver($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMessagesReceiver(Message $messagesReceiver): self
+    {
+        if ($this->messagesReceiver->removeElement($messagesReceiver)) {
+            // set the owning side to null (unless already changed)
+            if ($messagesReceiver->getMessageReceiver() === $this) {
+                $messagesReceiver->setMessageReceiver(null);
+            }
+        }
+
+        return $this;
+    }
 
 }

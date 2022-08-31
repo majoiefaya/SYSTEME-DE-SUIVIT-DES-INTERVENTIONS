@@ -2,22 +2,22 @@
 
 namespace App\Controller;
 
-use App\Entity\Intervention;
 use App\Entity\Equipe;
+use App\Entity\Intervention;
+use App\Form\ActiverInterventionType;
 use App\Form\InterventionType;
 use App\Form\InterventionType2;
 use App\Repository\CalendarRepository;
-use App\Form\ActiverInterventionType;
+use App\Repository\EquipementRepository;
+use App\Repository\EquipeRepository;
 use App\Repository\InterventionRepository;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
-use App\Repository\EquipeRepository;
-use App\Repository\EquipementRepository;
-use Symfony\Component\Mime\Email;
 use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use Symfony\Component\Mime\Email;
+use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/intervention')]
 class InterventionController extends AbstractController
@@ -31,6 +31,15 @@ class InterventionController extends AbstractController
         ]);
     }
 
+    #[Route('/GenererUnCodeQrN/{id}', name: 'GenererCodeQr', methods: ['GET', 'POST'])]
+    public function GenererUnCodeQr(Request $request, InterventionRepository $interventionRepository,Intervention $intervention): Response
+    {
+        
+        return $this->render('GestionDesInterventions/intervention/GenererUnCodeQr.html.twig', [
+            'intervention' => $intervention
+        ]);
+    }
+
     #[Route('/CréerUneIntervention', name: 'CreerIntervention', methods: ['GET', 'POST'])]
     public function new(Request $request, InterventionRepository $interventionRepository): Response
     {
@@ -40,6 +49,9 @@ class InterventionController extends AbstractController
         $user = $this->getUser();
         $Latitude=$request->request->get('lat');
         $Longitude=$request->request->get('lon');
+        if($Latitude==null or $Longitude==null){
+            $this->addFlash('Error',"Renseignez L'endroit ou nous devrons operer L'Intervention");
+        }
         if($user!=null){
             $username=$user->getUserIdentifier();
         }
@@ -51,6 +63,7 @@ class InterventionController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $intervention->setCreerPar($username);
             $intervention->setCreerLe($dateCreation);
+            $intervention->setActive(False);
             $intervention->setEnable(True);
             $intervention->setClient($user);
             $intervention->setLatitude($Latitude);

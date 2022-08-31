@@ -9,11 +9,32 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use App\Entity\Utilisateur;
 
 #[Route('/Mail')]
 
 class MailController extends AbstractController
 {
+    #[Route('/EnvoyerUnMailAUnUtilisateurN/{id}', name: 'EnvoyerMail', methods: ['GET','POST'])]
+    public function EnvoyerUnMail(Request $request,MailerInterface $mailer,Utilisateur $user): Response
+    {
+        $donnees = json_decode($request->getContent());
+        $message=$donnees->message;
+        $IdIntervention=$donnees->idRapport;
+        $code = 200;
+        $email = (new TemplatedEmail())
+        ->from('majoiefaya@gmail.com')
+        ->to($user->getEmail())
+        ->subject("Mail d'Informations")
+        ->htmlTemplate('emails/EnvoieDeNewsletters.html.twig')
+        ->context([
+            'Nom' => $user->getNom(),
+            'Prenom'=> $user->getPrenom(),
+            'Contenu'=>$message,
+        ]);
+        $mailer->send($email);
+        return new Response('Ok', $code);
+    }
 
     #[Route('/CréerUneNewsletter', name: 'CreerNewsletter', methods: ['GET'])]
     public function index(UtilisateurRepository $utilisateurRepository,MailerInterface $mailer): Response
@@ -49,6 +70,7 @@ class MailController extends AbstractController
             if($utilisateurRepository->findOneBy(["Code"=>$Code])){
                 $user=$utilisateurRepository->findOneBy(["Code"=>$Code]);
                 $user->setEnable(True);
+                $user->setActive(True);
                 $utilisateurRepository->add($user);
                 return $this->redirectToRoute('Login', [], Response::HTTP_SEE_OTHER);
             }else{

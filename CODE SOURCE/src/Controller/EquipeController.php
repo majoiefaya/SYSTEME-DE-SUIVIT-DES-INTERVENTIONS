@@ -42,6 +42,7 @@ class EquipeController extends AbstractController
             $equipe->setCreerPar($username);
             $equipe->setCreerLe($dateCreation);
             $equipe->setEnable(True);
+            $equipe->setActive(True);
             $equipe->setAdmin($user);
             $equipeRepository->add($equipe, true);
 

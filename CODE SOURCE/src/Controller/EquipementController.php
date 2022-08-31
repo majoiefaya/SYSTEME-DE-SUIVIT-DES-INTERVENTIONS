@@ -66,6 +66,7 @@ class EquipementController extends AbstractController
 
             $equipement->setDisponibilite('Disponible');
             $equipement->setNombreUtilisation(0);
+            $equipement->setActive(True);
 
             if($equipement->getTypeEquipement()){
                 $TypeEquipement=$equipement->getTypeEquipement();

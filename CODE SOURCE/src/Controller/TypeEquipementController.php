@@ -41,6 +41,7 @@ class TypeEquipementController extends AbstractController
 
             $typeEquipement->setCreerPar($username);
             $typeEquipement->setCreerLe($dateCreation);
+            $typeEquipement->setActive(True);
             $typeEquipement->setEnable(True);
             $typeEquipement->setQuantiteTypeEquipement(0);
 

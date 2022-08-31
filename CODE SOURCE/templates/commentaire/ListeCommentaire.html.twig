@@ -34,11 +34,11 @@
                   <!-- begin::Symbol -->
                   <div class="symbol symbol-45 symbol-light mr-5">
                     <span class="symbol-label">
-						{% if commentaire.client==null %}
-                        	<img src="{{asset('Admins/Assets/media/svg/avatars/009-boy-4.svg')}}" class="h-75 align-self-end" alt="">
-						{% else %}
-							<img src="{{ asset('Clients/PhotosDeProfil/')~commentaire.client.image }}" class="h-75 align-self-end" alt="">
-						{% endif %}
+                      {% if commentaire.client==null %}
+                        <img src="{{asset('Admins/Assets/media/svg/avatars/009-boy-4.svg')}}" class="h-75 align-self-end" alt="">
+                      {% else %}
+                        <img src="{{ asset('Clients/PhotosDeProfil/')~commentaire.client.image }}" class="h-75 align-self-end" alt="">
+                      {% endif %}
                     </span>
                   </div>
                   <!-- end::Symbol -->

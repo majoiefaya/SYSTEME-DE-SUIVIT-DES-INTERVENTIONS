@@ -22,7 +22,6 @@ class MessageController extends AbstractController
     public function index(MessageRepository $messageRepository,EmployeRepository $employeRepository,Employe $employe): Response
     {
 
-        $messages=$employe->getMessage();
         return $this->render('message/ListeContactsEmploye.html.twig', [
             'Sender'=>$employe,
             'utilisateurs'=>$employeRepository->findAll()

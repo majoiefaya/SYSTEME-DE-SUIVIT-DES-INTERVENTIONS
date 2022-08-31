@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\AdminRepository;
 use App\Repository\ClientRepository;
+use App\Repository\CommentaireRepository;
 use App\Repository\EmployeRepository;
 use App\Repository\UtilisateurRepository;
 use App\Repository\PersonnelRepository;
@@ -15,28 +16,62 @@ use App\Repository\EquipementRepository;
 use App\Repository\EquipeRepository;
 use App\Repository\InterventionRepository;
 use App\Repository\TypeEquipementRepository;
+use App\Repository\RapportRepository;
+use App\Repository\TacheRepository;
 
 class AdminsDashboardController extends AbstractController
 {
     #[Route('/DashboardAdmin', name: 'AdminsDashboard')]
-    public function index(AdminRepository $adminRepository,ClientRepository $clientRepository,UtilisateurRepository $utilisateursRepository,InterventionRepository $interventionRepository): Response
+    public function index(AdminRepository $adminRepository,ClientRepository $clientRepository,
+    TacheRepository $tacheRepository,RapportRepository $rapportRepository,
+    UtilisateurRepository $utilisateursRepository,EquipeRepository $equipeRepository,
+    CommentaireRepository $commentaireRepository,
+    TechnicienRepository $technicienRepository,
+    InterventionRepository $interventionRepository): Response
     {
         $dateActuelle=new \DateTime('@'.strtotime('now'));
         $Interventions=$interventionRepository->findAll();
         $NombreTotalInterventions=count($Interventions);
         $NbreInterventionsTerminées=0;
+        $NbreInterventionsEnCours=0;
+        $DatesInterventions=[];
         foreach($Interventions as $intervention){
             if($intervention->getDateFinIntervention()< $dateActuelle){
                 $NbreInterventionsTerminées+=1;
             }
         }
+
+        foreach($Interventions as $intervention){
+            if($dateActuelle<$intervention->getDateFinIntervention() and $dateActuelle>$intervention->getDateDebutIntervention()){
+                $NbreInterventionsEnCours+=1;
+            }
+        }
+        foreach($Interventions as $intervention){
+            $DateIntervention = $intervention->getDateDebutIntervention();
+            $DateIntervention = $DateIntervention->format('Y-m-d H:i:s');
+            $DatesInterventions[]=$DateIntervention;
+        }
+
         $PourcentageDeTouteLesInterventions=($NbreInterventionsTerminées*100)/$NombreTotalInterventions;
+        $NbreInterventionsNonDebutées=$NombreTotalInterventions-( $NbreInterventionsTerminées+$NbreInterventionsEnCours);
         return $this->render('admins_dashboard/AccueilAdmins.html.twig', [
             'controller_name' => 'AdminsDashboardController',
             'admins' => $adminRepository->findAll(),
             'clients'=> $clientRepository->findAll(),
             'NombreUtilisateurs'=>count($utilisateursRepository->findAll()),
-            'PourcentageDeTouteLesInterventions'=>$PourcentageDeTouteLesInterventions
+            'NewUsersAccount'=>$utilisateursRepository->findAllUsersInactive(),
+            'PourcentageDeTouteLesInterventions'=>$PourcentageDeTouteLesInterventions,
+            'Equipes'=>$equipeRepository->findAll(),
+            'Interventions'=>$interventionRepository->findAll(),
+            'Rapports'=>$rapportRepository->findAll(),
+            'NbreInterventionsTerminées'=>$NbreInterventionsTerminées,
+            'NbreInterventionsEnCours'=>$NbreInterventionsEnCours,
+            'NbreInterventionsNonDebutées'=> $NbreInterventionsNonDebutées,
+            'DatesInterventions'=>json_encode($DatesInterventions),
+            'tachesRecentes'=>$tacheRepository->TachesRecentes(),
+            'temoignagesRecents'=>$commentaireRepository->TemoignagesRecents(),
+            'techniciens'=> $technicienRepository->findAll()
+
         ]);
     }
 
