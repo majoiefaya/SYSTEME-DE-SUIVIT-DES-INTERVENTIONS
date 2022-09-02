@@ -139,7 +139,7 @@
               Comptes Inactivés
             </span>
             <span class="text-muted mt-3 font-weight-bold font-size-sm">
-              {{ NewUsersAccount|length }}
+              {{ NewEmployesAccountInvalidate|length }}
             </span>
           </h3>
           <div class="card-toolbar">
@@ -203,7 +203,7 @@
                 </tr>
               </thead>
               <tbody>
-              {% for utilisateur in NewUsersAccount %}
+              {% for utilisateur in NewEmployesAccountInvalidate %}
                 <tr>
                   <td class="pl-0">
                     <label class="checkbox checkbox-lg checkbox-inline">
@@ -774,6 +774,11 @@
         <!-- begin::Body -->
         <div class="card-body pt-2">
           <!-- begin::Item -->
+          {% if temoignagesRecents is empty %}
+            <div class="d-flex align-items-center">
+              Pas Encore de Temoignages
+            </div>
+          {% else %}
             {% for temoignage in temoignagesRecents %}
               {% if temoignage.client==null %}
                 <div class="d-flex align-items-center mb-10">
@@ -869,6 +874,7 @@
                 </div>
               {% endif %}
             {% endfor %}
+          {% endif %}
           <!-- end::Item -->
         </div>
         <!-- end::Body -->

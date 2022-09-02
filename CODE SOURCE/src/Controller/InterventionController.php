@@ -18,10 +18,27 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
+use Endroid\QrCode\Color\Color;
+use Endroid\QrCode\Encoding\Encoding;
+use Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevelLow;
+use Endroid\QrCode\QrCode;
+use Endroid\QrCode\Label\Label;
+use Endroid\QrCode\Logo\Logo;
+use Endroid\QrCode\RoundBlockSizeMode\RoundBlockSizeModeMargin;
+use Endroid\QrCode\Writer\PngWriter;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 #[Route('/intervention')]
 class InterventionController extends AbstractController
 {
+    private $params;
+
+    public function __construct(ParameterBagInterface $params)
+    {
+        $this->params=$params;
+    }
+
+  
     #[Route('/', name: 'intervention', methods: ['GET'])]
     public function index(InterventionRepository $interventionRepository): Response
     {
@@ -31,14 +48,6 @@ class InterventionController extends AbstractController
         ]);
     }
 
-    #[Route('/GenererUnCodeQrN/{id}', name: 'GenererCodeQr', methods: ['GET', 'POST'])]
-    public function GenererUnCodeQr(Request $request, InterventionRepository $interventionRepository,Intervention $intervention): Response
-    {
-        
-        return $this->render('GestionDesInterventions/intervention/GenererUnCodeQr.html.twig', [
-            'intervention' => $intervention
-        ]);
-    }
 
     #[Route('/CréerUneIntervention', name: 'CreerIntervention', methods: ['GET', 'POST'])]
     public function new(Request $request, InterventionRepository $interventionRepository): Response
@@ -79,6 +88,38 @@ class InterventionController extends AbstractController
         ]);
     }
 
+    #[Route("/GenererUnCodeQrPourL'InterventionN/{id}", name: 'GenererCodeQr', methods: ['GET', 'POST'])]
+    public function GenererUnCodeQr(Request $request,Intervention $intervention): Response
+    {
+        $logopath=$this->params->get("kernel.project_dir").'/public/Interventions/CodesQr/';
+        
+        $writer = new PngWriter();
+
+        $qrCode = QrCode::create($intervention)
+            ->setEncoding(new Encoding('UTF-8'))
+            ->setErrorCorrectionLevel(new ErrorCorrectionLevelLow())
+            ->setSize(300)
+            ->setMargin(10)
+            ->setRoundBlockSizeMode(new RoundBlockSizeModeMargin())
+            ->setForegroundColor(new Color(0, 0, 0))
+            ->setBackgroundColor(new Color(255, 255, 255));
+        
+        // $logo = Logo::create(__DIR__.'/assets/symfony.png')
+        // ->setResizeToWidth(50);
+        
+        // $label = Label::create('Label')
+        // ->setTextColor(new Color(255, 0, 0));
+        
+        $result = $writer->write($qrCode);
+
+        $result->saveToFile($logopath.'/qrcode'.$intervention->getid().'.png');
+        return $this->render('GestionDesInterventions/intervention/GenererUnCodeQr.html.twig', [
+            'intervention' => $intervention,
+            'InterventionQrCode'=>'qrcode'.$intervention->getid().'.png',
+            'dateActu'=>new \DateTime('@'.strtotime('now'))
+        ]);
+    }
+
     #[Route('/AjouterUneIntervention', name: 'AjouterInterventionAdmin', methods: ['GET', 'POST'])]
     public function AjouterInterventionAdmin(Request $request, InterventionRepository $interventionRepository,MailerInterface $mailer): Response
     {
@@ -100,6 +141,7 @@ class InterventionController extends AbstractController
             $intervention->setCreerPar($username);
             $intervention->setCreerLe($dateCreation);
             $intervention->setEnable(True);
+            $intervention->setActive(False);
             $intervention->setLatitude($Latitude);
             $intervention->setLongitude($Longitude);
             $intervention->setAdmin($user);
@@ -413,6 +455,20 @@ class InterventionController extends AbstractController
         ]);
     }
 
+    #[Route('/AugmenterLaDurréeDeLInterventionN/{id}', name: 'AugmenterDurree', methods: ['GET'])]
+    public function AugmenterDurree(Request $request,Intervention $intervention, InterventionRepository $interventionRepository): Response
+    {
+        $DurreeAajouter=$request->request->get('DurreeAajouter');
+        $DurreeIntervention=$intervention->getDureeIntervention();
+        $DurreeIntervention+=$DurreeAajouter;
+        $intervention->setDureeIntervention($DurreeIntervention);
+        $interventionRepository->add($intervention,true);
+        return $this->redirectToRoute('InfosInterventionAdmin', [
+            'id'=>$intervention->getId()
+        ], Response::HTTP_SEE_OTHER);
+       
+    }
+
 
     #[Route('/LocaliserLInterventionN/{id}', name: 'LocaliserIntervention', methods: ['GET'])]
     public function LocaliserIntervention(Intervention $intervention, InterventionRepository $interventionRepository): Response
@@ -433,8 +489,36 @@ class InterventionController extends AbstractController
     }
 
     #[Route('/ModifierLInterventionN/{id}', name: 'ModifierIntervention', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Intervention $intervention, InterventionRepository $interventionRepository,EquipeRepository $equipeRepository): Response
+    public function edit(Request $request, Intervention $intervention, InterventionRepository $interventionRepository,EquipeRepository $equipeRepository,EquipementRepository $equipementRepository): Response
     {
+        $dateActuelle=new \DateTime('@'.strtotime('now'));
+
+        if($intervention->getDateFinIntervention()!=null)
+        {
+            $DateFinIntervention=$intervention->getDateFinIntervention();
+            if($DateFinIntervention>$dateActuelle){
+                $diff = $DateFinIntervention->diff($dateActuelle);
+                $NbreHeuresActuelle = $diff->h;
+                $NbreHeuresActuelle = $NbreHeuresActuelle + ($diff->days*24); 
+    
+                $NbreHeuresTotal=$intervention->getDureeIntervention();
+    
+                $pourcentageIntervention=($NbreHeuresActuelle*100)/$NbreHeuresTotal;
+                $pourcentageIntervention=100-$pourcentageIntervention;
+            }else{
+                $pourcentageIntervention=100;
+            }
+
+                
+        }else{
+            $pourcentageIntervention=0;
+        };
+        
+        /////////////////////////////////////////////////////
+       
+
+        $equipes=$intervention->getEquipes();
+
         $form = $this->createForm(InterventionType::class, $intervention);
         $equipes=$intervention->getEquipes();
         $form->handleRequest($request);
@@ -452,7 +536,7 @@ class InterventionController extends AbstractController
             $intervention->setCreerLe($dateModification);
             $interventionRepository->add($intervention, true);
 
-            return $this->redirectToRoute('InfosIntervention', [
+            return $this->redirectToRoute('InfosInterventionAdmin', [
                 'id'=>$intervention->getId()
             ], Response::HTTP_SEE_OTHER);
         }
@@ -461,9 +545,13 @@ class InterventionController extends AbstractController
             'form' => $form,
             'intervention' => $intervention,
             'NombreInterventions'=>count($interventionRepository->findAll()),
-            'equipes'=>$intervention->getEquipes(),
-            'Equipes'=>$equipeRepository->findAll(),
-            'NombreEquipe'=>count($equipes)
+            'equipesIntervention'=>$intervention->getEquipes(),
+            'equipes'=>$equipeRepository->findAll(),
+            'equipements'=>$equipementRepository->findAll(),
+            'NombreEquipe'=>count($equipes),
+            'equipementsIntervention'=>$intervention->getEquipement(),
+            'pourcentageIntervention'=>$pourcentageIntervention,
+            'dateActu'=>$dateActuelle
         ]);
     }
 

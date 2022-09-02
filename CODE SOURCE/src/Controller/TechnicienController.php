@@ -64,6 +64,7 @@ class TechnicienController extends AbstractController
             $technicien->setCreerPar($username);
             $technicien->setCode($Uuid);
             $technicien->setCreerLe($dateCreation);
+            $technicien->setActive(True);
             $technicien->setEnable(True);
             $technicien->setRoles(["ROLE_TECHNICIEN"]);
 

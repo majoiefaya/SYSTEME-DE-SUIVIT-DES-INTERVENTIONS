@@ -66,6 +66,7 @@ class ClientController extends AbstractController
             $client->setCreerPar($username);
             $client->setCode($Uuid);
             $client->setCreerLe($dateCreation);
+            $client->setActive(True);
             $client->setEnable(True);
             $client->setRoles(["ROLE_CLIENT"]);
 

@@ -1,0 +1,146 @@
+{% extends 'AdminsBase.html.twig' %}
+
+{% block Css %}
+  {% include 'admins_dashboard/Components/Css.html.twig' %}
+  <link rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+    crossorigin="" />
+  <link rel="stylesheet"
+    href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
+  <link rel="stylesheet"
+    href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
+{% endblock %}
+
+{% block Entete %}
+  {% include 'admins_dashboard/Components/InfosInterventionHeader.html.twig' %}
+{% endblock %}
+
+{% block Contenu %}
+<div class="card card-custom gutter-b">
+    <div class="card-body p-0">
+        <!-- begin: Invoice-->
+        <!-- begin: Invoice header-->
+        <div class="row justify-content-center py-8 px-8 py-md-27 px-md-0">
+            <div class="col-md-10">
+                <div class="d-flex justify-content-between pb-10 pb-md-20 flex-column flex-md-row">
+                    <h1 class="display-4 font-weight-boldest mb-10">Code Qr De L'Intervention N {{ intervention.id }}</h1>
+                    <div class="d-flex flex-column align-items-md-end px-0">
+                        <!--begin::Logo-->
+                        <a href="#" class="mb-5">
+                            <img src="assets/media/logos/logo-dark.png" alt="">
+                        </a>
+                        <!--end::Logo-->
+                        <span class=" d-flex flex-column align-items-md-end opacity-70">
+                            <span>SDI,Lomé-Togo</span>
+                            <span>code postale 228</span>
+                        </span>
+                    </div>
+                </div>
+                <div class="border-bottom w-100"></div>
+                <div class="d-flex justify-content-between pt-6">
+                    <div class="d-flex flex-column flex-root">
+                        <span class="font-weight-bolder mb-2">ID Intervention</span>
+                        <span class="opacity-70">{{ intervention.id }}</span>
+                    </div>
+                    <div class="d-flex flex-column flex-root">
+                        <span class="font-weight-bolder mb-2">Infos Client.</span>
+                        <span class="opacity-70">{{ intervention.client.Nom }} {{ intervention.client.Prenom}}</br>{{intervention.client.Telephone}}</span>
+                    </div>
+                    <div class="d-flex flex-column flex-root">
+                        <span class="font-weight-bolder mb-2">Intervention</span>
+                        <span class="opacity-70">
+                            Durrée:{{intervention.DureeIntervention}}
+                            <br>
+                            <a class="navi-link" href="{{path('LocaliserIntervention',{'id':intervention.id})}}">
+                                Localiser
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <rect x="0" y="0" width="24" height="24"></rect>
+                                        <path d="M5,10.5 C5,6 8,3 12.5,3 C17,3 20,6.75 20,10.5 C20,12.8325623 17.8236613,16.03566 13.470984,20.1092932 C12.9154018,20.6292577 12.0585054,20.6508331 11.4774555,20.1594925 C7.15915182,16.5078313 5,13.2880005 5,10.5 Z M12.5,12 C13.8807119,12 15,10.8807119 15,9.5 C15,8.11928813 13.8807119,7 12.5,7 C11.1192881,7 10,8.11928813 10,9.5 C10,10.8807119 11.1192881,12 12.5,12 Z" fill="#000000" fill-rule="nonzero"></path>
+                                    </g>
+                                </svg>
+                            </a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end: Invoice header-->
+
+        <!-- begin: Invoice body-->
+        <div class="row justify-content-center py-8 px-8 py-md-10 px-md-0">
+            <img src="{{asset('Interventions/CodesQr/')~InterventionQrCode}}"></img>
+        </div>
+        <!-- end: Invoice body-->
+
+        <!-- begin: Invoice footer-->
+        <div class="row justify-content-center bg-gray-100 py-8 px-8 py-md-10 px-md-0 mx-0">
+            <div class="col-md-10">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="font-weight-bold text-muted  text-uppercase">Statut Intervention</th>
+                                <th class="font-weight-bold text-muted  text-uppercase">Date Debut</th>
+                                <th class="font-weight-bold text-muted  text-uppercase">Date Fin</th>
+                                <th class="font-weight-bold text-muted  text-uppercase text-right">Durree</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="font-weight-bolder">
+                                <td>
+                                    {% if intervention.DateFinIntervention > dateActu %}
+                                        <i class="flaticon2-correct text-warning icon-md ml-2"></i>En Cours
+                                    {% elseif intervention.DateFinIntervention < dateActu %}
+                                        <i class="flaticon2-correct text-success icon-md ml-2"></i>Terminé
+                                    {% else %}
+                                        <i class="flaticon2-correct text-danger icon-md ml-2"></i>Non Debuté
+                                    {% endif %}
+                                </td>
+                                <td>{{ intervention.DateDebutIntervention|date('d-m-y')}}</td>
+                                <td>{{ intervention.DateFinIntervention|date('d-m-y') }}</td>
+                                <td class="text-primary font-size-h3 font-weight-boldest text-right">{{ intervention.DureeIntervention }}Heures</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- end: Invoice footer-->
+
+        <!-- begin: Invoice action-->
+        <div class="row justify-content-center py-8 px-8 py-md-10 px-md-0">
+            <div class="col-md-10">
+                <div class="d-flex justify-content-between">
+                    <a href="#" class="btn btn-warning font-weight-bold" download="{{asset('Interventions/CodesQr/')~InterventionQrCode}}"><i class="far fa-arrow-alt-circle-down"></i>Telecharger</a>
+                    <button type="button" class="btn btn-light-primary font-weight-bold" onclick="window.print();"><i class="flaticon2-fax"></i>Imprimer</button>
+                </div>
+            </div>
+        </div>
+        <!-- end: Invoice action-->
+
+        <!-- end: Invoice-->
+    </div>
+</div>
+{% endblock %}
+
+{% block Scripts %}
+  {% include 'admins_dashboard/Components/Scripts.html.twig' %}
+  <script src="{{ asset('Admins/Assets/js/pages/widgets.js') }}"></script>
+  <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+    integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+    crossorigin=""></script>
+  <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+  <script src="{{
+    asset(
+      'Clients/Assets/js/pages/custom/projects/add-project.js'
+    )
+    }}"></script>
+  <script src="{{ asset('Geolocation/AjoutPosition/js/GeolocationForm.js') }}"></script>
+  <script src="{{
+    asset(
+      'Admins/Assets/js/pages/crud/forms/widgets/select2.js'
+    )
+    }}"></script>
+{% endblock %}

@@ -334,7 +334,7 @@
           <div class="card-header border-0 py-5">
             <h3 class="card-title align-items-start flex-column">
               <span class="card-label font-weight-bolder text-dark">
-                Affecter Une Equipe
+                Aucune Equipe affectée
               </span>
               <span class="text-muted mt-3 font-weight-bold font-size-sm">
                 Vous n'avez pas encore d'equipe affectée a cette Intervention
@@ -346,30 +346,7 @@
           <!-- begin::Body -->
           <div class="card-body pt-0 pb-3">
             <!-- begin::Table -->
-            <div class="table-responsive">
-               <form class="form" action="{{path('AffecterEquipe',{'id':intervention.id })}}" method="post">
-                <div class="card-body">
-                    <div class="form-group row">
-                    <label class="col-form-label text-right col-lg-3 col-sm-12">Equipes</label>
-                    <div class=" col-lg-4 col-md-9 col-sm-12">
-                        <select class="form-control" id="kt_select2_1" name="param">
-                        {% for equipe in equipes %}     
-                            <option value="{{equipe.NomEquipe}}">{{equipe.NomEquipe}}</option>
-                        {% endfor %}
-                        </select>
-                    </div>
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <div class="row">
-                    <div class="col-lg-9 ml-lg-auto">
-                        <button type="submit" class="btn btn-primary mr-2">Enregistrer</button>
-                        <button type="reset" class="btn btn-secondary">Annuler</button>
-                    </div>
-                    </div>
-                </div>
-                </form>
-            </div>
+         
             <!-- end::Table -->
           </div>
           <!-- end::Body -->

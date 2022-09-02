@@ -162,7 +162,7 @@
         data-toggle="tooltip"
         title=""
         data-placement="left"
-        data-original-title="Quick actions">
+        data-original-title="Autres Actions">
         <a href="#"
           class="btn btn-icon"
           data-toggle="dropdown"
@@ -198,15 +198,15 @@
                 data-toggle="tooltip"
                 data-placement="right"
                 title=""
-                data-original-title="Click to learn more...">
+                data-original-title="Plus D'Infos...">
 
               </i>
             </li>
             <li class="navi-separator mb-3 opacity-70"></li>
             <li class="navi-item">
-              <a href="#" class="navi-link">
+              <a href="{{path('GenererCodeQr',{'id':intervention.id})}}" class="navi-link">
                 <span class="navi-icon">
-                  <i class="flaticon2-shopping-cart-1"></i>
+                  <i class="fas fa-qrcode"></i>
                 </span>
                 <span class="navi-text">Generer Un Code Qr</span>
               </a>
@@ -214,50 +214,17 @@
             <li class="navi-item">
               <a href="#" class="navi-link">
                 <span class="navi-icon">
-                  <i class="navi-icon flaticon2-calendar-8"></i>
+                  <i class="fas fa-file-contract"></i>
                 </span>
-                <span class="navi-text">Members</span>
-                <span class="navi-label">
-                  <span class="label label-light-danger label-rounded font-weight-bold">
-                    3
-                  </span>
-                </span>
+                <span class="navi-text">Generer Un Ticket</span>
               </a>
             </li>
             <li class="navi-item">
               <a href="#" class="navi-link">
                 <span class="navi-icon">
-                  <i class="navi-icon flaticon2-telegram-logo"></i>
+                  <i class="fas fa-clock"></i>
                 </span>
-                <span class="navi-text">Project</span>
-              </a>
-            </li>
-            <li class="navi-item">
-              <a href="#" class="navi-link">
-                <span class="navi-icon">
-                  <i class="navi-icon flaticon2-new-email"></i>
-                </span>
-                <span class="navi-text">Record</span>
-                <span class="navi-label">
-                  <span class="label label-light-success label-rounded font-weight-bold">
-                    5
-                  </span>
-                </span>
-              </a>
-            </li>
-            <li class="navi-separator mt-3 opacity-70"></li>
-            <li class="navi-footer pt-5 pb-4">
-              <a class="btn btn-light-primary font-weight-bolder btn-sm"
-                href="#">
-                More options
-              </a>
-              <a class="btn btn-clean font-weight-bold btn-sm d-none"
-                href="#"
-                data-toggle="tooltip"
-                data-placement="right"
-                title=""
-                data-original-title="Click to learn more...">
-                Learn more
+                <span class="navi-text">Augmenter La Duréé</span>
               </a>
             </li>
           </ul>

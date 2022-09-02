@@ -288,9 +288,9 @@
 
                   <!--begin::Toolbar-->
                   <div class="d-flex py-2">
-                      <span class="btn btn-default btn-sm btn-icon" data-dismiss="modal">
+                      <a href="#" download="{{asset('Rapports/Fichiers/')~rapport.fichier}}" class="btn btn-default btn-sm btn-icon" data-dismiss="modal">
                           <i class="flaticon2-fax"></i>
-                      </span>
+                      </a>
                   </div>
                   <!--end::Toolbar-->
               </div>
@@ -386,8 +386,8 @@
                           <!--begin::Attachments-->
                           {% if rapport.fichier is defined and rapport.fichier is not null %}
                           <div class="d-flex flex-column font-size-sm font-weight-bold">
-                            <a href="#" class="d-flex align-items-center text-muted text-hover-primary py-1">
-                                  <span class="flaticon2-clip-symbol text-warning icon-1x mr-2"></span>{{ rapport.fichier }}
+                            <a href="#" download="{{asset('Rapports/Fichiers/')~rapport.fichier}}" class="d-flex align-items-center text-muted text-hover-primary py-1">
+                              <span class="flaticon2-clip-symbol text-warning icon-1x mr-2"></span>{{ rapport.fichier }}
                             </a>
                           </div>
                           {% else %}

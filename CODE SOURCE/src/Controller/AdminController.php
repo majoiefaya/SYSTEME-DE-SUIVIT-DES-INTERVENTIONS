@@ -67,6 +67,7 @@ class AdminController extends AbstractController
             $admin->setCreerPar($username);
             $admin->setCode($Uuid);
             $admin->setCreerLe($dateCreation);
+            $admin->setActive(True);
             $admin->setEnable(True);
             $admin->setRoles(["ROLE_ADMIN"]);
 

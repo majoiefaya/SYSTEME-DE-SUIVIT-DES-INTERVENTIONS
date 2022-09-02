@@ -63,6 +63,7 @@ class PersonnelController extends AbstractController
             $personnel->setCreerPar($username);
             $personnel->setCode($Uuid);
             $personnel->setCreerLe($dateCreation);
+            $personnel->setActive(True);
             $personnel->setEnable(True);
             $personnel->setRoles(["ROLE_PERSONNEL"]);
 

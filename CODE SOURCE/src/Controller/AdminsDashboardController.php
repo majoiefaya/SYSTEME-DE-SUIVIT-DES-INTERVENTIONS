@@ -26,6 +26,7 @@ class AdminsDashboardController extends AbstractController
     TacheRepository $tacheRepository,RapportRepository $rapportRepository,
     UtilisateurRepository $utilisateursRepository,EquipeRepository $equipeRepository,
     CommentaireRepository $commentaireRepository,
+    EmployeRepository $employeRepository,
     TechnicienRepository $technicienRepository,
     InterventionRepository $interventionRepository): Response
     {
@@ -52,14 +53,19 @@ class AdminsDashboardController extends AbstractController
             $DatesInterventions[]=$DateIntervention;
         }
 
-        $PourcentageDeTouteLesInterventions=($NbreInterventionsTerminées*100)/$NombreTotalInterventions;
+        if($NombreTotalInterventions<=0){
+            $PourcentageDeTouteLesInterventions=0;
+        }else{
+            $PourcentageDeTouteLesInterventions=($NbreInterventionsTerminées*100)/$NombreTotalInterventions;
+        }
+      
         $NbreInterventionsNonDebutées=$NombreTotalInterventions-( $NbreInterventionsTerminées+$NbreInterventionsEnCours);
         return $this->render('admins_dashboard/AccueilAdmins.html.twig', [
             'controller_name' => 'AdminsDashboardController',
             'admins' => $adminRepository->findAll(),
             'clients'=> $clientRepository->findAll(),
             'NombreUtilisateurs'=>count($utilisateursRepository->findAll()),
-            'NewUsersAccount'=>$utilisateursRepository->findAllUsersInactive(),
+            'NewEmployesAccountInvalidate'=>$employeRepository->findAllEmployesInactive(),
             'PourcentageDeTouteLesInterventions'=>$PourcentageDeTouteLesInterventions,
             'Equipes'=>$equipeRepository->findAll(),
             'Interventions'=>$interventionRepository->findAll(),

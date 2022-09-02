@@ -39,6 +39,29 @@ class EmployeRepository extends ServiceEntityRepository
         }
     }
 
+    public function findAllEmployesActive(): array
+    {
+        return $this->createQueryBuilder('e')
+            ->andWhere('e.active = :val')
+            ->setParameter('val', True)
+            ->orderBy('e.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function findAllEmployesInactive(): array
+    {
+        return $this->createQueryBuilder('e')
+            ->andWhere('e.active = :val')
+            ->setParameter('val', False)
+            ->orderBy('e.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+
 //    /**
 //     * @return Employe[] Returns an array of Employe objects
 //     */

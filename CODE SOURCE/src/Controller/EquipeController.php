@@ -44,6 +44,9 @@ class EquipeController extends AbstractController
             $equipe->setEnable(True);
             $equipe->setActive(True);
             $equipe->setAdmin($user);
+            if($equipe->getTechnicienChef()!=null){
+                $equipe->addTechnicien($equipe->getTechnicienChef());
+            }
             $equipeRepository->add($equipe, true);
 
             return $this->redirectToRoute('ListeUtilisateurs', [], Response::HTTP_SEE_OTHER);
@@ -53,6 +56,18 @@ class EquipeController extends AbstractController
             'equipe' => $equipe,
             'form' => $form,
         ]);
+    }
+
+    #[Route('/RetirerLeTechnicienDeLEquipe/{EquipeId}{TechnicienId}', name: 'RetirerTechnicien', methods: ['GET', 'POST'])]
+    public function RetirerTechnicien(Request $request, EquipeRepository $equipeRepository,$EquipeId,$TechnicienId,TechnicienRepository $technicienRepository): Response
+    {
+        $technicien=$technicienRepository->findOneBy(['id'=>$TechnicienId]);
+        $equipe=$equipeRepository->findOneBy(['id'=>$EquipeId]);
+        $equipe->removeTechnicien($technicien);
+        $equipeRepository->add($equipe,true);
+        return $this->redirectToRoute('ModifierEquipe', [
+            'id'=>$equipe->getId()
+        ], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/InfosDeLEquipeN/{id}', name: 'InfosEquipe', methods: ['GET'])]

@@ -60,6 +60,7 @@ class TacheController extends AbstractController
             $tache->setCreerPar($username);
             $tache->setCreerLe($dateCreation);
             $tache->setEnable(True);
+            $tache->setActive(True);
             $tache->setStatut("NonFait");
             $tacheRepository->add($tache, true);
             return $this->redirectToRoute('TacheAdmin', [], Response::HTTP_SEE_OTHER);

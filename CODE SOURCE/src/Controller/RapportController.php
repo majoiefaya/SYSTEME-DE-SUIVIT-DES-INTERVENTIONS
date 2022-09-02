@@ -174,6 +174,7 @@ class RapportController extends AbstractController
              $rapport->setEmploye($user);
              $rapport->setStatutRapport("NonLu");
              $rapport->setEnable(True);
+             $rapport->setActive(True);
 
             $rapportRepository->add($rapport, true);
 
@@ -222,6 +223,7 @@ class RapportController extends AbstractController
              $rapport->setIntervention($intervention);
              $rapport->setStatutRapport("NonLu");
              $rapport->setEnable(True);
+             $rapport->setActive(True);
 
             $rapportRepository->add($rapport, true);
 
