@@ -2,20 +2,21 @@
 
 namespace App\Controller;
 
-use App\ChatBot\Conversation\OnBoardingConversation;
-use App\ChatBot\Conversation\QuestionConversation;
+use stdClass;
+
 use BotMan\BotMan\BotMan;
 use BotMan\BotMan\BotManFactory;
+use BotMan\Drivers\Web\WebDriver;
 use BotMan\BotMan\Cache\SymfonyCache;
 use BotMan\BotMan\Drivers\DriverManager;
+use App\ChatBot\Middleware\ReceiveMiddleware;
 use BotMan\BotMan\Messages\Attachments\Image;
-use BotMan\BotMan\Messages\Outgoing\OutgoingMessage;
-use BotMan\Drivers\Web\WebDriver;
-use ReceiveMiddleware;
-use stdClass;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\ChatBot\Conversation\QuestionConversation;
+use App\ChatBot\Conversation\OnBoardingConversation;
+use BotMan\BotMan\Messages\Outgoing\OutgoingMessage;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/SdiBot')]
 class ChatController extends AbstractController

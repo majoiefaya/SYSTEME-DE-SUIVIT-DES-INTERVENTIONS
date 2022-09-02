@@ -48,9 +48,11 @@ class AdminsDashboardController extends AbstractController
             }
         }
         foreach($Interventions as $intervention){
-            $DateIntervention = $intervention->getDateDebutIntervention();
-            $DateIntervention = $DateIntervention->format('Y-m-d H:i:s');
-            $DatesInterventions[]=$DateIntervention;
+            if($intervention->getDateDebutIntervention()!=null){
+                $DateIntervention = $intervention->getDateDebutIntervention();
+                $DateIntervention = $DateIntervention->format('Y-m-d H:i:s');
+                $DatesInterventions[]=$DateIntervention;
+            }
         }
 
         if($NombreTotalInterventions<=0){
