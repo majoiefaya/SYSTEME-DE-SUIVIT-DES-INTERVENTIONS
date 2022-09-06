@@ -94,7 +94,7 @@ class AuthController extends AbstractController
             ///Insertion des Données En BackEnd
             $client->setTelephone($TelNumber);
             $client->setEnable(False);
-            $client->setActive(False);
+            $client->setActive(True);
             $client->setRoles(["ROLE_CLIENT"]);
 
             ///Envoie d'Un Mail de Comfirmation
